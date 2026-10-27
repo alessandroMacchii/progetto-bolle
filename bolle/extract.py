@@ -13,8 +13,6 @@ L'estrattore e' un'interfaccia con piu' implementazioni intercambiabili
           qualita' sul banco di prova. Vedi `EstrattoreConsenso`.
   mock    nessuna chiamata di rete, rilegge il gold set. Serve a provare
           interfaccia ed export senza spendere e senza credenziali.
-  local   segnaposto per un motore OCR in casa (Tesseract/PaddleOCR, oppure un
-          VLM su GPU). Non implementato: vedi README, "Portare tutto in casa".
 
 Il resto dell'applicazione conosce solo `estrai(jpg, numero) -> PaginaEstratta`,
 quindi cambiare motore non tocca ne' l'interfaccia ne' l'export.
@@ -407,17 +405,6 @@ class EstrattoreMock:
         return PaginaEstratta.model_validate(self._dati[numero])
 
 
-class EstrattoreLocale:
-    """Segnaposto per un motore OCR in casa. Vedi README."""
-
-    def estrai(self, jpg: Path, numero: int) -> PaginaEstratta:
-        raise NotImplementedError(
-            "Backend locale non implementato. Richiede Tesseract/PaddleOCR con "
-            "regole per layout, oppure un VLM su GPU. Vedi README, sezione "
-            "'Portare tutto in casa'."
-        )
-
-
 def crea_estrattore(backend: str | None = None) -> Estrattore:
     from .config import EXTRACTOR_BACKEND
 
@@ -430,6 +417,4 @@ def crea_estrattore(backend: str | None = None) -> Estrattore:
         return EstrattoreConsenso()
     if scelta == "mock":
         return EstrattoreMock()
-    if scelta == "local":
-        return EstrattoreLocale()
     raise ValueError(f"backend di estrazione sconosciuto: {scelta!r}")

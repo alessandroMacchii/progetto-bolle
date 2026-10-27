@@ -169,18 +169,16 @@ prima di usare il prototipo sul serio.
 
 ## Misurare l'accuratezza
 
-`gold/gold.json` e' la trascrizione manuale delle 14 pagine di esempio. Serve a
-sapere se il prototipo funziona e a non peggiorarlo la prossima volta che si
-tocca il prompt.
+Il banco di prova in `bench/` misura ogni modello e ogni versione del prompt su
+37 casi (le 14 pagine reali di `gold/gold.json` piu' pagine sintetiche e nuove
+bolle). Serve a non peggiorare l'estrazione la prossima volta che si tocca il
+prompt.
 
 ```bash
-python scripts/eval_extraction.py "Esempio bolle.pdf" --solo-coerenza   # verifica il gold set
-python scripts/eval_extraction.py "Esempio bolle.pdf"                   # misura l'estrazione
-python scripts/eval_extraction.py "Esempio bolle.pdf" --pagine 3,5,14   # solo i casi difficili
+python bench/esegui.py --modello opus-5.5-api            # esegue un modello
+python bench/esegui.py --modello gemini-3.8-flash --casi reale   # solo una famiglia
+python bench/report.py --errori                          # rigenera bench/REPORT.md
 ```
-
-Confronta 164 controlli: numero documento, Total Pieces, rotazione, numero di
-righe, e per ogni riga codice articolo, taglie, totale e barratura.
 
 > Il gold set e' una trascrizione umana e puo' contenere errori. A suo favore:
 > tutte le 33 righe superano il controllo `somma(qta) == Total`, che e' una
@@ -199,8 +197,8 @@ pero' sbaglia di piu' sulla calligrafia vera (10/14 pagine perfette contro
 | VLM locale (Qwen2.5-VL, InternVL) | GPU da 8-16 GB | fattibile su una macchina con GPU |
 | OCR classico (Tesseract/PaddleOCR) + regole | nessuno | fattibile, ma sei template da mantenere, fragile sul settimo layout e sulle pagine coperte dalle penne |
 
-Per innestarne uno basta implementare `EstrattoreLocale.estrai()` in
-`bolle/extract.py` e mettere `BOLLE_EXTRACTOR=local`: interfaccia, validazioni
+Per innestarne uno basta una classe con il metodo `estrai(jpg, numero)` in
+`bolle/extract.py`, registrata in `crea_estrattore`: interfaccia, validazioni
 ed export non cambiano.
 
 ## Struttura
@@ -210,7 +208,7 @@ bolle/
   config.py    percorsi, magazzini, colonne export (tutto da .env)
   ingest.py    PDF/immagine -> PNG per l'operatore + JPEG per il modello, rotazione
   schema.py    struttura dei dati estratti e delle righe di lavoro
-  extract.py   estrattori intercambiabili: claude | mock | local
+  extract.py   estrattori intercambiabili: claude | openrouter | consenso | mock
   sizes.py     parsing Size/Qty, checksum, mappa taglia -> variante
   lavoro.py    da pagina estratta a righe editabili, con le segnalazioni
   store.py     persistenza SQLite (stato completo, ri-esportabile)
@@ -219,7 +217,7 @@ bolle/
   online.py    prova online: app + tunnel Cloudflare + password
   static/      interfaccia operatore
 gold/          trascrizione di riferimento delle 14 pagine
-scripts/       misura dell'accuratezza
+bench/         banco di prova: casi, prompt precedenti, risultati, report
 config/        varianti.csv, la mappa taglia -> variante da compilare
 data/          runtime: upload, pagine renderizzate, database, export
 ```
@@ -231,7 +229,7 @@ Tutto da `.env`:
 | Variabile | Default | Note |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | — | necessaria con `BOLLE_EXTRACTOR=claude` |
-| `BOLLE_EXTRACTOR` | `claude` | `claude` \| `openrouter` \| `consenso` \| `mock` \| `local` |
+| `BOLLE_EXTRACTOR` | `claude` | `claude` \| `openrouter` \| `consenso` \| `mock` |
 | `BOLLE_CONSENSO_MODELLI` | `google/gemini-3.8-flash,anthropic/claude-haiku-5.5` | i due lettori economici del consenso |
 | `BOLLE_CONSENSO_ARBITRO` | `anthropic/claude-opus-5.5` | chi legge quando i due non concordano |
 | `OPENROUTER_API_KEY` | — | necessaria con `BOLLE_EXTRACTOR=openrouter` e per i modelli OpenRouter del banco di prova |
