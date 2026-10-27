@@ -1,0 +1,13 @@
+# Nell'immagine va solo l'app: niente chiavi, bolle di esempio o dati locali
+.env
+.git
+data/
+bench/
+altrebolle/
+relazione_img/
+scripts/
+*.pdf
+*.docx
+*.xlsx
+*.bak
+**/__pycache__

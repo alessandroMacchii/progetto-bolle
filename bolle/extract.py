@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -266,12 +267,21 @@ class EstrattoreOpenRouter:
                 "X-Title": "Carico merci bolle",
             },
         )
-        try:
-            with urllib.request.urlopen(richiesta, timeout=600) as r:
-                risposta = json.loads(r.read())
-        except urllib.error.HTTPError as exc:
-            dettaglio = exc.read().decode("utf-8", "replace")[:400]
-            raise RuntimeError(f"OpenRouter HTTP {exc.code}: {dettaglio}") from exc
+        # Come fa da se' l'SDK Anthropic: ritenta sui guasti passeggeri (troppe
+        # richieste, provider sovraccarico, rete), non sugli errori nostri.
+        for tentativo in range(3):
+            try:
+                with urllib.request.urlopen(richiesta, timeout=600) as r:
+                    risposta = json.loads(r.read())
+                break
+            except urllib.error.HTTPError as exc:
+                dettaglio = exc.read().decode("utf-8", "replace")[:400]
+                if exc.code not in (408, 429, 500, 502, 503, 504) or tentativo == 2:
+                    raise RuntimeError(f"OpenRouter HTTP {exc.code}: {dettaglio}") from exc
+            except (urllib.error.URLError, TimeoutError) as exc:
+                if tentativo == 2:
+                    raise RuntimeError(f"OpenRouter non raggiungibile: {exc}") from exc
+            time.sleep(2 * 4**tentativo)
         if "error" in risposta:
             raise RuntimeError(f"OpenRouter: {str(risposta['error'])[:400]}")
         testo = risposta["choices"][0]["message"].get("content") or ""

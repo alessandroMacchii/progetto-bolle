@@ -99,6 +99,7 @@ def elenca() -> list[dict[str, Any]]:
                 "esportato": r["esportato"],
                 "pagine": len(stato.get("pagine", [])),
                 "righe": sum(1 for x in stato.get("righe", []) if not x.get("eliminata")),
+                "in_lettura": bool(stato.get("in_lettura")),
             }
         )
     return fuori

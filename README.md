@@ -14,7 +14,7 @@ PDF/scansione ──► pagine normalizzate ──► estrazione ──► revis
 
 ```bash
 pip install -r requirements.txt
-cp .env.example .env          # e inserisci ANTHROPIC_API_KEY
+cp .env.example .env          # e inserisci OPENROUTER_API_KEY (o ANTHROPIC_API_KEY)
 python -m bolle.app           # poi apri http://127.0.0.1:8000
 ```
 
@@ -24,6 +24,35 @@ pagine di esempio gia' trascritti:
 ```bash
 BOLLE_EXTRACTOR=mock python -m bolle.app
 ```
+
+## Prova online (dal PC, gratis)
+
+Per far provare l'app all'azienda senza installare niente da loro:
+
+```
+Avvia prova online.bat        # oppure: python -m bolle.online
+```
+
+Lo script avvia l'app e apre un *quick tunnel* di Cloudflare (gratis, senza
+account; `cloudflared` lo scarica da solo in `strumenti/` la prima volta). Nella
+finestra stampa link, utente e password da mandare:
+
+```
+    Link:      https://<parole-a-caso>.trycloudflare.com
+    Utente:    bolle
+    Password:  3f1a-90bc-7e22
+```
+
+- La password viene generata al primo avvio e salvata in `.env`
+  (`BOLLE_PASSWORD`): resta la stessa ai riavvii successivi.
+- Il link **cambia a ogni avvio** e funziona solo finche' il PC e' acceso e la
+  finestra aperta. Il PC non deve andare in sospensione.
+- Il server ascolta solo su `127.0.0.1`: da fuori si entra solo dal tunnel, e
+  solo con la password.
+- Le bolle caricate dall'azienda restano in `data/` su questo PC.
+
+Per l'uso vero serve un hosting: il `Dockerfile` e' pronto (dati nel volume
+`/data`, `BOLLE_PASSWORD` obbligatoria, chiave API come segreto).
 
 ## Come si usa
 
@@ -141,8 +170,10 @@ righe, e per ogni riga codice articolo, taglie, totale e barratura.
 
 ## Portare tutto in casa
 
-Oggi l'estrazione usa un modello vision via API (~0,04 € a pagina con Opus 5,
-~0,015 € con Sonnet 5). Le alternative offline, valutate:
+Oggi l'estrazione usa Opus 5.5 via API. Costi misurati sul banco di prova
+(`bench/REPORT.md`): ~0,07 $ a pagina con Opus 5.5, ~0,037 $ con Sonnet 5.5, che
+pero' sbaglia di piu' sulla calligrafia vera (10/14 pagine perfette contro
+13/14). Le alternative offline, valutate:
 
 | Strada | Requisiti | Stato |
 |---|---|---|
@@ -166,7 +197,8 @@ bolle/
   lavoro.py    da pagina estratta a righe editabili, con le segnalazioni
   store.py     persistenza SQLite (stato completo, ri-esportabile)
   excel.py     generazione del file di import + tracciabilita'
-  app.py       server FastAPI
+  app.py       server FastAPI (lettura delle pagine in background e in parallelo)
+  online.py    prova online: app + tunnel Cloudflare + password
   static/      interfaccia operatore
 gold/          trascrizione di riferimento delle 14 pagine
 scripts/       misura dell'accuratezza
@@ -183,8 +215,13 @@ Tutto da `.env`:
 | `ANTHROPIC_API_KEY` | — | necessaria con `BOLLE_EXTRACTOR=claude` |
 | `BOLLE_EXTRACTOR` | `claude` | `claude` \| `openrouter` \| `mock` \| `local` |
 | `OPENROUTER_API_KEY` | — | necessaria con `BOLLE_EXTRACTOR=openrouter` e per i modelli OpenRouter del banco di prova |
-| `BOLLE_OPENROUTER_MODEL` | `google/gemini-3.5-flash` | id del modello su openrouter.ai/models |
-| `BOLLE_MODEL` | `claude-opus-5` | `claude-sonnet-5` costa circa un terzo |
+| `BOLLE_OPENROUTER_MODEL` | `anthropic/claude-opus-5.5` | id del modello su openrouter.ai/models |
+| `BOLLE_MODEL` | `claude-opus-5-5` | con `BOLLE_EXTRACTOR=claude`; `claude-sonnet-5-5` costa circa la meta' |
+| `BOLLE_PARALLELO` | `4` | pagine lette in contemporanea |
+| `BOLLE_PASSWORD` | — | se impostata, il browser chiede utente e password. Online e' obbligatoria |
+| `BOLLE_UTENTE` | `bolle` | nome utente del login |
+| `BOLLE_HOST` / `PORT` | `127.0.0.1` / `8000` | nel container `0.0.0.0` |
+| `BOLLE_DATA_DIR` | `data/` | database, scansioni, export |
 | `BOLLE_MAGAZZINI` | `MAG 1,MAG 2` | i magazzini selezionabili |
 | `BOLLE_EXCEL_HEADERS` | `Magazzino,Codice Articolo,Variante,Quantita` | intestazioni del foglio di import |
 | `BOLLE_RENDER_DPI` | `200` | risoluzione della scansione a schermo |
@@ -197,6 +234,11 @@ Tutto da `.env`:
 - Una bolla su piu' pagine viene trattata come pagine indipendenti: il totale di
   pagina 7 degli esempi non quadra perche' il seguito non c'e' nella scansione.
   L'interfaccia lo segnala; l'operatore lo capisce.
-- Nessuna autenticazione: e' pensato per girare su un PC dell'ufficio.
+- Un solo utente e password condivisi (`BOLLE_PASSWORD`), nessun ruolo. In
+  locale, senza password, nessuna autenticazione.
+- Le righe senza un magazzino scritto a mano vanno su `MAG 1` per default:
+  da confermare con l'azienda (domanda 4).
+- Se il server si riavvia mentre legge una bolla, quella bolla risulta
+  interrotta e va ricaricata.
 - Le immagini escono verso l'API del modello. Da verificare se e' accettabile
   (vedi "Portare tutto in casa").

@@ -296,6 +296,7 @@ tr.dettaglio td{padding:0 var(--s2) var(--s2); background:var(--superficie2);
 .avanzamento span{display:block; height:100%; width:35%; border-radius:999px;
                   background:var(--blu); animation:scorri 1.4s ease-in-out infinite}
 @keyframes scorri{0%{margin-left:-35%} 100%{margin-left:100%}}
+.avanzamento span.fissa{animation:none; transition:width .4s ease}
 
 /* --- finestra Dividi ------------------------------------------------------ */
 dialog{
@@ -536,7 +537,7 @@ function motiviBloccanti(r){
 /* --- avvio ---------------------------------------------------------------- */
 (async function avvio(){
   CONFIG = await api('/api/config');
-  const finto = CONFIG.backend !== 'claude';
+  const finto = CONFIG.backend === 'mock';
   const pillola = $('#pillola-backend');
   pillola.textContent = 'motore: ' + CONFIG.backend;
   pillola.classList.toggle('pillola--attenzione', finto);
@@ -547,7 +548,7 @@ function motiviBloccanti(r){
 async function ricaricaElenco(selezionato){
   const elenco = await api('/api/documenti');
   $('#scelta-doc').innerHTML = '<option value="">— seleziona una bolla —</option>' +
-    elenco.map(d => `<option value="${esc(d.id)}">${esc(d.nome)} · ${d.pagine} pag · ${d.righe} righe${d.esportato ? ' · esportata' : ''}</option>`).join('');
+    elenco.map(d => `<option value="${esc(d.id)}">${esc(d.nome)} · ${d.pagine} pag · ${d.in_lettura ? 'in lettura…' : d.righe + ' righe'}${d.esportato ? ' · esportata' : ''}</option>`).join('');
   if (selezionato){ $('#scelta-doc').value = selezionato; await apri(selezionato); }
 }
 
@@ -571,20 +572,25 @@ dz.ondrop = e => {
   e.dataTransfer.files[0] && invia(e.dataTransfer.files[0]);
 };
 
-/* L'API risponde solo a estrazione finita, quindi non c'e' una percentuale
-   onesta da mostrare: si mostra che il lavoro procede, da quanto tempo, e si
-   dice di non chiudere (ux: Loading Indicators, severita' alta). */
+/* Il server risponde appena ha le pagine e legge in background; qui si chiede
+   ogni secondo e mezzo a che punto e', cosi' l'operatore vede quante pagine
+   mancano e si dice di non chiudere (ux: Loading Indicators, severita' alta). */
+const pausa = ms => new Promise(r => setTimeout(r, ms));
+
 async function invia(file){
   const stato = $('#stato-upload');
   const inizio = Date.now();
+  let lette = 0, totali = 0;
   const disegnaAttesa = () => {
     const sec = Math.round((Date.now() - inizio) / 1000);
+    const avanzamento = totali ? `pagine lette ${lette} di ${totali} · ` : '';
+    const percento = totali ? Math.round(100 * lette / totali) : 0;
     stato.innerHTML =
       `<div class="nota nota--info">${icona('i-attesa', 'ico girella')}
          <span><b>Estrazione in corso…</b><br>
-         ${esc(file.name)} · ${sec}s trascorsi. Serve qualche secondo per pagina:
+         ${esc(file.name)} · ${avanzamento}${sec}s trascorsi. Serve qualche secondo per pagina:
          non chiudere questa finestra.</span></div>
-       <div class="avanzamento"><span></span></div>`;
+       <div class="avanzamento"><span${totali ? ` class="fissa" style="width:${percento}%"` : ''}></span></div>`;
   };
   disegnaAttesa();
   const battito = setInterval(disegnaAttesa, 1000);
@@ -593,9 +599,16 @@ async function invia(file){
   const fd = new FormData(); fd.append('file', file);
   try {
     const doc = await api('/api/documenti', { method: 'POST', body: fd });
+    totali = doc.pagine_totali;
+    for (;;) {
+      await pausa(1500);
+      const l = await api(`/api/documenti/${doc.id}/lettura`);
+      if (l.finita) { if (l.errore) throw new Error(l.errore); break; }
+      lette = l.lette; totali = l.totali;
+    }
     clearInterval(battito);
     await ricaricaElenco(doc.id);
-    toast(`${doc.pagine.length} pagine estratte`);
+    toast(`${totali} pagine estratte`);
   } catch (err) {
     clearInterval(battito);
     stato.innerHTML = `<div class="nota nota--errore">${icona('i-blocco')}

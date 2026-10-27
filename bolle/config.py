@@ -21,15 +21,22 @@ for _d in (DATA_DIR, PAGES_DIR, UPLOAD_DIR, EXPORT_DIR, CONFIG_DIR):
 
 # --- estrazione -------------------------------------------------------------
 EXTRACTOR_BACKEND = os.getenv("BOLLE_EXTRACTOR", "claude")  # claude | openrouter | local | mock
-MODEL = os.getenv("BOLLE_MODEL", "claude-opus-5")
+MODEL = os.getenv("BOLLE_MODEL", "claude-opus-5-5")
 # usato solo con BOLLE_EXTRACTOR=openrouter; id su https://openrouter.ai/models
-OPENROUTER_MODEL = os.getenv("BOLLE_OPENROUTER_MODEL", "google/gemini-3.5-flash")
+OPENROUTER_MODEL = os.getenv("BOLLE_OPENROUTER_MODEL", "anthropic/claude-opus-5.5")
 
 # Risoluzione di rendering. La PNG ad alta risoluzione serve all'operatore per
 # leggere la bolla a schermo; la JPEG ridotta e' quella che viaggia verso il
 # modello (oltre ~1600px il lato lungo non aggiunge accuratezza, solo costo).
 RENDER_DPI = int(os.getenv("BOLLE_RENDER_DPI", "200"))
 API_IMAGE_MAX_EDGE = int(os.getenv("BOLLE_API_MAX_EDGE", "1600"))
+# Pagine lette in contemporanea. Oltre 4 si rischiano i limiti di frequenza dell'API.
+ESTRAZIONI_PARALLELE = max(1, int(os.getenv("BOLLE_PARALLELO", "4")))
+
+# --- accesso ----------------------------------------------------------------
+# Vuota = nessun login (uso sul PC dell'ufficio). Online va sempre impostata.
+ACCESSO_UTENTE = os.getenv("BOLLE_UTENTE", "bolle")
+ACCESSO_PASSWORD = os.getenv("BOLLE_PASSWORD", "")
 
 # --- magazzini --------------------------------------------------------------
 MAGAZZINI = [m.strip() for m in os.getenv("BOLLE_MAGAZZINI", "MAG 1,MAG 2").split(",")]
