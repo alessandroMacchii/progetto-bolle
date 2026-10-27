@@ -57,13 +57,12 @@ _bloccati: dict[str, float] = {}
 _LUCCHETTO_LOGIN = threading.Lock()
 
 # Header aggiunti a ogni risposta. La pagina ha script e stili in linea, da
-# qui 'unsafe-inline'; fuori dall'app e' ammesso solo il font Inter da Google
-# Fonts. Script esterni e iframe sono chiusi.
+# qui 'unsafe-inline'; tutto il resto, carattere compreso, viene dall'app.
+# Script esterni e iframe sono chiusi.
 _INTESTAZIONI_SICUREZZA = {
     "Content-Security-Policy": (
         "default-src 'self'; script-src 'self' 'unsafe-inline'; "
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-        "font-src https://fonts.gstatic.com; img-src 'self' data: blob:; "
+        "style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; "
         "connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
     ),
     "X-Content-Type-Options": "nosniff",
