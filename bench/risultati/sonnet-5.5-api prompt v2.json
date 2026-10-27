@@ -1,0 +1,222 @@
+{
+ "modello": "sonnet-5.5-api prompt v2",
+ "nota": "Via OpenRouter, API vera con output vincolato allo schema, una pagina per chiamata, ragionamento alle impostazioni predefinite. Costo MISURATO.",
+ "casi": {
+  "reale-01": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8075054491",
+    "data_documento": "29.04.26",
+    "warehouse": "Germany-49597 CDC",
+    "total_pieces_dichiarato": 102,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "IF4092",
+      "descrizione": "URBAN COURT",
+      "colore": "FTWWHT/FTWWHT/CLPINK",
+      "totale_dichiarato": 2,
+      "size_qty_raw": "8-/2",
+      "taglie": [
+       {
+        "taglia": "8-",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1",
+      "codice_manoscritto": "",
+      "incertezze": ""
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "UD9573",
+      "descrizione": "ESS CC LOW 3P",
+      "colore": "WHITE/GRETWO",
+      "totale_dichiarato": 100,
+      "size_qty_raw": "L/100",
+      "taglie": [
+       {
+        "taglia": "L",
+        "qta": 100
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "incertezze": "codice: parzialmente coperto da scarabocchio a penna, prima lettera U o J; colore: parte finale coperta dal tratto di penna"
+     }
+    ]
+   },
+   "token_in": 7636,
+   "token_out": 472,
+   "costo_usd": 0.019992,
+   "secondi": 9.8
+  },
+  "reale-02": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3691922993",
+    "data_documento": "14.05.26",
+    "warehouse": "England-M17 1QD-TDC",
+    "total_pieces_dichiarato": 8,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "ID8765",
+      "descrizione": "GALAXY 7 W",
+      "colore": "",
+      "totale_dichiarato": 4,
+      "size_qty_raw": "530/2 560/2",
+      "taglie": [
+       {
+        "taglia": "530",
+        "qta": 2
+       },
+       {
+        "taglia": "560",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1; numeri scritti a mano sopra le taglie: 4- e 5",
+      "codice_manoscritto": "",
+      "incertezze": "taglie: la cifra centrale di entrambe le taglie e' coperta da tratti di penna; letto 530 e 560 anche in base ai numeri manoscritti 4- e 5 (possibili altre cifre, es. 580)"
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "IF4076",
+      "descrizione": "URBAN COURT",
+      "colore": "",
+      "totale_dichiarato": 4,
+      "size_qty_raw": "580/1 620/1 640/2",
+      "taglie": [
+       {
+        "taglia": "580",
+        "qta": 1
+       },
+       {
+        "taglia": "620",
+        "qta": 1
+       },
+       {
+        "taglia": "640",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "numeri scritti a mano sotto le taglie: 6, 8, 9",
+      "codice_manoscritto": "",
+      "incertezze": "taglie: la cifra centrale delle prime due taglie e' coperta da tratti di penna; letto 580 e 620 anche in base ai numeri manoscritti 6 e 8"
+     }
+    ]
+   },
+   "token_in": 7636,
+   "token_out": 2240,
+   "costo_usd": 0.037672,
+   "secondi": 20.2
+  },
+  "reale-03": {
+   "output": {
+    "tipo_documento": "CONSOLIDATED ORDER NUMBER",
+    "numero_documento": "17224088",
+    "data_documento": "20.05.26",
+    "warehouse": "D - 97215 Uffenheim",
+    "total_pieces_dichiarato": 5,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "IH4278",
+      "descrizione": "STREETTALK",
+      "colore": "",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "8/1 9-/3 11-/1",
+      "taglie": [
+       {
+        "taglia": "8",
+        "qta": 1
+       },
+       {
+        "taglia": "9-",
+        "qta": 3
+       },
+       {
+        "taglia": "11-",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "8: 1 pezzo MAG 1; 11-: 1 pezzo MAG 1; 9-: 3 pezzi divisi con frecce, 1 pezzo MAG 2 e 2 pezzi MAG 1",
+      "codice_manoscritto": "",
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 7636,
+   "token_out": 382,
+   "costo_usd": 0.019092,
+   "secondi": 4.1
+  },
+  "reale-04": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8075090235",
+    "data_documento": "29.04.26",
+    "warehouse": "Germany-49597 CDC",
+    "total_pieces_dichiarato": 6,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "IH9028",
+      "descrizione": "ADILETTE SHOWER",
+      "colore": "FTWWHT/ROYBLU/PURRUB",
+      "totale_dichiarato": 6,
+      "size_qty_raw": "4/2 5/1 6/1 7/2",
+      "taglie": [
+       {
+        "taglia": "4",
+        "qta": 2
+       },
+       {
+        "taglia": "5",
+        "qta": 1
+       },
+       {
+        "taglia": "6",
+        "qta": 1
+       },
+       {
+        "taglia": "7",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 2",
+      "codice_manoscritto": "",
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 7636,
+   "token_out": 339,
+   "costo_usd": 0.018662,
+   "secondi": 4.3
+  }
+ }
+}

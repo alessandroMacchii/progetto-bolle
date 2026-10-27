@@ -1,0 +1,688 @@
+{
+  "1": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8075054491",
+    "data_documento": "29.04.26",
+    "warehouse": "Germany-49597 CDC",
+    "total_pieces_dichiarato": 102,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "IF4092",
+        "descrizione": "URBAN COURT",
+        "colore": "FTWWHT/FTWWHT/CLPINK",
+        "totale_dichiarato": 2,
+        "size_qty_raw": "8-/2",
+        "taglie": [
+          {
+            "taglia": "8-",
+            "qta": 2
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1 evidenziato in giallo"
+      },
+      {
+        "seq": "2",
+        "codice_articolo": "JD9573",
+        "descrizione": "ESS CC LOW 3P",
+        "colore": "WHITE/GRETWO",
+        "totale_dichiarato": 100,
+        "size_qty_raw": "L/100",
+        "taglie": [
+          {
+            "taglia": "L",
+            "qta": 100
+          }
+        ],
+        "barrata": true,
+        "annotazioni_manoscritte": "riga cancellata con un tratto di penna"
+      }
+    ]
+  },
+  "2": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3691922993",
+    "data_documento": "14.05.26",
+    "warehouse": "England-M17 1QD-TDC",
+    "total_pieces_dichiarato": 8,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "ID8765",
+        "descrizione": "GALAXY 7 W",
+        "colore": "",
+        "totale_dichiarato": 4,
+        "size_qty_raw": "550/2 560/2",
+        "taglie": [
+          {
+            "taglia": "550",
+            "qta": 2
+          },
+          {
+            "taglia": "560",
+            "qta": 2
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1 evidenziato in giallo; sopra le taglie stampate sono scritti a mano 4- e 5"
+      },
+      {
+        "seq": "2",
+        "codice_articolo": "IF4076",
+        "descrizione": "URBAN COURT",
+        "colore": "",
+        "totale_dichiarato": 4,
+        "size_qty_raw": "580/1 620/1 640/2",
+        "taglie": [
+          {
+            "taglia": "580",
+            "qta": 1
+          },
+          {
+            "taglia": "620",
+            "qta": 1
+          },
+          {
+            "taglia": "640",
+            "qta": 2
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "sotto le taglie sono scritti a mano 6, 8 e 9"
+      }
+    ]
+  },
+  "3": {
+    "tipo_documento": "CONSOLIDATED ORDER NUMBER",
+    "numero_documento": "17224088",
+    "data_documento": "20.05.26",
+    "warehouse": "D - 97215 Uffenheim",
+    "total_pieces_dichiarato": 5,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "IH4278",
+        "descrizione": "STREETTALK",
+        "colore": "",
+        "totale_dichiarato": 5,
+        "size_qty_raw": "8/1 9-/3 11-/1",
+        "taglie": [
+          {
+            "taglia": "8",
+            "qta": 1
+          },
+          {
+            "taglia": "9-",
+            "qta": 3
+          },
+          {
+            "taglia": "11-",
+            "qta": 1
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "8: MAG 1 cerchiato; 11-: MAG 1 cerchiato; 9-: 1 pezzo MAG 2, 2 pezzi MAG 1"
+      }
+    ]
+  },
+  "4": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8075090235",
+    "data_documento": "29.04.26",
+    "warehouse": "Germany-49597 CDC",
+    "total_pieces_dichiarato": 6,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "IH9028",
+        "descrizione": "ADILETTE SHOWER",
+        "colore": "FTWWHT/ROYBLU/PURRUB",
+        "totale_dichiarato": 6,
+        "size_qty_raw": "4/2 5/1 6/1 7/2",
+        "taglie": [
+          {
+            "taglia": "4",
+            "qta": 2
+          },
+          {
+            "taglia": "5",
+            "qta": 1
+          },
+          {
+            "taglia": "6",
+            "qta": 1
+          },
+          {
+            "taglia": "7",
+            "qta": 2
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 2"
+      }
+    ]
+  },
+  "5": {
+    "tipo_documento": "VALUE ADDED SERVICE",
+    "numero_documento": "3691900271",
+    "data_documento": "26.05.2026",
+    "warehouse": "",
+    "total_pieces_dichiarato": 0,
+    "rotazione_gradi": 270,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "F35542",
+        "descrizione": "ADILETTE AQUA",
+        "colore": "DKBLUE/FTWWHT/DKBLUE",
+        "totale_dichiarato": 78,
+        "size_qty_raw": "7/15 9/37 10/26",
+        "taglie": [
+          {
+            "taglia": "7",
+            "qta": 15
+          },
+          {
+            "taglia": "9",
+            "qta": 37
+          },
+          {
+            "taglia": "10",
+            "qta": 26
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 2 cerchiato"
+      }
+    ]
+  },
+  "6": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3691891869",
+    "data_documento": "08.04.26",
+    "warehouse": "England-M17 1QD-TDC",
+    "total_pieces_dichiarato": 9,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "F35543",
+        "descrizione": "ADILETTE AQUA",
+        "colore": "",
+        "totale_dichiarato": 9,
+        "size_qty_raw": "540/3 560/6",
+        "taglie": [
+          {
+            "taglia": "540",
+            "qta": 3
+          },
+          {
+            "taglia": "560",
+            "qta": 6
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 2; sopra le taglie stampate sono scritti a mano 4 e 5"
+      }
+    ]
+  },
+  "7": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "9034818592",
+    "data_documento": "29.04.26",
+    "warehouse": "D-91443 Scheinfeld 2",
+    "total_pieces_dichiarato": 291,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "JY7946",
+        "descrizione": "TIRO DU L BC",
+        "colore": "BLACK/WHITE",
+        "totale_dichiarato": 5,
+        "size_qty_raw": "NS/5",
+        "taglie": [
+          {
+            "taglia": "NS",
+            "qta": 5
+          }
+        ],
+        "barrata": true,
+        "annotazioni_manoscritte": "riga cancellata con un tratto di penna"
+      },
+      {
+        "seq": "2",
+        "codice_articolo": "JZ2505",
+        "descrizione": "ENT26 JSY",
+        "colore": "BLACK/WHITE",
+        "totale_dichiarato": 233,
+        "size_qty_raw": "XS/183 XL/50",
+        "taglie": [
+          {
+            "taglia": "XS",
+            "qta": 183
+          },
+          {
+            "taglia": "XL",
+            "qta": 50
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "green camp evidenziato in azzurro"
+      },
+      {
+        "seq": "3",
+        "codice_articolo": "JZ6549",
+        "descrizione": "ENT26 TR PNT Y",
+        "colore": "TENABL/WHITE",
+        "totale_dichiarato": 2,
+        "size_qty_raw": "910A/1 1112/1",
+        "taglie": [
+          {
+            "taglia": "910A",
+            "qta": 1
+          },
+          {
+            "taglia": "1112",
+            "qta": 1
+          }
+        ],
+        "barrata": true,
+        "annotazioni_manoscritte": "MAG 1; riga attraversata da un tratto di penna"
+      },
+      {
+        "seq": "4",
+        "codice_articolo": "JZ6878",
+        "descrizione": "ENT26 TEE",
+        "colore": "TENABL/WHITE",
+        "totale_dichiarato": 27,
+        "size_qty_raw": "XS/2 S/7 M/10 L/8",
+        "taglie": [
+          {
+            "taglia": "XS",
+            "qta": 2
+          },
+          {
+            "taglia": "S",
+            "qta": 7
+          },
+          {
+            "taglia": "M",
+            "qta": 10
+          },
+          {
+            "taglia": "L",
+            "qta": 8
+          }
+        ],
+        "barrata": true,
+        "annotazioni_manoscritte": "riga attraversata da un tratto di penna"
+      }
+    ]
+  },
+  "8": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8755509288",
+    "data_documento": "27.05.26",
+    "warehouse": "46100 adidas Campus South",
+    "total_pieces_dichiarato": 6,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "IT1457",
+        "descrizione": "ADIZERO E TANK",
+        "colore": "ROYBLU",
+        "totale_dichiarato": 6,
+        "size_qty_raw": "XS/6",
+        "taglie": [
+          {
+            "taglia": "XS",
+            "qta": 6
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1; qta XS corretta a mano da 6 a 5"
+      }
+    ]
+  },
+  "9": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "9035032167",
+    "data_documento": "30.05.26",
+    "warehouse": "D-91443 Scheinfeld 2",
+    "total_pieces_dichiarato": 16,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "H44527",
+        "descrizione": "TABELA 23 JSY",
+        "colore": "TENABL/WHITE",
+        "totale_dichiarato": 4,
+        "size_qty_raw": "L/4",
+        "taglie": [
+          {
+            "taglia": "L",
+            "qta": 4
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "VERONELLI; MAG 1 cerchiato"
+      },
+      {
+        "seq": "",
+        "codice_articolo": "H44527",
+        "descrizione": "TABELA 23 JSY",
+        "colore": "TENABL/WHITE",
+        "totale_dichiarato": 10,
+        "size_qty_raw": "L/10",
+        "taglie": [
+          {
+            "taglia": "L",
+            "qta": 10
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1"
+      },
+      {
+        "seq": "2",
+        "codice_articolo": "JN5459",
+        "descrizione": "SQUA25 SHO Y",
+        "colore": "BLACK/BLACK/WHITE",
+        "totale_dichiarato": 2,
+        "size_qty_raw": "1314/2",
+        "taglie": [
+          {
+            "taglia": "1314",
+            "qta": 2
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "BRENTASPORT; MAG 1 cerchiato"
+      }
+    ]
+  },
+  "10": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8755506800",
+    "data_documento": "27.05.26",
+    "warehouse": "46100 adidas Campus South",
+    "total_pieces_dichiarato": 4,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "JP6203",
+        "descrizione": "adipower Weightlift",
+        "colore": "CBLACK/CBLACK/CARBON",
+        "totale_dichiarato": 1,
+        "size_qty_raw": "10-/1",
+        "taglie": [
+          {
+            "taglia": "10-",
+            "qta": 1
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1 cerchiato"
+      },
+      {
+        "seq": "2",
+        "codice_articolo": "KB9419",
+        "descrizione": "W ANML G T",
+        "colore": "ICEPUR",
+        "totale_dichiarato": 1,
+        "size_qty_raw": "XS/1",
+        "taglie": [
+          {
+            "taglia": "XS",
+            "qta": 1
+          }
+        ],
+        "barrata": true,
+        "annotazioni_manoscritte": "riga cancellata con un tratto di penna"
+      },
+      {
+        "seq": "3",
+        "codice_articolo": "KS9653",
+        "descrizione": "MT BO 0.6 GFX1",
+        "colore": "NGTCAR/NGTCAR",
+        "totale_dichiarato": 1,
+        "size_qty_raw": "NS/1",
+        "taglie": [
+          {
+            "taglia": "NS",
+            "qta": 1
+          }
+        ],
+        "barrata": true,
+        "annotazioni_manoscritte": "riga cancellata con un tratto di penna"
+      },
+      {
+        "seq": "4",
+        "codice_articolo": "LB2681",
+        "descrizione": "DURAMO RC2 M",
+        "colore": "OWHITE/CROYAL/COLRED",
+        "totale_dichiarato": 1,
+        "size_qty_raw": "7/1",
+        "taglie": [
+          {
+            "taglia": "7",
+            "qta": 1
+          }
+        ],
+        "barrata": true,
+        "annotazioni_manoscritte": "riga cancellata con un tratto di penna"
+      }
+    ]
+  },
+  "11": {
+    "tipo_documento": "PRODUCT SPECIFICATION",
+    "numero_documento": "MIAD2IT597491",
+    "data_documento": "2026-04-22",
+    "warehouse": "",
+    "total_pieces_dichiarato": 7,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "IA0408",
+        "descrizione": "Entrada 22 Hoody Men",
+        "colore": "",
+        "totale_dichiarato": 7,
+        "size_qty_raw": "XS/2 S/2 M/3",
+        "taglie": [
+          {
+            "taglia": "XS",
+            "qta": 2
+          },
+          {
+            "taglia": "S",
+            "qta": 2
+          },
+          {
+            "taglia": "M",
+            "qta": 3
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1 evidenziato in verde"
+      }
+    ]
+  },
+  "12": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8755525470",
+    "data_documento": "01.06.26",
+    "warehouse": "46100 adidas Campus South",
+    "total_pieces_dichiarato": 41,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "JY9675",
+        "descrizione": "TIRO26L PNTY",
+        "colore": "TENABL/WHITE",
+        "totale_dichiarato": 21,
+        "size_qty_raw": "7-8A/6 910A/5 1112/5 1314/5",
+        "taglie": [
+          {
+            "taglia": "7-8A",
+            "qta": 6
+          },
+          {
+            "taglia": "910A",
+            "qta": 5
+          },
+          {
+            "taglia": "1112",
+            "qta": 5
+          },
+          {
+            "taglia": "1314",
+            "qta": 5
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1 evidenziato in verde"
+      },
+      {
+        "seq": "2",
+        "codice_articolo": "JG5832",
+        "descrizione": "SQUA25 JSY M",
+        "colore": "BLACK/WHITE",
+        "totale_dichiarato": 7,
+        "size_qty_raw": "S/7",
+        "taglie": [
+          {
+            "taglia": "S",
+            "qta": 7
+          }
+        ],
+        "barrata": true,
+        "annotazioni_manoscritte": "numero di riga barrato con una X"
+      },
+      {
+        "seq": "3",
+        "codice_articolo": "JG5835",
+        "descrizione": "SQUA25 JSY M",
+        "colore": "WHITE/BLACK",
+        "totale_dichiarato": 2,
+        "size_qty_raw": "3XL/2",
+        "taglie": [
+          {
+            "taglia": "3XL",
+            "qta": 2
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1 evidenziato in verde"
+      },
+      {
+        "seq": "4",
+        "codice_articolo": "JN5469",
+        "descrizione": "SQUA25 SHO M",
+        "colore": "BLACK/BLACK/WHITE",
+        "totale_dichiarato": 11,
+        "size_qty_raw": "M/3 L/6 3XL/2",
+        "taglie": [
+          {
+            "taglia": "M",
+            "qta": 3
+          },
+          {
+            "taglia": "L",
+            "qta": 6
+          },
+          {
+            "taglia": "3XL",
+            "qta": 2
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": ""
+      }
+    ]
+  },
+  "13": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8075218505",
+    "data_documento": "27.05.26",
+    "warehouse": "Germany-49597 CDC",
+    "total_pieces_dichiarato": 1,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "JE1204",
+        "descrizione": "W 3S SJ TLR T",
+        "colore": "WONALU/WHITE",
+        "totale_dichiarato": 1,
+        "size_qty_raw": "XS/1",
+        "taglie": [
+          {
+            "taglia": "XS",
+            "qta": 1
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "MAG 1 evidenziato in verde"
+      }
+    ]
+  },
+  "14": {
+    "tipo_documento": "PRODUCT SPECIFICATION",
+    "numero_documento": "MIAD2IT594904",
+    "data_documento": "2026-04-07",
+    "warehouse": "",
+    "total_pieces_dichiarato": 5,
+    "rotazione_gradi": 270,
+    "continua_da_pagina_precedente": false,
+    "righe": [
+      {
+        "seq": "1",
+        "codice_articolo": "JM9191",
+        "descrizione": "Handball 25 GK Jersey Men",
+        "colore": "",
+        "totale_dichiarato": 5,
+        "size_qty_raw": "S/2 M/2 L/1",
+        "taglie": [
+          {
+            "taglia": "S",
+            "qta": 2
+          },
+          {
+            "taglia": "M",
+            "qta": 2
+          },
+          {
+            "taglia": "L",
+            "qta": 1
+          }
+        ],
+        "barrata": false,
+        "annotazioni_manoscritte": "JN9131 FIJLKAM scritto a mano; MAG 1"
+      }
+    ]
+  }
+}

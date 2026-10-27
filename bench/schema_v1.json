@@ -1,0 +1,148 @@
+{
+ "$defs": {
+  "RigaEstratta": {
+   "properties": {
+    "seq": {
+     "description": "Numero Seq-no / Item No. della riga; '' se assente",
+     "title": "Seq",
+     "type": "string"
+    },
+    "codice_articolo": {
+     "description": "Codice articolo del fornitore, es. IF4092, JZ2505, H44527. '' se illeggibile",
+     "title": "Codice Articolo",
+     "type": "string"
+    },
+    "descrizione": {
+     "description": "Nome/descrizione articolo, es. URBAN COURT",
+     "title": "Descrizione",
+     "type": "string"
+    },
+    "colore": {
+     "description": "Colorway, es. FTWWHT/FTWWHT/CLPINK; '' se assente",
+     "title": "Colore",
+     "type": "string"
+    },
+    "totale_dichiarato": {
+     "description": "Valore della colonna Total per questa riga; 0 se assente",
+     "title": "Totale Dichiarato",
+     "type": "integer"
+    },
+    "size_qty_raw": {
+     "description": "Contenuto grezzo della colonna Size/Qty, es. 'XS/2 S/7 M/10 L/8'. Per i documenti con tabella taglie verticale, ricostruiscilo nello stesso formato",
+     "title": "Size Qty Raw",
+     "type": "string"
+    },
+    "taglie": {
+     "description": "Scomposizione di size_qty_raw",
+     "items": {
+      "$ref": "#/$defs/TagliaEstratta"
+     },
+     "title": "Taglie",
+     "type": "array"
+    },
+    "barrata": {
+     "description": "True se la riga e' cancellata/barrata a penna sulla scansione",
+     "title": "Barrata",
+     "type": "boolean"
+    },
+    "annotazioni_manoscritte": {
+     "description": "Trascrizione di quanto scritto a mano su questa riga (es. 'MAG 1', 'MAG 2', quantita' corrette). '' se niente",
+     "title": "Annotazioni Manoscritte",
+     "type": "string"
+    }
+   },
+   "required": [
+    "seq",
+    "codice_articolo",
+    "descrizione",
+    "colore",
+    "totale_dichiarato",
+    "size_qty_raw",
+    "taglie",
+    "barrata",
+    "annotazioni_manoscritte"
+   ],
+   "title": "RigaEstratta",
+   "type": "object",
+   "additionalProperties": false
+  },
+  "TagliaEstratta": {
+   "properties": {
+    "taglia": {
+     "description": "Taglia esattamente come stampata: 8-, XS, 910A, NS, 540",
+     "title": "Taglia",
+     "type": "string"
+    },
+    "qta": {
+     "description": "Quantita' per quella taglia",
+     "title": "Qta",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "taglia",
+    "qta"
+   ],
+   "title": "TagliaEstratta",
+   "type": "object",
+   "additionalProperties": false
+  }
+ },
+ "properties": {
+  "tipo_documento": {
+   "description": "DELIVERY NOTE | CONSOLIDATED ORDER NUMBER | VALUE ADDED SERVICE | PRODUCT SPECIFICATION | ALTRO",
+   "title": "Tipo Documento",
+   "type": "string"
+  },
+  "numero_documento": {
+   "description": "Numero del documento; '' se assente",
+   "title": "Numero Documento",
+   "type": "string"
+  },
+  "data_documento": {
+   "description": "Data in formato GG.MM.AA come stampata; '' se assente",
+   "title": "Data Documento",
+   "type": "string"
+  },
+  "warehouse": {
+   "description": "Campo Warehouse; '' se assente",
+   "title": "Warehouse",
+   "type": "string"
+  },
+  "total_pieces_dichiarato": {
+   "description": "Total Pieces del riepilogo; 0 se assente",
+   "title": "Total Pieces Dichiarato",
+   "type": "integer"
+  },
+  "rotazione_gradi": {
+   "description": "Rotazione della scansione: 0, 90, 180 o 270 gradi",
+   "title": "Rotazione Gradi",
+   "type": "integer"
+  },
+  "continua_da_pagina_precedente": {
+   "description": "True se la tabella prosegue da una pagina precedente",
+   "title": "Continua Da Pagina Precedente",
+   "type": "boolean"
+  },
+  "righe": {
+   "items": {
+    "$ref": "#/$defs/RigaEstratta"
+   },
+   "title": "Righe",
+   "type": "array"
+  }
+ },
+ "required": [
+  "tipo_documento",
+  "numero_documento",
+  "data_documento",
+  "warehouse",
+  "total_pieces_dichiarato",
+  "rotazione_gradi",
+  "continua_da_pagina_precedente",
+  "righe"
+ ],
+ "title": "PaginaEstratta",
+ "type": "object",
+ "additionalProperties": false
+}

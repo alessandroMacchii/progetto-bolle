@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carico merci — revisione bolle</title>
+
+<!--
+  Sistema visivo (ui-ux-pro-max):
+    stile       Minimalism & Swiss Style — best for: enterprise apps, dashboards,
+                professional tools
+    tipografia  "Minimal Swiss": Inter, una famiglia sola con pesi diversi
+    colori      "Logistics/Delivery" (blu #2563EB + arancio #EA580C) per l'identita',
+                neutri da "B2B Service" per il testo: un corpo blu a 13px su una
+                tabella densa si legge peggio del quasi-nero per otto ore di fila
+    densita'    9/10 (dense / dashboard): scala 4-32px
+    movimento   2/10 (subtle): 120-200ms, solo per confermare un cambio di stato
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --blu:#2563EB; --blu-scuro:#1D4ED8; --blu-tenue:#EFF6FF;
+  --arancio:#EA580C; --arancio-testo:#9A3412; --arancio-bg:#FFF7ED;
+  --rosso:#DC2626; --rosso-testo:#B91C1C; --rosso-bg:#FEF2F2;
+  --verde-testo:#15803D; --verde-bg:#F0FDF4;
+
+  --fondo:#F8FAFC; --superficie:#FFFFFF; --superficie2:#F1F5F9; --scansione-fondo:#E2E8F0;
+  --testo:#0F172A; --tenue:#475569; --bordo:#E2E8F0; --bordo-forte:#CBD5E1;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px;
+  --r1:4px; --r2:6px; --r3:10px;
+  --ombra:0 1px 2px rgba(15,23,42,.06), 0 1px 3px rgba(15,23,42,.08);
+  --ombra-alta:0 10px 30px rgba(15,23,42,.16);
+  --durata:150ms; --curva:cubic-bezier(.2,0,.2,1);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --blu:#60A5FA; --blu-scuro:#93C5FD; --blu-tenue:#16243C;
+    --arancio:#FB923C; --arancio-testo:#FDBA74; --arancio-bg:#2A1B0E;
+    --rosso:#F87171; --rosso-testo:#FCA5A5; --rosso-bg:#2B1416;
+    --verde-testo:#86EFAC; --verde-bg:#10231A;
+    --fondo:#0B1220; --superficie:#131C2E; --superficie2:#1B2536; --scansione-fondo:#0B1220;
+    --testo:#E6EDF5; --tenue:#98A6BA; --bordo:#263349; --bordo-forte:#35455E;
+    --ombra:0 1px 2px rgba(0,0,0,.4); --ombra-alta:0 10px 30px rgba(0,0,0,.5);
+    color-scheme:dark;
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{
+  margin:0; background:var(--fondo); color:var(--testo);
+  font:400 13px/1.45 Inter,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-variant-numeric:tabular-nums; -webkit-font-smoothing:antialiased;
+}
+
+/* Il contorno di fuoco non si toglie mai (ux: Focus States, severita' alta).
+   scroll-margin tiene la riga a fuoco fuori da sotto l'intestazione appiccicata
+   (ux: Focus Not Obscured (Minimum), severita' alta). */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+  outline:2px solid var(--blu); outline-offset:2px; border-radius:var(--r1);
+}
+tbody tr:focus-within{scroll-margin-block:60px}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important; animation-iteration-count:1!important;
+    transition-duration:.01ms!important; scroll-behavior:auto!important;
+  }
+}
+
+/* --- controlli ------------------------------------------------------------ */
+.btn{
+  display:inline-flex; align-items:center; gap:6px; white-space:nowrap;
+  font:500 13px/1 Inter,-apple-system,"Segoe UI",sans-serif; cursor:pointer;
+  min-height:32px; padding:0 10px; border-radius:var(--r2);
+  border:1px solid var(--bordo-forte); background:var(--superficie); color:var(--testo);
+  transition:background var(--durata) var(--curva), border-color var(--durata) var(--curva);
+}
+.btn:hover:not(:disabled){background:var(--superficie2); border-color:var(--tenue)}
+.btn:disabled{opacity:.5; cursor:not-allowed}
+.btn--primario{background:var(--blu); border-color:var(--blu); color:#fff}
+.btn--primario:hover:not(:disabled){background:var(--blu-scuro); border-color:var(--blu-scuro); color:#fff}
+.btn--pericolo{color:var(--rosso-testo)}
+.btn--pericolo:hover:not(:disabled){background:var(--rosso-bg); border-color:var(--rosso)}
+.btn--fantasma{border-color:transparent; background:transparent}
+.btn--fantasma:hover:not(:disabled){background:var(--superficie2); border-color:transparent}
+.btn--mini{min-height:26px; padding:0 7px; font-size:12px}
+.btn--icona{width:32px; padding:0; justify-content:center}
+.btn--icona.btn--mini{width:26px}
+@media (prefers-color-scheme: dark){
+  .btn--primario,.btn--primario:hover:not(:disabled){color:#0B1220}
+}
+
+.campo{
+  font:400 13px/1 Inter,-apple-system,"Segoe UI",sans-serif; color:var(--testo);
+  width:100%; min-height:28px; padding:4px 6px;
+  border:1px solid var(--bordo); border-radius:var(--r1); background:var(--superficie);
+  transition:border-color var(--durata) var(--curva);
+}
+.campo:hover:not(:disabled){border-color:var(--bordo-forte)}
+.campo:disabled{background:var(--superficie2); color:var(--tenue); cursor:not-allowed}
+select.campo{cursor:pointer}
+input[type=checkbox]{width:15px; height:15px; accent-color:var(--blu); cursor:pointer; margin:0}
+
+.ico{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8;
+     stroke-linecap:round; stroke-linejoin:round; flex:none}
+.ico--14{width:14px; height:14px}
+.ico--28{width:28px; height:28px; stroke-width:1.5}
+
+/* --- impalcatura ---------------------------------------------------------- */
+.app{display:grid; grid-template-rows:auto 1fr; height:100dvh; overflow:hidden}
+
+.barra{
+  display:flex; align-items:center; gap:var(--s3); flex-wrap:wrap;
+  padding:var(--s2) var(--s4); background:var(--superficie);
+  border-bottom:1px solid var(--bordo);
+}
+.barra h1{margin:0; font-size:14px; font-weight:600; letter-spacing:-.01em; white-space:nowrap}
+.crescita{flex:1 1 auto}
+.pillola{
+  display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
+  font-size:11px; font-weight:600; padding:3px 8px; border-radius:999px;
+  background:var(--blu-tenue); color:var(--blu-scuro);
+}
+.pillola--attenzione{background:var(--arancio-bg); color:var(--arancio-testo)}
+@media (prefers-color-scheme: dark){ .pillola{color:var(--blu)} }
+
+/* --- schermata di caricamento --------------------------------------------- */
+.upload{overflow:auto; padding:var(--s6) var(--s4)}
+.upload__scatola{max-width:560px; margin:0 auto}
+#dropzone{
+  border:2px dashed var(--bordo-forte); border-radius:var(--r3); background:var(--superficie);
+  padding:var(--s6) var(--s5); text-align:center; color:var(--tenue);
+  transition:border-color var(--durata) var(--curva), background var(--durata) var(--curva);
+}
+#dropzone.sopra{border-color:var(--blu); background:var(--blu-tenue)}
+#dropzone h2{margin:var(--s3) 0 var(--s1); font-size:15px; font-weight:600; color:var(--testo)}
+#dropzone p{margin:0 0 var(--s4)}
+#dropzone .suggerimento{margin:var(--s4) 0 0; font-size:12px}
+
+/* --- pannelli ------------------------------------------------------------- */
+.lavoro{display:grid; grid-template-columns:var(--split,40%) 7px 1fr; overflow:hidden}
+/* testa, contenuto elastico, piede */
+.pannello{
+  display:grid; grid-template-rows:auto 1fr auto; min-width:0; overflow:hidden;
+  background:var(--superficie);
+}
+/* il pannello delle righe ha una testa in piu' (la barra delle azioni):
+   senza questa riga in piu' l'1fr finisce sulla barra e la tabella si schiaccia */
+.pannello--righe{grid-template-rows:auto auto 1fr auto}
+.pannello__testa{
+  display:flex; align-items:center; gap:var(--s2); flex-wrap:wrap;
+  padding:var(--s2) var(--s3); border-bottom:1px solid var(--bordo);
+}
+.pannello__pie{
+  display:flex; align-items:center; gap:var(--s4); flex-wrap:wrap;
+  padding:var(--s2) var(--s3); border-top:1px solid var(--bordo);
+  font-size:12px; color:var(--tenue);
+}
+.pannello__pie b{color:var(--testo); font-weight:600}
+.etichetta{font-size:11px; font-weight:600; text-transform:uppercase;
+           letter-spacing:.05em; color:var(--tenue); white-space:nowrap}
+
+.maniglia{
+  border:0; padding:0; background:var(--bordo); cursor:col-resize;
+  transition:background var(--durata) var(--curva);
+}
+.maniglia:hover,.maniglia:focus-visible{background:var(--blu)}
+
+/* --- visore della scansione ----------------------------------------------- */
+#visore{overflow:auto; background:var(--scansione-fondo)}
+#tela{position:relative}
+#scansione{position:absolute; top:0; left:0; transform-origin:top left; box-shadow:var(--ombra)}
+
+.strip{display:flex; gap:var(--s1); flex-wrap:wrap}
+.strip button{
+  position:relative; min-width:30px; min-height:28px; padding:0 6px;
+  font:500 12px/1 Inter,sans-serif; cursor:pointer;
+  border:1px solid var(--bordo); border-radius:var(--r1);
+  background:var(--superficie); color:var(--tenue);
+  transition:background var(--durata) var(--curva), color var(--durata) var(--curva);
+}
+.strip button:hover{background:var(--superficie2); color:var(--testo)}
+.strip button[aria-current=true]{background:var(--blu); border-color:var(--blu); color:#fff}
+/* il pallino segnala "questa pagina ha avvisi"; il conteggio e' anche nel
+   nome accessibile del bottone, quindi il colore non e' l'unico veicolo */
+.strip button .punto{position:absolute; top:2px; right:2px; width:6px; height:6px;
+                     border-radius:50%; background:var(--arancio)}
+.strip button[aria-current=true] .punto{background:#fff}
+@media (prefers-color-scheme: dark){
+  .strip button[aria-current=true]{color:#0B1220}
+  .strip button[aria-current=true] .punto{background:#0B1220}
+}
+
+/* --- segmenti (filtro, ambito) -------------------------------------------- */
+.segmenti{display:inline-flex; border:1px solid var(--bordo-forte); border-radius:var(--r2);
+          overflow:hidden; background:var(--superficie)}
+.segmenti button{
+  font:500 12px/1 Inter,sans-serif; cursor:pointer; min-height:30px; padding:0 10px;
+  border:0; border-right:1px solid var(--bordo); background:transparent; color:var(--tenue);
+  transition:background var(--durata) var(--curva), color var(--durata) var(--curva);
+}
+.segmenti button:last-child{border-right:0}
+.segmenti button:hover{background:var(--superficie2); color:var(--testo)}
+.segmenti button[aria-pressed=true]{background:var(--blu); color:#fff}
+@media (prefers-color-scheme: dark){ .segmenti button[aria-pressed=true]{color:#0B1220} }
+
+/* --- tabella delle righe --------------------------------------------------- */
+.tabella-scorrevole{overflow:auto}
+table{width:100%; border-collapse:separate; border-spacing:0; min-width:900px}
+thead th{
+  position:sticky; top:0; z-index:2; text-align:left; white-space:nowrap;
+  font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
+  color:var(--tenue); padding:var(--s2); background:var(--superficie);
+  border-bottom:1px solid var(--bordo-forte);
+}
+tbody td{padding:3px var(--s2); border-bottom:1px solid var(--bordo); vertical-align:middle}
+tbody tr.riga:hover{background:var(--superficie2)}
+tbody tr.riga--scelta{background:var(--blu-tenue)}
+tbody tr.riga--segnalata td:first-child{box-shadow:inset 3px 0 0 var(--arancio)}
+tbody tr.riga--blocco td:first-child{box-shadow:inset 3px 0 0 var(--rosso)}
+/* niente opacity per lo stato "esclusa": sbiadire il testo lo porta sotto il
+   rapporto 4.5:1. Lo stato si legge dal barrato e dai campi disattivati. */
+tbody tr.riga--fuori .testo-riga{text-decoration:line-through; color:var(--tenue)}
+.col-num{text-align:right}
+.cella-tenue{font-size:12px; color:var(--tenue)}
+.descrizione{display:block; max-width:26ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.azioni-riga{display:flex; gap:var(--s1); justify-content:flex-end}
+.vuoto{padding:var(--s6) var(--s4); text-align:center; color:var(--tenue)}
+
+/* contatore avvisi: un bottone, non un title= al passaggio del mouse, cosi' si
+   raggiunge da tastiera e si legge anche su touch */
+.segnala{
+  display:inline-flex; align-items:center; justify-content:center; gap:3px;
+  min-width:24px; min-height:22px; padding:0 5px; cursor:pointer;
+  font:700 11px/1 Inter,sans-serif; border:1px solid transparent; border-radius:999px;
+  background:var(--arancio-bg); color:var(--arancio-testo);
+}
+.segnala:hover{border-color:var(--arancio)}
+.segnala--blocco{background:var(--rosso-bg); color:var(--rosso-testo)}
+.segnala--blocco:hover{border-color:var(--rosso)}
+
+tr.dettaglio td{padding:0 var(--s2) var(--s2); background:var(--superficie2);
+                border-bottom:1px solid var(--bordo)}
+.avvisi{margin:0; padding:0; list-style:none; display:grid; gap:var(--s1)}
+.avviso{display:flex; gap:var(--s2); align-items:flex-start; font-size:12px; line-height:1.4;
+        padding:6px var(--s2); border-radius:var(--r1); border-left:3px solid transparent}
+.avviso--conferma{background:var(--arancio-bg); color:var(--arancio-testo); border-left-color:var(--arancio)}
+.avviso--blocco{background:var(--rosso-bg); color:var(--rosso-testo); border-left-color:var(--rosso)}
+.avviso--info{background:var(--superficie); color:var(--tenue); border-left-color:var(--bordo-forte)}
+.manoscritto{margin-top:var(--s2); padding:6px var(--s2); font-size:12px; display:flex; gap:var(--s2);
+             background:var(--superficie); border:1px dashed var(--bordo-forte); border-radius:var(--r1)}
+.manoscritto b{font-weight:600}
+
+/* --- note, riepilogo errori, toast ---------------------------------------- */
+.nota{display:flex; gap:var(--s2); align-items:flex-start; font-size:12.5px; line-height:1.45;
+      padding:var(--s2) var(--s3); border-radius:var(--r2); margin:var(--s2) 0}
+.nota--avviso{background:var(--arancio-bg); color:var(--arancio-testo)}
+.nota--errore{background:var(--rosso-bg); color:var(--rosso-testo)}
+.nota--ok{background:var(--verde-bg); color:var(--verde-testo)}
+.nota--info{background:var(--blu-tenue); color:var(--blu-scuro)}
+@media (prefers-color-scheme: dark){ .nota--info{color:var(--blu)} }
+
+/* Riepilogo degli errori bloccanti: in cima al pannello, un link per ogni riga
+   colpevole, e il fuoco ci si sposta dopo l'export fallito
+   (ux: Error Summary / Error Placement, severita' alta). */
+#riquadro-errori{margin:var(--s3); padding:var(--s3); border-radius:var(--r2);
+                 background:var(--rosso-bg); border:1px solid var(--rosso)}
+#riquadro-errori h2{margin:0 0 var(--s2); font-size:13px; font-weight:600;
+                    color:var(--rosso-testo); display:flex; gap:6px; align-items:center}
+#riquadro-errori ul{margin:0; padding-left:18px; color:var(--rosso-testo);
+                    font-size:12.5px; display:grid; gap:4px}
+#riquadro-errori a{color:inherit; font-weight:600}
+
+#toast{
+  position:fixed; left:50%; bottom:var(--s5); transform:translateX(-50%); z-index:50;
+  display:flex; align-items:center; gap:var(--s2); padding:var(--s2) var(--s4);
+  border-radius:999px; background:var(--testo); color:var(--superficie);
+  font-size:12.5px; font-weight:500; box-shadow:var(--ombra-alta);
+  animation:sali 180ms var(--curva);
+}
+@keyframes sali{from{opacity:0; transform:translate(-50%,8px)} to{opacity:1; transform:translate(-50%,0)}}
+
+.girella{animation:gira 900ms linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+
+.avanzamento{height:4px; border-radius:999px; background:var(--superficie2);
+             overflow:hidden; margin-top:var(--s3)}
+.avanzamento span{display:block; height:100%; width:35%; border-radius:999px;
+                  background:var(--blu); animation:scorri 1.4s ease-in-out infinite}
+@keyframes scorri{0%{margin-left:-35%} 100%{margin-left:100%}}
+
+/* --- finestra Dividi ------------------------------------------------------ */
+dialog{
+  border:1px solid var(--bordo); border-radius:var(--r3); padding:0;
+  background:var(--superficie); color:var(--testo); box-shadow:var(--ombra-alta);
+  width:min(420px, calc(100vw - 32px));
+}
+dialog::backdrop{background:rgba(15,23,42,.45)}
+dialog h2{margin:0; padding:var(--s3) var(--s4); font-size:14px; font-weight:600;
+          border-bottom:1px solid var(--bordo)}
+dialog .corpo{padding:var(--s4); display:grid; gap:var(--s3)}
+dialog .pie{display:flex; gap:var(--s2); justify-content:flex-end; padding:var(--s3) var(--s4);
+            border-top:1px solid var(--bordo); background:var(--superficie2)}
+dialog label{display:grid; gap:5px; font-size:12px; font-weight:500; color:var(--tenue)}
+#anteprima-divisione{font-size:12.5px; padding:var(--s2) var(--s3); border-radius:var(--r2);
+                     background:var(--blu-tenue); color:var(--blu-scuro)}
+#errore-divisione{font-size:12px; color:var(--rosso-testo); min-height:15px}
+@media (prefers-color-scheme: dark){ #anteprima-divisione{color:var(--blu)} }
+
+.solo-lettori{position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+              overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+
+/* Sotto i 1100px il divisorio non ha senso: i pannelli si impilano e la pagina
+   torna a scorrere. La tabella scorre in orizzontale dentro al suo contenitore
+   invece di rompere il layout (ux: tabelle su schermi stretti). */
+@media (max-width:1100px){
+  .app{height:auto; overflow:visible}
+  .lavoro{grid-template-columns:1fr}
+  .maniglia{display:none}
+  .pannello,.pannello--righe{grid-template-rows:unset; border-bottom:1px solid var(--bordo)}
+  #visore{max-height:60vh}
+}
+</style>
+</head>
+<body>
+
+<svg class="solo-lettori" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-avviso" viewBox="0 0 24 24"><path d="M12 3.5 22 19.5H2Z"/><path d="M12 10v4"/><path d="M12 16.8v.2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.8v.2"/></symbol>
+  <symbol id="i-blocco" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6 18.4 18.4"/></symbol>
+  <symbol id="i-ruota" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></symbol>
+  <symbol id="i-piu-zoom" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 21 21"/><path d="M10.5 7.5v6"/><path d="M7.5 10.5h6"/></symbol>
+  <symbol id="i-meno-zoom" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 21 21"/><path d="M7.5 10.5h6"/></symbol>
+  <symbol id="i-adatta" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></symbol>
+  <symbol id="i-cestino" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/><path d="M10 11v6"/><path d="M14 11v6"/></symbol>
+  <symbol id="i-ripristina" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.64-6.36"/><path d="M3 3v6h6"/></symbol>
+  <symbol id="i-dividi" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></symbol>
+  <symbol id="i-piu" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+  <symbol id="i-scarica" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M13 3v6h6"/></symbol>
+  <symbol id="i-spunta" viewBox="0 0 24 24"><path d="M4 12.5 9 17.5 20 6.5"/></symbol>
+  <symbol id="i-chiudi" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
+  <symbol id="i-attesa" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/></symbol>
+  <symbol id="i-penna" viewBox="0 0 24 24"><path d="M4 20h4L19.5 8.5a2.5 2.5 0 0 0-3.5-3.5L4 16.5z"/><path d="M14.5 6.5 18 10"/></symbol>
+</defs></svg>
+
+<div class="app">
+
+<header class="barra">
+  <h1>Carico merci — revisione bolle</h1>
+  <span class="pillola" id="pillola-backend">motore: …</span>
+  <div class="crescita"></div>
+  <label class="etichetta" for="scelta-doc">Bolla</label>
+  <select class="campo" id="scelta-doc" style="width:auto; min-width:260px"></select>
+  <button class="btn" id="btn-nuovo"><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg>Nuova bolla</button>
+</header>
+
+<!-- ------------------------------ caricamento ------------------------------ -->
+<section class="upload" id="schermata-upload" aria-labelledby="titolo-upload">
+  <div class="upload__scatola">
+    <div id="dropzone">
+      <svg class="ico ico--28" aria-hidden="true"><use href="#i-file"/></svg>
+      <h2 id="titolo-upload">Trascina qui la bolla</h2>
+      <p>PDF multipagina o foto della scansione</p>
+      <button class="btn btn--primario" id="btn-sfoglia">Scegli un file…</button>
+      <input type="file" id="file" accept=".pdf,image/*" hidden>
+      <p class="suggerimento">L'estrazione richiede qualche secondo per pagina.</p>
+    </div>
+    <div id="stato-upload" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- -------------------------------- lavoro --------------------------------- -->
+<div class="lavoro" id="schermata-lavoro" hidden>
+
+  <!-- pannello sinistro: la scansione -->
+  <section class="pannello" aria-label="Scansione">
+    <div class="pannello__testa">
+      <span class="etichetta">Pagina</span>
+      <div class="strip" id="strip-pagine" role="group" aria-label="Pagine del documento"></div>
+      <div class="crescita"></div>
+      <button class="btn btn--icona btn--mini" id="btn-ruota" aria-label="Ruota la scansione di 90 gradi">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-ruota"/></svg></button>
+      <button class="btn btn--icona btn--mini" id="btn-zoom-meno" aria-label="Riduci lo zoom">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-meno-zoom"/></svg></button>
+      <button class="btn btn--icona btn--mini" id="btn-zoom-piu" aria-label="Aumenta lo zoom">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-piu-zoom"/></svg></button>
+      <button class="btn btn--icona btn--mini" id="btn-adatta" aria-label="Adatta la pagina alla larghezza">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-adatta"/></svg></button>
+    </div>
+
+    <div id="visore"><div id="tela"><img id="scansione" alt="Scansione della pagina corrente"></div></div>
+
+    <div class="pannello__pie" id="meta-pagina"></div>
+  </section>
+
+  <button class="maniglia" id="maniglia" aria-label="Sposta il divisorio fra scansione e righe"
+          role="separator" aria-orientation="vertical" aria-valuenow="40" aria-valuemin="20" aria-valuemax="70"></button>
+
+  <!-- pannello destro: le righe -->
+  <section class="pannello pannello--righe" aria-label="Righe di carico">
+    <div class="pannello__testa">
+      <div class="segmenti" id="filtro" role="group" aria-label="Filtra le righe"></div>
+      <div class="crescita"></div>
+      <button class="btn" id="btn-aggiungi">
+        <svg class="ico" aria-hidden="true"><use href="#i-piu"/></svg>Riga manuale</button>
+      <button class="btn btn--primario" id="btn-export">
+        <svg class="ico" aria-hidden="true"><use href="#i-scarica"/></svg>Esporta Excel</button>
+    </div>
+
+    <div class="pannello__testa" id="barra-azioni"></div>
+
+    <div class="tabella-scorrevole" id="zona-tabella">
+      <div id="riquadro-errori" tabindex="-1" hidden></div>
+      <table>
+        <thead><tr>
+          <th style="width:34px"><input type="checkbox" id="scegli-tutte" aria-label="Seleziona tutte le righe visibili"></th>
+          <th style="width:30px"><span class="solo-lettori">Segnalazioni</span></th>
+          <th style="width:38px">Pag</th>
+          <th style="width:38px">Seq</th>
+          <th style="width:104px">Codice</th>
+          <th>Descrizione</th>
+          <th style="width:62px">Taglia</th>
+          <th style="width:96px">Variante</th>
+          <th style="width:68px" class="col-num">Qtà</th>
+          <th style="width:104px">Magazzino</th>
+          <th style="width:76px"><span class="solo-lettori">Azioni</span></th>
+        </tr></thead>
+        <tbody id="righe"></tbody>
+      </table>
+    </div>
+
+    <div class="pannello__pie" id="riepilogo"></div>
+  </section>
+</div>
+</div>
+
+<dialog id="dlg-dividi" aria-labelledby="titolo-dividi">
+  <form method="dialog">
+    <h2 id="titolo-dividi">Dividi la riga fra due magazzini</h2>
+    <div class="corpo">
+      <p style="margin:0; font-size:12.5px; color:var(--tenue)" id="contesto-divisione"></p>
+      <label>Pezzi da spostare
+        <input class="campo" type="number" id="qta-divisione" min="1" step="1"
+               aria-describedby="errore-divisione">
+      </label>
+      <label>Su quale magazzino
+        <select class="campo" id="mag-divisione"></select>
+      </label>
+      <p id="anteprima-divisione"></p>
+      <p id="errore-divisione" role="alert"></p>
+    </div>
+    <div class="pie">
+      <button class="btn" value="annulla" type="submit">Annulla</button>
+      <button class="btn btn--primario" id="btn-conferma-divisione" value="ok" type="submit">Dividi</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" role="status" hidden></div>
+<div class="solo-lettori" id="annuncio" role="status" aria-live="polite"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? '').replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const icona = (nome, cls = 'ico') => `<svg class="${cls}" aria-hidden="true"><use href="#${nome}"/></svg>`;
+
+let DOC = null, CONFIG = null, PAGINA = 1, ZOOM = 1, ROTAZIONE = 0;
+let FILTRO = 'tutte', AMBITO = 'pagina';
+const SCELTE = new Set();      // id delle righe selezionate
+const APERTE = new Set();      // id delle righe col dettaglio avvisi aperto
+
+const api = async (url, opzioni) => {
+  const r = await fetch(url, opzioni);
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+  return r.json();
+};
+
+/* --- riscontri all'operatore ---------------------------------------------- */
+let timerToast;
+function toast(messaggio, tipo = 'ok'){
+  const t = $('#toast');
+  t.innerHTML = icona(tipo === 'ok' ? 'i-spunta' : 'i-avviso', 'ico ico--14') + esc(messaggio);
+  t.hidden = false;
+  clearTimeout(timerToast);
+  timerToast = setTimeout(() => { t.hidden = true; }, 2400);
+}
+const annuncia = testo => { $('#annuncio').textContent = testo; };
+
+/* Tre livelli di gravita', dedotti dal testo che produce bolle/lavoro.py.
+   L'operatore va disturbato solo quando il programma non sa davvero cosa
+   fare: dati che non quadrano (blocco) o che non dicono dove va la merce
+   (conferma). Tutto il resto (magazzino preso dalla penna, variante dedotta,
+   lettura incerta ma con i totali che tornano) e' solo informazione. */
+function gravita(avviso){
+  const a = avviso.toLowerCase();
+  // il testo dopo i due punti e' del modello: non va cercato per parole chiave
+  if (a.startsWith('lettura incerta') || a.startsWith('dal pacco misto')) return 'info';
+  if (a.includes('codice articolo non letto')) return 'blocco';
+  if (a.includes('lettura discorde') || a.includes('somma') || a.includes('totale')
+      || a.includes('non interpretabile') || a.includes('size/qty vuota')
+      || a.includes('nessuna coppia') || a.includes("quantita' non valida")) return 'blocco';
+  if (a.includes("piu' magazzini") || a.includes('magazzino scritto a mano ma illeggibile')
+      || a.includes('codice scritto a mano')) return 'conferma';
+  return 'info';
+}
+function gravitaRiga(riga){
+  const livelli = (riga.avvisi || []).map(gravita);
+  if (livelli.includes('blocco')) return 'blocco';
+  if (livelli.includes('conferma')) return 'conferma';
+  return livelli.length ? 'info' : '';
+}
+
+/* Perche' una riga non puo' finire nell'Excel. Ricalca le regole di
+   excel.problemi_bloccanti: il server resta l'autorita', questo serve solo a
+   sapere *quale riga* linkare nel riepilogo degli errori. */
+function motiviBloccanti(r){
+  if (r.eliminata) return [];
+  const motivi = [];
+  if (!r.codice_articolo) motivi.push('manca il codice articolo');
+  if (r.codice_articolo && !r.variante) motivi.push('manca la variante');
+  if (r.codice_articolo && !r.magazzino) motivi.push('manca il magazzino');
+  if (r.codice_articolo && !(r.qta > 0)) motivi.push('quantità a zero');
+  return motivi;
+}
+
+/* --- avvio ---------------------------------------------------------------- */
+(async function avvio(){
+  CONFIG = await api('/api/config');
+  const finto = CONFIG.backend !== 'claude';
+  const pillola = $('#pillola-backend');
+  pillola.textContent = 'motore: ' + CONFIG.backend;
+  pillola.classList.toggle('pillola--attenzione', finto);
+  if (finto) pillola.title = 'Backend di prova: le righe non arrivano dalla lettura della scansione.';
+  await ricaricaElenco();
+})();
+
+async function ricaricaElenco(selezionato){
+  const elenco = await api('/api/documenti');
+  $('#scelta-doc').innerHTML = '<option value="">— seleziona una bolla —</option>' +
+    elenco.map(d => `<option value="${esc(d.id)}">${esc(d.nome)} · ${d.pagine} pag · ${d.righe} righe${d.esportato ? ' · esportata' : ''}</option>`).join('');
+  if (selezionato){ $('#scelta-doc').value = selezionato; await apri(selezionato); }
+}
+
+$('#scelta-doc').onchange = e => e.target.value ? apri(e.target.value) : mostraUpload();
+$('#btn-nuovo').onclick = () => { $('#scelta-doc').value = ''; mostraUpload(); };
+
+function mostraUpload(){
+  $('#schermata-lavoro').hidden = true;
+  $('#schermata-upload').hidden = false;
+  $('#stato-upload').innerHTML = '';
+}
+
+/* --- caricamento ----------------------------------------------------------- */
+$('#btn-sfoglia').onclick = () => $('#file').click();
+$('#file').onchange = e => e.target.files[0] && invia(e.target.files[0]);
+const dz = $('#dropzone');
+dz.ondragover = e => { e.preventDefault(); dz.classList.add('sopra'); };
+dz.ondragleave = () => dz.classList.remove('sopra');
+dz.ondrop = e => {
+  e.preventDefault(); dz.classList.remove('sopra');
+  e.dataTransfer.files[0] && invia(e.dataTransfer.files[0]);
+};
+
+/* L'API risponde solo a estrazione finita, quindi non c'e' una percentuale
+   onesta da mostrare: si mostra che il lavoro procede, da quanto tempo, e si
+   dice di non chiudere (ux: Loading Indicators, severita' alta). */
+async function invia(file){
+  const stato = $('#stato-upload');
+  const inizio = Date.now();
+  const disegnaAttesa = () => {
+    const sec = Math.round((Date.now() - inizio) / 1000);
+    stato.innerHTML =
+      `<div class="nota nota--info">${icona('i-attesa', 'ico girella')}
+         <span><b>Estrazione in corso…</b><br>
+         ${esc(file.name)} · ${sec}s trascorsi. Serve qualche secondo per pagina:
+         non chiudere questa finestra.</span></div>
+       <div class="avanzamento"><span></span></div>`;
+  };
+  disegnaAttesa();
+  const battito = setInterval(disegnaAttesa, 1000);
+  $('#btn-sfoglia').disabled = true;
+
+  const fd = new FormData(); fd.append('file', file);
+  try {
+    const doc = await api('/api/documenti', { method: 'POST', body: fd });
+    clearInterval(battito);
+    await ricaricaElenco(doc.id);
+    toast(`${doc.pagine.length} pagine estratte`);
+  } catch (err) {
+    clearInterval(battito);
+    stato.innerHTML = `<div class="nota nota--errore">${icona('i-blocco')}
+      <span><b>Non sono riuscito a leggere il file.</b><br>${esc(err.message)}</span></div>`;
+  } finally {
+    $('#btn-sfoglia').disabled = false;
+    $('#file').value = '';
+  }
+}
+
+/* --- apertura documento ---------------------------------------------------- */
+async function apri(id){
+  DOC = await api('/api/documenti/' + id);
+  PAGINA = DOC.pagine.length ? DOC.pagine[0].numero : 1;
+  ROTAZIONE = paginaCorrente().rotazione || 0;
+  ZOOM = 1;
+  SCELTE.clear(); APERTE.clear();
+  FILTRO = 'tutte'; AMBITO = 'pagina';
+  $('#schermata-upload').hidden = true;
+  $('#schermata-lavoro').hidden = false;
+  $('#riquadro-errori').hidden = true;
+  disegna();
+}
+
+const paginaCorrente = () => (DOC?.pagine || []).find(p => p.numero === PAGINA) || {};
+const avvisiPagina = p => (p.avvisi || []).length + (p.errore ? 1 : 0);
+
+function disegna(){
+  $('#strip-pagine').innerHTML = DOC.pagine.map(p => {
+    const n = avvisiPagina(p);
+    const nome = n ? `Pagina ${p.numero}, ${n} segnalazioni` : `Pagina ${p.numero}`;
+    return `<button data-p="${p.numero}" aria-current="${p.numero === PAGINA}" aria-label="${nome}">
+      ${p.numero}${n ? '<span class="punto"></span>' : ''}</button>`;
+  }).join('');
+
+  $('#scansione').src = `/api/documenti/${DOC.id}/pagine/${PAGINA}.png`;
+
+  const p = paginaCorrente();
+  const meta = [];
+  if (p.tipo_documento)   meta.push(`<span><b>${esc(p.tipo_documento)}</b></span>`);
+  if (p.numero_documento) meta.push(`<span>n. <b>${esc(p.numero_documento)}</b></span>`);
+  if (p.data_documento)   meta.push(`<span>del <b>${esc(p.data_documento)}</b></span>`);
+  if (p.total_pieces)     meta.push(`<span>Total Pieces <b>${p.total_pieces}</b></span>`);
+  $('#meta-pagina').innerHTML = meta.join('') +
+    (p.errore ? `<div class="nota nota--errore" style="flex:1 0 100%">${icona('i-blocco')}<span>${esc(p.errore)}</span></div>` : '') +
+    (p.avvisi || []).map(a =>
+      `<div class="nota nota--avviso" style="flex:1 0 100%">${icona('i-avviso')}<span>${esc(a)}</span></div>`).join('');
+
+  disegnaFiltro();
+  disegnaRighe();
+}
+
+$('#strip-pagine').onclick = e => {
+  const b = e.target.closest('button'); if (!b) return;
+  PAGINA = +b.dataset.p;
+  ROTAZIONE = paginaCorrente().rotazione || 0;
+  ZOOM = 1;
+  disegna();
+};
+/* le frecce scorrono le pagine senza passare per il Tab su ogni bottone */
+$('#strip-pagine').onkeydown = e => {
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  const numeri = DOC.pagine.map(p => p.numero);
+  const i = numeri.indexOf(PAGINA) + (e.key === 'ArrowRight' ? 1 : -1);
+  if (i < 0 || i >= numeri.length) return;
+  e.preventDefault();
+  PAGINA = numeri[i];
+  ROTAZIONE = paginaCorrente().rotazione || 0;
+  ZOOM = 1;
+  disegna();
+  $(`#strip-pagine button[data-p="${PAGINA}"]`)?.focus();
+};
+
+/* --- visore ---------------------------------------------------------------- */
+function applicaTrasformazione(){
+  const img = $('#scansione'), tela = $('#tela');
+  if (!img.naturalWidth) return;
+
+  const larghezza = $('#visore').clientWidth * ZOOM;
+  const altezza = larghezza * img.naturalHeight / img.naturalWidth;
+  img.style.width = larghezza + 'px';
+  img.style.height = 'auto';
+
+  // ruotando attorno all'angolo in alto a sinistra l'immagine esce dal
+  // riquadro: la si riporta dentro con una traslazione diversa per ogni verso
+  const rientro = {0:[0,0], 90:[altezza,0], 180:[larghezza,altezza], 270:[0,larghezza]}[ROTAZIONE] || [0,0];
+  img.style.transform = `translate(${rientro[0]}px, ${rientro[1]}px) rotate(${ROTAZIONE}deg)`;
+
+  // la trasformazione non occupa spazio: la tela le da' l'ingombro per scorrere
+  const coricata = ROTAZIONE % 180 !== 0;
+  tela.style.width  = (coricata ? altezza : larghezza) + 'px';
+  tela.style.height = (coricata ? larghezza : altezza) + 'px';
+}
+$('#btn-ruota').onclick     = () => { ROTAZIONE = (ROTAZIONE + 90) % 360; applicaTrasformazione(); };
+$('#btn-zoom-piu').onclick  = () => { ZOOM = Math.min(ZOOM * 1.3, 6); applicaTrasformazione(); };
+$('#btn-zoom-meno').onclick = () => { ZOOM = Math.max(ZOOM / 1.3, .4); applicaTrasformazione(); };
+$('#btn-adatta').onclick    = () => { ZOOM = 1; applicaTrasformazione(); };
+$('#scansione').onload = applicaTrasformazione;
+addEventListener('resize', applicaTrasformazione);
+
+/* --- divisorio fra i due pannelli ------------------------------------------ */
+(function divisorio(){
+  const maniglia = $('#maniglia'), lavoro = $('#schermata-lavoro');
+  const imposta = pct => {
+    const v = Math.min(70, Math.max(20, pct));
+    lavoro.style.setProperty('--split', v + '%');
+    maniglia.setAttribute('aria-valuenow', Math.round(v));
+    applicaTrasformazione();
+  };
+  let trascina = false;
+  maniglia.onpointerdown = e => { trascina = true; maniglia.setPointerCapture(e.pointerId); };
+  maniglia.onpointerup   = e => { trascina = false; maniglia.releasePointerCapture(e.pointerId); };
+  maniglia.onpointermove = e => { if (trascina) imposta(e.clientX / lavoro.clientWidth * 100); };
+  maniglia.onkeydown = e => {
+    const passo = {ArrowLeft: -3, ArrowRight: 3}[e.key];
+    if (!passo) return;
+    e.preventDefault();
+    imposta(+maniglia.getAttribute('aria-valuenow') + passo);
+  };
+})();
+
+/* --- filtro e ambito -------------------------------------------------------- */
+function nellAmbito(){
+  return AMBITO === 'tutte' ? DOC.righe : DOC.righe.filter(r => r.pagina === PAGINA);
+}
+// solo i casi in cui serve davvero una persona: le righe con soli avvisi
+// informativi vanno nel carico cosi' come sono
+const daControllare = r => !r.eliminata
+  && (motiviBloccanti(r).length || (r.avvisi || []).some(a => gravita(a) !== 'info'));
+
+function disegnaFiltro(){
+  const righe = nellAmbito();
+  const voci = [
+    ['tutte',       'Da caricare',    righe.filter(r => !r.eliminata).length],
+    ['controllare', 'Da controllare', righe.filter(daControllare).length],
+    ['escluse',     'Escluse',        righe.filter(r => r.eliminata).length],
+  ];
+  $('#filtro').innerHTML = voci.map(([k, nome, n]) =>
+    `<button data-f="${k}" aria-pressed="${FILTRO === k}">${nome} ${n}</button>`).join('');
+}
+$('#filtro').onclick = e => {
+  const b = e.target.closest('button'); if (!b) return;
+  FILTRO = b.dataset.f;
+  disegnaFiltro(); disegnaRighe();
+};
+
+function righeVisibili(){
+  const righe = nellAmbito();
+  if (FILTRO === 'escluse')     return righe.filter(r => r.eliminata);
+  if (FILTRO === 'controllare') return righe.filter(daControllare);
+  return righe.filter(r => !r.eliminata);
+}
+
+/* --- barra delle azioni ----------------------------------------------------- */
+/* Due stati: senza selezione si lavora per pagina o su tutto il documento; con
+   una selezione attiva le stesse azioni si applicano solo a quelle righe
+   (ux: Bulk Actions — "allow multi-select and bulk edit"). */
+function disegnaAzioni(){
+  const magazzini = CONFIG.magazzini
+    .map(m => `<button class="btn btn--mini" data-mag="${esc(m)}">${esc(m)}</button>`).join('');
+
+  $('#barra-azioni').innerHTML = SCELTE.size
+    ? `<span class="etichetta" style="color:var(--blu)">${SCELTE.size} righe selezionate</span>
+       <span class="etichetta">assegna a</span>${magazzini}
+       <button class="btn btn--mini btn--pericolo" data-azione="escludi">
+         ${icona('i-cestino', 'ico ico--14')}Escludi</button>
+       <button class="btn btn--mini" data-azione="ripristina">
+         ${icona('i-ripristina', 'ico ico--14')}Ripristina</button>
+       <div class="crescita"></div>
+       <button class="btn btn--mini btn--fantasma" data-azione="deseleziona">
+         ${icona('i-chiudi', 'ico ico--14')}Annulla selezione</button>`
+    : `<span class="etichetta">Ambito</span>
+       <div class="segmenti" role="group" aria-label="Ambito delle azioni">
+         <button data-a="pagina" aria-pressed="${AMBITO === 'pagina'}">Pagina ${PAGINA}</button>
+         <button data-a="tutte" aria-pressed="${AMBITO === 'tutte'}">Tutto il documento</button>
+       </div>
+       <span class="etichetta">assegna a</span>${magazzini}
+       <div class="crescita"></div>
+       <span class="cella-tenue">Spunta delle righe per agire solo su quelle</span>`;
+}
+
+$('#barra-azioni').onclick = async e => {
+  const b = e.target.closest('button'); if (!b) return;
+
+  if (b.dataset.a){ AMBITO = b.dataset.a; disegnaFiltro(); disegnaRighe(); return; }
+  if (b.dataset.mag) return assegna(b.dataset.mag);
+
+  const azione = b.dataset.azione;
+  if (azione === 'deseleziona'){ SCELTE.clear(); disegnaRighe(); return; }
+  if (azione === 'escludi' || azione === 'ripristina'){
+    const eliminata = azione === 'escludi';
+    const ids = [...SCELTE];
+    await Promise.all(ids.map(id => patch(id, { eliminata })));
+    SCELTE.clear();
+    await ricarica();
+    toast(`${ids.length} righe ${eliminata ? 'escluse' : 'ripristinate'}`);
+  }
+};
+
+async function assegna(magazzino){
+  if (SCELTE.size){
+    const ids = [...SCELTE];
+    await Promise.all(ids.map(id => patch(id, { magazzino })));
+    await ricarica();
+    toast(`${ids.length} righe su ${magazzino}`);
+    return;
+  }
+  const corpo = { magazzino };
+  if (AMBITO === 'pagina') corpo.pagina = PAGINA;
+  const esito = await api(`/api/documenti/${DOC.id}/magazzino`, {
+    method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(corpo)
+  });
+  await ricarica();
+  toast(`${esito.righe_aggiornate} righe su ${magazzino}`);
+}
+
+const patch = (id, corpo) => api(`/api/documenti/${DOC.id}/righe/${id}`, {
+  method: 'PATCH', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(corpo)
+});
+
+async function ricarica(){
+  DOC = await api('/api/documenti/' + DOC.id);
+  disegnaFiltro(); disegnaRighe();
+}
+
+/* --- tabella ---------------------------------------------------------------- */
+function disegnaRighe(){
+  const righe = righeVisibili();
+  const opzioniMag = r => CONFIG.magazzini
+    .map(m => `<option ${m === r.magazzino ? 'selected' : ''}>${esc(m)}</option>`).join('');
+
+  $('#righe').innerHTML = righe.length ? righe.map(r => {
+    const avvisi = r.avvisi || [];
+    const blocchi = motiviBloccanti(r);
+    const livello = blocchi.length ? 'blocco' : gravitaRiga(r);
+    const scelta = SCELTE.has(r.id);
+    const aperta = APERTE.has(r.id);
+    const n = avvisi.length + blocchi.length;
+    const descrizione = [r.descrizione, r.colore].filter(Boolean).join(' · ');
+
+    const pastiglia = n
+      ? `<button class="segnala ${livello === 'blocco' ? 'segnala--blocco' : ''}"
+                 data-azione="dettaglio" aria-expanded="${aperta}" aria-controls="dett-${r.id}"
+                 aria-label="${n} segnalazioni: ${aperta ? 'nascondi' : 'mostra'} il dettaglio">
+           ${icona(livello === 'blocco' ? 'i-blocco' : 'i-avviso', 'ico ico--14')}${n}</button>`
+      : '';
+
+    const classi = ['riga',
+      r.eliminata ? 'riga--fuori' : '',
+      scelta ? 'riga--scelta' : '',
+      !r.eliminata && livello === 'blocco' ? 'riga--blocco' : '',
+      !r.eliminata && livello === 'conferma' ? 'riga--segnalata' : ''].filter(Boolean).join(' ');
+
+    const principale = `<tr class="${classi}" data-id="${r.id}" id="riga-${r.id}">
+      <td><input type="checkbox" data-azione="scegli" ${scelta ? 'checked' : ''}
+                 aria-label="Seleziona la riga ${esc(r.codice_articolo || 'senza codice')} taglia ${esc(r.taglia)}"></td>
+      <td>${pastiglia}</td>
+      <td class="cella-tenue">${r.pagina}</td>
+      <td class="cella-tenue">${esc(r.seq)}</td>
+      <td><input class="campo testo-riga" data-c="codice_articolo" value="${esc(r.codice_articolo)}"
+                 ${r.eliminata ? 'disabled' : ''} aria-label="Codice articolo"></td>
+      <td class="cella-tenue testo-riga">
+        <span class="descrizione" title="${esc(descrizione)}">${esc(descrizione) || '—'}</span></td>
+      <td class="cella-tenue testo-riga">${esc(r.taglia) || '—'}</td>
+      <td><input class="campo testo-riga" data-c="variante" value="${esc(r.variante)}"
+                 ${r.eliminata ? 'disabled' : ''} aria-label="Variante"></td>
+      <td><input class="campo testo-riga col-num" data-c="qta" type="number" min="0" value="${r.qta}"
+                 ${r.eliminata ? 'disabled' : ''} aria-label="Quantità"></td>
+      <td><select class="campo testo-riga" data-c="magazzino" ${r.eliminata ? 'disabled' : ''}
+                  aria-label="Magazzino">${opzioniMag(r)}</select></td>
+      <td class="azioni-riga">
+        <button class="btn btn--icona btn--mini" data-azione="dividi"
+                ${r.qta < 2 || r.eliminata ? 'disabled' : ''} aria-label="Dividi fra due magazzini">
+          ${icona('i-dividi', 'ico ico--14')}</button>
+        <button class="btn btn--icona btn--mini ${r.eliminata ? '' : 'btn--pericolo'}" data-azione="escludi"
+                aria-label="${r.eliminata ? 'Ripristina la riga' : 'Escludi la riga dal carico'}">
+          ${icona(r.eliminata ? 'i-ripristina' : 'i-cestino', 'ico ico--14')}</button>
+      </td></tr>`;
+
+    if (!aperta) return principale;
+
+    const voci = [
+      ...blocchi.map(m => ['blocco', m + ': senza questo la riga non entra nell’Excel']),
+      ...avvisi.map(a => [gravita(a), a]),
+    ];
+    return principale + `<tr class="dettaglio" id="dett-${r.id}"><td colspan="11">
+      <ul class="avvisi">${voci.map(([liv, testo]) => `<li class="avviso avviso--${liv}">
+        ${icona(liv === 'blocco' ? 'i-blocco' : liv === 'conferma' ? 'i-avviso' : 'i-info', 'ico ico--14')}
+        <span>${esc(testo)}</span></li>`).join('')}</ul>
+      ${r.annotazioni_manoscritte ? `<div class="manoscritto">${icona('i-penna', 'ico ico--14')}
+        <span><b>Scritto a mano sulla bolla:</b> <q>${esc(r.annotazioni_manoscritte)}</q><br>
+        <span class="cella-tenue">Trascritto, mai applicato da solo: decidi tu.</span></span></div>` : ''}
+    </td></tr>`;
+  }).join('')
+  : `<tr><td colspan="11" class="vuoto">${
+      FILTRO === 'controllare' ? 'Niente da controllare: quadra tutto.'
+      : FILTRO === 'escluse' ? 'Nessuna riga esclusa.'
+      : 'Nessuna riga su questa pagina.'}</td></tr>`;
+
+  const selezionabili = righe.filter(r => !r.eliminata);
+  const tutte = $('#scegli-tutte');
+  tutte.checked = selezionabili.length > 0 && selezionabili.every(r => SCELTE.has(r.id));
+  tutte.indeterminate = !tutte.checked && selezionabili.some(r => SCELTE.has(r.id));
+
+  // corretto l'ultimo blocco, il riepilogo degli errori sparisce da solo:
+  // lasciarlo a schermo farebbe credere che l'export sia ancora fermo
+  if (!DOC.righe.some(r => motiviBloccanti(r).length)) $('#riquadro-errori').hidden = true;
+
+  disegnaAzioni();
+  disegnaRiepilogo();
+}
+
+function disegnaRiepilogo(){
+  const attive = DOC.righe.filter(r => !r.eliminata);
+  const perMag = {};
+  attive.forEach(r => {
+    const m = r.magazzino || '— senza magazzino';
+    perMag[m] = (perMag[m] || 0) + r.qta;
+  });
+  const controllare = attive.filter(daControllare).length;
+  const bloccate = attive.filter(r => motiviBloccanti(r).length).length;
+
+  $('#riepilogo').innerHTML =
+    `<span>Righe <b>${attive.length}</b></span>` +
+    `<span>Pezzi <b>${attive.reduce((s, r) => s + r.qta, 0)}</b></span>` +
+    Object.entries(perMag).map(([m, q]) => `<span>${esc(m)} <b>${q}</b></span>`).join('') +
+    `<div class="crescita"></div>` +
+    (bloccate
+      ? `<span style="color:var(--rosso-testo)">${icona('i-blocco', 'ico ico--14')} <b>${bloccate}</b> bloccano l'export</span>`
+      : controllare
+      ? `<span style="color:var(--arancio-testo)">${icona('i-avviso', 'ico ico--14')} <b>${controllare}</b> da controllare</span>`
+      : `<span style="color:var(--verde-testo)">${icona('i-spunta', 'ico ico--14')} pronte per l'export</span>`);
+}
+
+$('#scegli-tutte').onchange = e => {
+  righeVisibili().filter(r => !r.eliminata)
+    .forEach(r => e.target.checked ? SCELTE.add(r.id) : SCELTE.delete(r.id));
+  disegnaRighe();
+};
+
+/* Salvataggio sul blur, non a ogni tasto: e' la regola per la gran parte dei
+   campi (ux: Inline Validation — "validate on blur for most fields"), e ogni
+   salvataggio riuscito viene confermato (ux: Confirmation Messages). */
+$('#righe').addEventListener('change', async e => {
+  const tr = e.target.closest('tr'); if (!tr) return;
+
+  if (e.target.dataset.azione === 'scegli'){
+    e.target.checked ? SCELTE.add(tr.dataset.id) : SCELTE.delete(tr.dataset.id);
+    disegnaRighe();
+    return;
+  }
+  const campo = e.target.dataset.c; if (!campo) return;
+
+  const valore = campo === 'qta' ? +e.target.value : e.target.value;
+  try {
+    const aggiornata = await patch(tr.dataset.id, { [campo]: valore });
+    Object.assign(DOC.righe.find(r => r.id === tr.dataset.id), aggiornata);
+    disegnaFiltro(); disegnaRighe();
+    annuncia('Riga salvata');
+  } catch (err) {
+    toast('Non salvato: ' + err.message, 'errore');
+  }
+});
+
+$('#righe').addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const id = b.closest('tr').dataset.id;
+  const riga = DOC.righe.find(r => r.id === id);
+
+  if (b.dataset.azione === 'dettaglio'){
+    APERTE.has(id) ? APERTE.delete(id) : APERTE.add(id);
+    disegnaRighe();
+    $(`#riga-${id} [data-azione=dettaglio]`)?.focus();
+  }
+  if (b.dataset.azione === 'escludi'){
+    // reversibile per costruzione: la riga resta nel foglio Tracciabilita',
+    // quindi niente finestra di conferma, ma il ritorno e' sempre a un clic
+    const agg = await patch(id, { eliminata: !riga.eliminata });
+    Object.assign(riga, agg);
+    disegnaFiltro(); disegnaRighe();
+    toast(riga.eliminata ? 'Riga esclusa — resta nella tracciabilità' : 'Riga ripristinata');
+  }
+  if (b.dataset.azione === 'dividi') apriDivisione(riga);
+});
+
+/* Le frecce su/giu' spostano il fuoco nella stessa colonna: una bolla da 33
+   righe si corregge senza staccare le mani dalla tastiera. Sui campi numerici
+   servono Alt+frecce, perche' su/giu' da sole incrementano il numero. */
+$('#righe').addEventListener('keydown', e => {
+  if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+  const campo = e.target.dataset.c; if (!campo) return;
+  if (e.target.type === 'number' && !e.altKey) return;
+  const celle = [...$('#righe').querySelectorAll(`[data-c="${campo}"]:not(:disabled)`)];
+  const i = celle.indexOf(e.target) + (e.key === 'ArrowDown' ? 1 : -1);
+  if (i < 0 || i >= celle.length) return;
+  e.preventDefault();
+  celle[i].focus();
+  celle[i].select?.();
+});
+
+/* --- dividi ----------------------------------------------------------------- */
+let rigaInDivisione = null;
+
+function apriDivisione(riga){
+  rigaInDivisione = riga;
+  $('#contesto-divisione').innerHTML =
+    `<b>${esc(riga.codice_articolo || 'senza codice')}</b> · taglia ${esc(riga.taglia) || '—'} · ` +
+    `${riga.qta} pezzi oggi su <b>${esc(riga.magazzino) || '—'}</b>`;
+  $('#qta-divisione').max = riga.qta - 1;
+  $('#qta-divisione').value = 1;
+  $('#mag-divisione').innerHTML = CONFIG.magazzini
+    .map(m => `<option ${m !== riga.magazzino ? 'selected' : ''}>${esc(m)}</option>`).join('');
+  $('#errore-divisione').textContent = '';
+  aggiornaAnteprima();
+  $('#dlg-dividi').showModal();
+  $('#qta-divisione').focus();
+  $('#qta-divisione').select();
+}
+
+function aggiornaAnteprima(){
+  if (!rigaInDivisione) return;
+  const quanti = +$('#qta-divisione').value;
+  const dove = $('#mag-divisione').value;
+  const valido = Number.isInteger(quanti) && quanti >= 1 && quanti < rigaInDivisione.qta;
+  $('#anteprima-divisione').textContent = valido
+    ? `Risultato: ${rigaInDivisione.qta - quanti} su ${rigaInDivisione.magazzino || '—'} · ${quanti} su ${dove}`
+    : `Serve un numero fra 1 e ${rigaInDivisione.qta - 1}`;
+  $('#btn-conferma-divisione').disabled = !valido;
+}
+$('#qta-divisione').oninput = aggiornaAnteprima;
+$('#mag-divisione').onchange = aggiornaAnteprima;
+
+$('#dlg-dividi').addEventListener('close', async ev => {
+  if (ev.target.returnValue !== 'ok' || !rigaInDivisione) { rigaInDivisione = null; return; }
+  const quanti = +$('#qta-divisione').value, dove = $('#mag-divisione').value;
+  try {
+    await api(`/api/documenti/${DOC.id}/righe/${rigaInDivisione.id}/dividi`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ qta: quanti, magazzino: dove })
+    });
+    await ricarica();
+    toast(`Divisa: ${quanti} pezzi su ${dove}`);
+  } catch (err) {
+    toast('Divisione non riuscita: ' + err.message, 'errore');
+  } finally {
+    rigaInDivisione = null;
+  }
+});
+
+/* --- riga manuale ----------------------------------------------------------- */
+$('#btn-aggiungi').onclick = async () => {
+  const nuova = await api(`/api/documenti/${DOC.id}/righe?pagina=${PAGINA}`, { method: 'POST' });
+  await ricarica();
+  toast('Riga manuale aggiunta');
+  $(`#riga-${nuova.id} [data-c=codice_articolo]`)?.focus();
+};
+
+/* --- export ------------------------------------------------------------------ */
+/* Il server decide se si puo' esportare; qui il suo verdetto diventa un
+   riepilogo che porta a ogni riga colpevole, col fuoco spostato sul riepilogo
+   (ux: Error Summary, severita' alta). */
+$('#btn-export').onclick = async () => {
+  const riquadro = $('#riquadro-errori');
+  const v = await api(`/api/documenti/${DOC.id}/verifica`);
+
+  if (!v.problemi.length){
+    riquadro.hidden = true;
+    toast(`${v.anteprima.length} righe pronte: scarico il file`);
+    window.location = `/api/documenti/${DOC.id}/export`;
+    return;
+  }
+
+  const colpevoli = DOC.righe
+    .map(r => ({ r, motivi: motiviBloccanti(r) }))
+    .filter(x => x.motivi.length);
+
+  riquadro.innerHTML =
+    `<h2>${icona('i-blocco', 'ico ico--14')} Non posso esportare</h2>
+     <ul>
+       ${v.problemi.map(p => `<li>${esc(p)}</li>`).join('')}
+       ${colpevoli.map(({ r, motivi }) => `<li><a href="#riga-${r.id}" data-vai="${r.id}">
+          Pagina ${r.pagina} · ${esc(r.codice_articolo || 'riga senza codice')} ${esc(r.taglia)}</a>
+          — ${esc(motivi.join(', '))}</li>`).join('')}
+     </ul>`;
+  riquadro.hidden = false;
+  riquadro.focus();
+  annuncia(`Export bloccato: ${v.problemi.length} problemi`);
+};
+
+/* un link del riepilogo porta alla riga: cambia pagina se serve, toglie il
+   filtro che la nasconde e mette il fuoco sul primo campo da correggere */
+$('#riquadro-errori').onclick = e => {
+  const a = e.target.closest('a[data-vai]'); if (!a) return;
+  e.preventDefault();
+  const riga = DOC.righe.find(r => r.id === a.dataset.vai);
+  if (!riga) return;
+  if (AMBITO === 'pagina' && riga.pagina !== PAGINA){
+    PAGINA = riga.pagina;
+    ROTAZIONE = paginaCorrente().rotazione || 0;
+    disegna();
+  }
+  if (FILTRO === 'escluse'){ FILTRO = 'tutte'; disegnaFiltro(); disegnaRighe(); }
+  const tr = $(`#riga-${riga.id}`);
+  tr?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  const primo = !riga.codice_articolo ? 'codice_articolo' : !riga.variante ? 'variante' : 'magazzino';
+  tr?.querySelector(`[data-c=${primo}]`)?.focus();
+};
+</script>
+</body>
+</html>
