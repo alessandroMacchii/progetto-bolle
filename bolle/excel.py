@@ -32,6 +32,10 @@ TRACCIABILITA = [
     "Magazzino",
     "Origine",
     "Note",
+    # valori stampati sostituiti da una correzione a mano; vuoti se nessuna
+    "Codice stampato",
+    "Taglia stampata",
+    "Qta stampata",
 ]
 
 
@@ -148,6 +152,9 @@ def esporta(doc: dict[str, Any], dest: Path | None = None) -> Path:
                         [r.get("annotazioni_manoscritte", ""), *(r.get("avvisi") or [])],
                     )
                 ),
+                r.get("codice_stampato", ""),
+                r.get("taglia_stampata", ""),
+                r["qta_stampata"] if r.get("qta_stampata", -1) >= 0 else "",
             ]
         )
     _solo_testo(tracc)

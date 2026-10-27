@@ -64,6 +64,45 @@ def _taglie_di_riga(riga: RigaEstratta) -> tuple[list[TagliaQta], list[str]]:
     return da_regex, avvisi
 
 
+def _applica_correzioni(
+    riga: RigaEstratta, taglie: list[TagliaQta]
+) -> tuple[list[tuple[TagliaQta, TagliaQta | None, str]], list[str]]:
+    """Applica le taglie e le quantita' corrette a mano.
+
+    Ritorna, per ogni taglia, (valore da usare, valore stampato se corretto,
+    avviso) e gli avvisi delle correzioni che non trovano la loro taglia
+    stampata: una correzione non deve sparire in silenzio.
+    """
+    correzioni = {c.taglia_stampata.strip().upper(): c for c in riga.correzioni}
+    usate: set[str] = set()
+    risultato = []
+    for t in taglie:
+        chiave = t.taglia if t.taglia in correzioni else t.pacco
+        c = correzioni.get(chiave) if chiave else None
+        if c is None:
+            risultato.append((t, None, ""))
+            continue
+        usate.add(chiave)
+        nuova_taglia = c.taglia_corretta.strip().upper() or t.taglia
+        nuova_qta = c.qta_corretta if c.qta_corretta >= 0 else t.qta
+        cambi = []
+        if nuova_taglia != t.taglia:
+            cambi.append(f"taglia {t.taglia} → {nuova_taglia}")
+        if nuova_qta != t.qta:
+            cambi.append(f"qta {nuova_taglia} {t.qta} → {nuova_qta}")
+        if not cambi:
+            risultato.append((t, None, ""))
+            continue
+        corretta = TagliaQta(nuova_taglia, nuova_qta, t.pacco)
+        risultato.append((corretta, t, f"corretto a mano sulla bolla: {', '.join(cambi)}"))
+    orfane = [
+        f"correzione a mano non applicata: taglia {k} non presente nello stampato"
+        for k in correzioni
+        if k not in usate
+    ]
+    return risultato, orfane
+
+
 def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLavoro]:
     mappa = carica_mappa()
     righe: list[RigaLavoro] = []
@@ -71,19 +110,27 @@ def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLav
     for riga in pagina.righe:
         taglie, avvisi_riga = _taglie_di_riga(riga)
 
+        # i totali stampati verificano la lettura dello stampato: si controllano
+        # prima di applicare le correzioni a mano
         avvisi_riga += verifica_totale(taglie, riga.totale_dichiarato)
+        taglie_corrette, orfane = _applica_correzioni(riga, taglie)
+        avvisi_riga += orfane
 
-        if not riga.codice_articolo:
+        codice, codice_stampato = riga.codice_articolo, ""
+        manoscritto = riga.codice_manoscritto.strip().upper()
+        if manoscritto and manoscritto != riga.codice_articolo.strip().upper():
+            codice, codice_stampato = manoscritto, riga.codice_articolo
+            avvisi_riga.append(
+                "corretto a mano sulla bolla: codice "
+                f"{riga.codice_articolo or 'non letto'} → {manoscritto}"
+            )
+
+        if not codice:
             avvisi_riga.append("codice articolo non letto: da inserire a mano")
         if riga.barrata:
             avvisi_riga.append("riga barrata a penna sulla bolla: esclusa per default")
         if riga.incertezze:
             avvisi_riga.append(f"lettura incerta: {riga.incertezze}")
-        if riga.codice_manoscritto:
-            avvisi_riga.append(
-                f"sulla bolla c'e' un codice scritto a mano ({riga.codice_manoscritto}) "
-                f"diverso da quello stampato ({riga.codice_articolo or 'non letto'})"
-            )
 
         citati = _magazzini_citati(riga.annotazioni_manoscritte)
         if not citati and not riga.barrata:
@@ -107,10 +154,12 @@ def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLav
                     f"({', '.join(citati)}): assegnare riga per riga o usare Dividi"
                 )
 
-        for t in taglie:
+        for t, stampata, avviso_correzione in taglie_corrette:
             taglia, qta = t.taglia, t.qta
             variante, confermata = normalizza_variante(taglia, mappa)
             avvisi = list(avvisi_riga)
+            if avviso_correzione:
+                avvisi.append(avviso_correzione)
             if t.pacco:
                 avvisi.append(
                     f"dal pacco misto '{t.pacco}': ogni pacco contiene una "
@@ -126,7 +175,10 @@ def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLav
                     id=uuid.uuid4().hex[:12],
                     pagina=numero_pagina,
                     seq=riga.seq,
-                    codice_articolo=riga.codice_articolo,
+                    codice_articolo=codice,
+                    codice_stampato=codice_stampato,
+                    taglia_stampata=stampata.taglia if stampata and stampata.taglia != taglia else "",
+                    qta_stampata=stampata.qta if stampata and stampata.qta != qta else -1,
                     descrizione=riga.descrizione,
                     colore=riga.colore,
                     taglia=taglia,
@@ -149,13 +201,18 @@ def verifica_pagina(pagina: PaginaEstratta, righe: list[RigaLavoro]) -> list[str
     """Controlli a livello di pagina: il secondo checksum, sul totale colli."""
     avvisi: list[str] = []
     if pagina.total_pieces_dichiarato > 0:
+        attive = [r for r in righe if not r.eliminata]
+        # il Total Pieces stampato si confronta con le quantita' stampate
         somma = colli(
-            [TagliaQta(r.taglia, r.qta, r.pacco) for r in righe if not r.eliminata]
+            [TagliaQta(r.taglia, r.qta if r.qta_stampata < 0 else r.qta_stampata, r.pacco)
+             for r in attive]
         )
         if somma != pagina.total_pieces_dichiarato:
+            corretta = colli([TagliaQta(r.taglia, r.qta, r.pacco) for r in attive])
+            dopo = f", {corretta} dopo le correzioni a mano" if corretta != somma else ""
             avvisi.append(
                 f"totale pagina {somma} != Total Pieces stampato "
-                f"{pagina.total_pieces_dichiarato} "
+                f"{pagina.total_pieces_dichiarato}{dopo} "
                 "(atteso se hai escluso delle righe barrate)"
             )
     if not pagina.righe:

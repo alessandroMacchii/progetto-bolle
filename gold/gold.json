@@ -69,7 +69,19 @@
           }
         ],
         "barrata": false,
-        "annotazioni_manoscritte": "MAG 1 evidenziato in giallo; sopra le taglie stampate sono scritti a mano 4- e 5"
+        "annotazioni_manoscritte": "MAG 1 evidenziato in giallo; sopra le taglie stampate sono scritti a mano 4- e 5",
+        "correzioni": [
+          {
+            "taglia_stampata": "550",
+            "taglia_corretta": "4-",
+            "qta_corretta": -1
+          },
+          {
+            "taglia_stampata": "560",
+            "taglia_corretta": "5",
+            "qta_corretta": -1
+          }
+        ]
       },
       {
         "seq": "2",
@@ -93,7 +105,24 @@
           }
         ],
         "barrata": false,
-        "annotazioni_manoscritte": "sotto le taglie sono scritti a mano 6, 8 e 9"
+        "annotazioni_manoscritte": "sotto le taglie sono scritti a mano 6, 8 e 9",
+        "correzioni": [
+          {
+            "taglia_stampata": "580",
+            "taglia_corretta": "6",
+            "qta_corretta": -1
+          },
+          {
+            "taglia_stampata": "620",
+            "taglia_corretta": "8",
+            "qta_corretta": -1
+          },
+          {
+            "taglia_stampata": "640",
+            "taglia_corretta": "9",
+            "qta_corretta": -1
+          }
+        ]
       }
     ]
   },
@@ -233,7 +262,19 @@
           }
         ],
         "barrata": false,
-        "annotazioni_manoscritte": "MAG 2; sopra le taglie stampate sono scritti a mano 4 e 5"
+        "annotazioni_manoscritte": "MAG 2; sopra le taglie stampate sono scritti a mano 4 e 5",
+        "correzioni": [
+          {
+            "taglia_stampata": "540",
+            "taglia_corretta": "4",
+            "qta_corretta": -1
+          },
+          {
+            "taglia_stampata": "560",
+            "taglia_corretta": "5",
+            "qta_corretta": -1
+          }
+        ]
       }
     ]
   },
@@ -355,7 +396,14 @@
           }
         ],
         "barrata": false,
-        "annotazioni_manoscritte": "MAG 1; qta XS corretta a mano da 6 a 5"
+        "annotazioni_manoscritte": "MAG 1; qta XS corretta a mano da 6 a 5",
+        "correzioni": [
+          {
+            "taglia_stampata": "XS",
+            "taglia_corretta": "",
+            "qta_corretta": 5
+          }
+        ]
       }
     ]
   },

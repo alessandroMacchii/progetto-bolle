@@ -17,7 +17,8 @@ from punteggio import valuta  # noqa: E402
 
 SOMMABILI = [
     "righe", "codice", "taglie", "perfette", "silenziosi", "mag_att", "mag_ok", "mag_inventati",
-    "barr_att", "barr_ok", "barr_inventate", "parole_att", "parole_ok", "righe_in_piu",
+    "barr_att", "barr_ok", "barr_inventate", "corr_att", "corr_ok", "corr_inventate",
+    "parole_att", "parole_ok", "righe_in_piu",
     "numero_documento", "rotazione", "pagina_perfetta", "fallita",
     "silenziosi_segnalati", "incerte", "incerte_a_vuoto",
 ]
@@ -42,6 +43,7 @@ def riga_tabella(nome: str, t: dict, costo: str = "", tempo: str = "") -> str:
         pct(t["taglie"], t["righe"]),
         f"{t['mag_ok']}/{t['mag_att']}" + (f" (+{t['mag_inventati']} inventati)" if t["mag_inventati"] else ""),
         f"{t['barr_ok']}/{t['barr_att']}" + (f" (+{t['barr_inventate']} inventate)" if t["barr_inventate"] else ""),
+        f"{t['corr_ok']}/{t['corr_att']}" + (f" (+{t['corr_inventate']} inventate)" if t["corr_inventate"] else ""),
         str(t["silenziosi"]),
         str(t["silenziosi"] - t["silenziosi_segnalati"]),
         f"{t['incerte']} ({t['incerte_a_vuoto']} a vuoto)",
@@ -52,9 +54,9 @@ def riga_tabella(nome: str, t: dict, costo: str = "", tempo: str = "") -> str:
 
 
 TESTATA = (
-    "| {} | pagine perfette | righe perfette | codice | taglie | magazzino | barrate | "
+    "| {} | pagine perfette | righe perfette | codice | taglie | magazzino | barrate | correzioni a mano | "
     "errori silenziosi | di cui NON segnalati | righe segnalate incerte | costo/pagina | sec/pagina |\n"
-    "|---|---|---|---|---|---|---|---|---|---|---|---|"
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 )
 
 

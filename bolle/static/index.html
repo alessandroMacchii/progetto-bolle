@@ -647,8 +647,10 @@ function gravita(avviso){
   if (a.includes('lettura discorde') || a.includes('somma') || a.includes('totale')
       || a.includes('non interpretabile') || a.includes('size/qty vuota')
       || a.includes('nessuna coppia') || a.includes("quantita' non valida")) return 'blocco';
-  if (a.includes("piu' magazzini") || a.includes('magazzino scritto a mano ma illeggibile')
-      || a.includes('codice scritto a mano')) return 'conferma';
+  if (a.startsWith('corretto a mano') || a.startsWith('correzione a mano non applicata'))
+    return 'conferma';
+  if (a.includes("piu' magazzini") || a.includes('magazzino scritto a mano ma illeggibile'))
+    return 'conferma';
   return 'info';
 }
 function gravitaRiga(riga){
@@ -1005,13 +1007,16 @@ function disegnaRighe(){
       <td class="cella-tenue">${r.pagina}</td>
       <td class="cella-tenue">${esc(r.seq)}</td>
       <td><input class="campo cella testo-riga" data-c="codice_articolo" value="${esc(r.codice_articolo)}"
+                 ${r.codice_stampato ? `title="stampato sulla bolla: ${esc(r.codice_stampato)}, corretto a mano"` : ''}
                  ${r.eliminata ? 'disabled' : ''} aria-label="Codice articolo"></td>
       <td class="cella-tenue testo-riga">
         <span class="descrizione" title="${esc(descrizione)}">${esc(descrizione) || '—'}</span></td>
-      <td class="testo-riga">${esc(r.taglia) || '—'}</td>
+      <td class="testo-riga">${esc(r.taglia) || '—'}${r.taglia_stampata
+        ? ` <s class="cella-tenue" title="stampato sulla bolla, corretto a mano">${esc(r.taglia_stampata)}</s>` : ''}</td>
       <td><input class="campo cella testo-riga" data-c="variante" value="${esc(r.variante)}"
                  ${r.eliminata ? 'disabled' : ''} aria-label="Variante"></td>
       <td><input class="campo cella testo-riga col-num" data-c="qta" type="number" min="0" value="${r.qta}"
+                 ${r.qta_stampata >= 0 ? `title="stampato sulla bolla: ${r.qta_stampata}, corretto a mano"` : ''}
                  ${r.eliminata ? 'disabled' : ''} aria-label="Quantità"></td>
       <td><select class="campo cella testo-riga" data-c="magazzino" ${r.eliminata ? 'disabled' : ''}
                   aria-label="Magazzino">${opzioniMag(r)}</select></td>

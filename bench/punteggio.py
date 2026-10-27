@@ -34,6 +34,18 @@ def taglie_di(riga: dict) -> list[tuple[str, int]]:
     return sorted(coppie)
 
 
+def correzioni_di(riga: dict) -> set[tuple[str, str, int]]:
+    """Correzioni a mano strutturate: (taglia stampata, taglia corretta, qta corretta)."""
+    return {
+        (
+            str(c.get("taglia_stampata", "")).strip().upper(),
+            str(c.get("taglia_corretta", "")).strip().upper(),
+            int(c.get("qta_corretta", -1)),
+        )
+        for c in riga.get("correzioni") or []
+    }
+
+
 def magazzini_di(annotazione: str) -> list[str]:
     return sorted({f"MAG {n}" for n in _MAG.findall(annotazione or "")})
 
@@ -52,6 +64,7 @@ def valuta(caso: dict, ottenuto: dict | None) -> dict:
         "silenziosi_segnalati": 0, "incerte": 0, "incerte_a_vuoto": 0,
         "mag_att": 0, "mag_ok": 0, "mag_inventati": 0,
         "barr_att": 0, "barr_ok": 0, "barr_inventate": 0,
+        "corr_att": 0, "corr_ok": 0, "corr_inventate": 0,
         "parole_att": 0, "parole_ok": 0,
         "righe_in_piu": max(0, len(righe_ott) - len(righe_att)),
         "numero_documento": int(
@@ -100,6 +113,11 @@ def valuta(caso: dict, ottenuto: dict | None) -> dict:
             e["barr_inventate"] += 1
         e["parole_ok"] += sum(p.upper() in nota.upper() for p in parole)
 
+        corr_att, corr_ott = correzioni_di(att), correzioni_di(ott)
+        e["corr_att"] += len(corr_att)
+        e["corr_ok"] += len(corr_att & corr_ott)
+        e["corr_inventate"] += len(corr_ott - corr_att)
+
         quadra = sum(q for _, q in taglie_di(ott)) == ott.get("totale_dichiarato")
         dubbio = bool(str(ott.get("incertezze") or "").strip())
         e["incerte"] += dubbio
@@ -119,6 +137,8 @@ def valuta(caso: dict, ottenuto: dict | None) -> dict:
             e["errori"].append(f"{dove} barrata: atteso {att['barrata']}, letto {bool(ott.get('barrata'))}")
         if not ok_mag:
             e["errori"].append(f"{dove} magazzino: atteso {mag_att or '-'}, letto {mag_ott or '-'} ({nota!r})")
+        if corr_att != corr_ott:
+            e["errori"].append(f"{dove} correzioni: attese {sorted(corr_att)}, lette {sorted(corr_ott)}")
 
     e["pagina_perfetta"] = int(
         not e["fallita"] and e["perfette"] == e["righe"] and len(righe_ott) == len(righe_att)

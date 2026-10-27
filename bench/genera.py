@@ -255,6 +255,7 @@ def caso_sintetico(nome, base, descrizione, etichette, ricetta, seme, font="ink"
     for riga in atteso["righe"]:
         m = modifiche.get(riga["seq"], {})
         riga["barrata"] = bool(m.get("barrata"))
+        riga["correzioni"] = m.get("correzioni", [])
         riga["annotazioni_manoscritte"] = "; ".join(
             m.get("mag", []) + (["riga barrata"] if m.get("barrata") else []) + m.get("parole", [])
         )
@@ -349,7 +350,9 @@ def tutti_i_casi():
         y = _riga(p, "1")[6]
         pn.linea(1118, y + 2, 1168, y - 2, spessore=4, tremolio=2)  # tratto su S/5
         pn.testo("4", 1190, y - 30, size=44, angolo=4)
-        return unisci({"1": {"parole": ["4"]}}, mag_per_riga(pn, p, {"1": M1, "2": M2}, size=44))
+        return unisci({"1": {"parole": ["4"], "correzioni": [
+            {"taglia_stampata": "S", "taglia_corretta": "", "qta_corretta": 4}]}},
+            mag_per_riga(pn, p, {"1": M1, "2": M2}, size=44))
     aggiungi("sint-C-qta-corretta", "C", "quantita' stampata S/5 barrata e corretta a mano in 4",
              ["correzione", "mag"], correzione, 16)
 

@@ -17,6 +17,27 @@ class TagliaEstratta(BaseModel):
     qta: int = Field(description="Quantita' per quella taglia")
 
 
+class CorrezioneManoscritta(BaseModel):
+    """Una taglia o una quantita' corretta a mano sulla bolla.
+
+    Il modello non tocca i campi stampati: la correzione la applica
+    `lavoro.costruisci_righe`, dopo i controlli sui totali stampati.
+    """
+
+    taglia_stampata: str = Field(
+        description="Taglia STAMPATA a cui si riferisce la correzione, esattamente "
+        "come compare in `taglie`, es. '550' o 'XS'"
+    )
+    taglia_corretta: str = Field(
+        description="Taglia scritta a mano al posto o accanto a quella stampata, "
+        "es. '4-'. '' se la taglia non e' stata corretta"
+    )
+    qta_corretta: int = Field(
+        description="Quantita' scritta a mano al posto di quella stampata. "
+        "-1 se la quantita' non e' stata corretta (0 e' una correzione valida)"
+    )
+
+
 class RigaEstratta(BaseModel):
     seq: str = Field(description="Numero Seq-no / Item No. della riga; '' se assente")
     codice_articolo: str = Field(
@@ -40,12 +61,17 @@ class RigaEstratta(BaseModel):
         description="Trascrizione di quanto scritto a mano su questa riga "
         "(es. 'MAG 1', 'MAG 2', quantita' corrette). '' se niente"
     )
-    # I due campi seguenti hanno un default perche' il gold set e le bolle gia'
+    # I campi seguenti hanno un default perche' il gold set e le bolle gia'
     # salvate sono nati senza: il modello li compila sempre.
     codice_manoscritto: str = Field(
         default="",
         description="Codice articolo scritto A MANO su questa riga, se c'e' ed e' "
         "diverso da quello stampato. Non va mai messo in codice_articolo. '' se assente",
+    )
+    correzioni: list[CorrezioneManoscritta] = Field(
+        default_factory=list,
+        description="Taglie o quantita' corrette A MANO su questa riga, una voce "
+        "per taglia stampata. [] se non ce ne sono",
     )
     incertezze: str = Field(
         default="",
@@ -110,3 +136,8 @@ class RigaLavoro(BaseModel):
     origine: str = "estratta"  # estratta | manuale | split
     avvisi: list[str] = Field(default_factory=list)
     annotazioni_manoscritte: str = ""
+    # Valori stampati sostituiti da una correzione a mano, per la tracciabilita'.
+    # "" / -1 = nessuna correzione applicata.
+    codice_stampato: str = ""
+    taglia_stampata: str = ""
+    qta_stampata: int = -1

@@ -79,12 +79,24 @@ sopra si legge il motivo.
 
 ## Scelte di progetto
 
-**Il modello legge solo lo stampato.** Le scritte a penna vengono trascritte in
-un campo a parte e non sovrascrivono mai un dato stampato. Un `MAG 2` letto male
-da una calligrafia e' un errore che finisce dritto in magazzino; un `MAG 2`
-sbagliato in interfaccia lo vede l'operatore. Quando l'annotazione nomina un
-solo magazzino il campo viene comunque **precompilato**, con una segnalazione da
-confermare; quando ne nomina piu' di uno (pagina 3) non si indovina: si segnala.
+**Il modello legge lo stampato, il programma applica le correzioni a mano.**
+Il modello non sovrascrive mai un dato stampato: le scritte a penna le restituisce
+a parte (`annotazioni_manoscritte`, `codice_manoscritto` e, in forma strutturata,
+`correzioni`). Poi `lavoro.py` le applica **da solo** e lascia un segnale su ogni
+modifica:
+- quantita' corrette (pagina 8: XS 6 -> 5), taglie riscritte a mano sopra quelle
+  stampate (pagina 2: 550 -> 4-) e codici scritti a mano entrano nel carico al
+  posto dello stampato, con la segnalazione `corretto a mano sulla bolla: ...`
+  da confermare. Lo stampato resta visibile in interfaccia e nel foglio
+  `Tracciabilita`;
+- una correzione che non trova la sua taglia stampata non viene applicata ma
+  segnalata;
+- se la cifra scritta a mano e' ambigua il modello non la riporta fra le
+  correzioni: la spiega in `incertezze` e decide l'operatore.
+
+I magazzini seguono la stessa logica. Quando l'annotazione nomina un solo
+magazzino il campo viene **precompilato**, con una segnalazione da confermare;
+quando ne nomina piu' di uno (pagina 3) non si indovina: si segnala.
 
 **Due checksum gratuiti.** Ogni riga stampa il proprio totale e ogni pagina il
 `Total Pieces`. `somma(quantita') == Total` e' una verifica che non costa nulla
@@ -101,9 +113,10 @@ solo 35/37), 0 errori non segnalati, 0,033 $/pagina invece di 0,070. Col prompt 
 dal vivo sulle 14 pagine reali, meta' delle pagine erano passate a Opus: li' il
 costo sale verso 0,05 $/pagina.
 
-**Il prompt si misura, non si ritocca a occhio.** v1 -> v2 -> v3 sono passati tutti
-dal banco di prova (`bench/`); i precedenti restano in `bench/prompt_v1.txt` e
-`bench/prompt_v2.txt`. Il v3 ha aggiunto: barrata anche con una sola X sul Seq-no,
+**Il prompt si misura, non si ritocca a occhio.** v1 -> v2 -> v3 -> v4 passano tutti
+dal banco di prova (`bench/`); i precedenti restano in `bench/prompt_v1.txt`,
+`bench/prompt_v2.txt` e `bench/prompt_v3.txt`. Il v4 aggiunge le `correzioni`
+strutturate (colonna "correzioni a mano" del report). Il v3 aveva aggiunto: barrata anche con una sola X sul Seq-no,
 MAG non barrato su una riga barrata alla riga attiva vicina, MAG sopra le taglie
 alla riga di quelle taglie, niente segnalazioni su quantita' gia' confermate dal
 Total o su campi fuori dal carico.

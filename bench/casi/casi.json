@@ -102,7 +102,19 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1 evidenziato in giallo; sopra le taglie stampate sono scritti a mano 4- e 5"
+     "annotazioni_manoscritte": "MAG 1 evidenziato in giallo; sopra le taglie stampate sono scritti a mano 4- e 5",
+     "correzioni": [
+      {
+       "taglia_stampata": "550",
+       "taglia_corretta": "4-",
+       "qta_corretta": -1
+      },
+      {
+       "taglia_stampata": "560",
+       "taglia_corretta": "5",
+       "qta_corretta": -1
+      }
+     ]
     },
     {
      "seq": "2",
@@ -126,7 +138,24 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "sotto le taglie sono scritti a mano 6, 8 e 9"
+     "annotazioni_manoscritte": "sotto le taglie sono scritti a mano 6, 8 e 9",
+     "correzioni": [
+      {
+       "taglia_stampata": "580",
+       "taglia_corretta": "6",
+       "qta_corretta": -1
+      },
+      {
+       "taglia_stampata": "620",
+       "taglia_corretta": "8",
+       "qta_corretta": -1
+      },
+      {
+       "taglia_stampata": "640",
+       "taglia_corretta": "9",
+       "qta_corretta": -1
+      }
+     ]
     }
    ]
   },
@@ -348,7 +377,19 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2; sopra le taglie stampate sono scritti a mano 4 e 5"
+     "annotazioni_manoscritte": "MAG 2; sopra le taglie stampate sono scritti a mano 4 e 5",
+     "correzioni": [
+      {
+       "taglia_stampata": "540",
+       "taglia_corretta": "4",
+       "qta_corretta": -1
+      },
+      {
+       "taglia_stampata": "560",
+       "taglia_corretta": "5",
+       "qta_corretta": -1
+      }
+     ]
     }
    ]
   },
@@ -526,7 +567,14 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1; qta XS corretta a mano da 6 a 5"
+     "annotazioni_manoscritte": "MAG 1; qta XS corretta a mano da 6 a 5",
+     "correzioni": [
+      {
+       "taglia_stampata": "XS",
+       "taglia_corretta": "",
+       "qta_corretta": 5
+      }
+     ]
     }
    ]
   },
@@ -1078,7 +1126,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -1122,7 +1171,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -1166,7 +1216,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -1210,7 +1261,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -1273,7 +1325,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -1305,7 +1358,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -1337,7 +1391,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -1369,7 +1424,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "5",
@@ -1401,7 +1457,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "6",
@@ -1425,7 +1482,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "7",
@@ -1449,7 +1507,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "8",
@@ -1473,7 +1532,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "9",
@@ -1505,7 +1565,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "10",
@@ -1537,7 +1598,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "11",
@@ -1569,7 +1631,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -1668,7 +1731,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "13",
@@ -1700,7 +1764,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "14",
@@ -1732,7 +1797,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "15",
@@ -1756,7 +1822,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "16",
@@ -1780,7 +1847,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "17",
@@ -1804,7 +1872,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "18",
@@ -1828,7 +1897,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "19",
@@ -1860,7 +1930,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "20",
@@ -1892,7 +1963,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "21",
@@ -1924,7 +1996,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "22",
@@ -1956,7 +2029,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "23",
@@ -1988,7 +2062,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "24",
@@ -2004,7 +2079,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "25",
@@ -2020,7 +2096,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "26",
@@ -2052,7 +2129,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -2151,7 +2229,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "28",
@@ -2183,7 +2262,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "29",
@@ -2207,7 +2287,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "30",
@@ -2239,7 +2320,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "31",
@@ -2255,7 +2337,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "32",
@@ -2271,7 +2354,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "33",
@@ -2287,7 +2371,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "34",
@@ -2303,7 +2388,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "35",
@@ -2319,7 +2405,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "36",
@@ -2335,7 +2422,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "37",
@@ -2371,7 +2459,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "38",
@@ -2399,7 +2488,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "39",
@@ -2415,7 +2505,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "40",
@@ -2447,7 +2538,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "41",
@@ -2471,7 +2563,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "42",
@@ -2487,7 +2580,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "43",
@@ -2503,7 +2597,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -2622,7 +2717,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -2666,7 +2762,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -2710,7 +2807,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -2754,7 +2852,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     }
    ]
   },
@@ -2830,7 +2929,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -2874,7 +2974,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -2918,7 +3019,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -2962,7 +3064,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     }
    ]
   },
@@ -3039,7 +3142,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -3083,7 +3187,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -3127,7 +3232,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -3171,7 +3277,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     }
    ]
   },
@@ -3247,7 +3354,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1; MAG 2"
+     "annotazioni_manoscritte": "MAG 1; MAG 2",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -3291,7 +3399,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -3335,7 +3444,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -3379,7 +3489,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     }
    ]
   },
@@ -3456,7 +3567,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -3500,7 +3612,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -3544,7 +3657,8 @@
       }
      ],
      "barrata": true,
-     "annotazioni_manoscritte": "riga barrata"
+     "annotazioni_manoscritte": "riga barrata",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -3588,7 +3702,8 @@
       }
      ],
      "barrata": true,
-     "annotazioni_manoscritte": "riga barrata"
+     "annotazioni_manoscritte": "riga barrata",
+     "correzioni": []
     }
    ]
   },
@@ -3660,7 +3775,14 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1; 4"
+     "annotazioni_manoscritte": "MAG 1; 4",
+     "correzioni": [
+      {
+       "taglia_stampata": "S",
+       "taglia_corretta": "",
+       "qta_corretta": 4
+      }
+     ]
     },
     {
      "seq": "2",
@@ -3704,7 +3826,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -3748,7 +3871,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -3792,7 +3916,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -3862,7 +3987,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -3894,7 +4020,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -3926,7 +4053,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -3958,7 +4086,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "5",
@@ -3990,7 +4119,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "6",
@@ -4014,7 +4144,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "7",
@@ -4038,7 +4169,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "8",
@@ -4062,7 +4194,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "9",
@@ -4094,7 +4227,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "10",
@@ -4126,7 +4260,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "11",
@@ -4158,7 +4293,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     }
    ]
   },
@@ -4272,7 +4408,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -4304,7 +4441,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -4336,7 +4474,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -4368,7 +4507,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "5",
@@ -4400,7 +4540,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "6",
@@ -4424,7 +4565,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "7",
@@ -4448,7 +4590,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "8",
@@ -4472,7 +4615,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "9",
@@ -4504,7 +4648,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "10",
@@ -4536,7 +4681,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "11",
@@ -4568,7 +4714,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     }
    ]
   },
@@ -4681,7 +4828,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -4713,7 +4861,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -4745,7 +4894,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -4777,7 +4927,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "5",
@@ -4809,7 +4960,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "6",
@@ -4833,7 +4985,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "7",
@@ -4857,7 +5010,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "8",
@@ -4881,7 +5035,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "9",
@@ -4913,7 +5068,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "10",
@@ -4945,7 +5101,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "11",
@@ -4977,7 +5134,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -5070,7 +5228,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -5102,7 +5261,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -5134,7 +5294,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -5166,7 +5327,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "5",
@@ -5198,7 +5360,8 @@
       }
      ],
      "barrata": true,
-     "annotazioni_manoscritte": "riga barrata"
+     "annotazioni_manoscritte": "riga barrata",
+     "correzioni": []
     },
     {
      "seq": "6",
@@ -5222,7 +5385,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "7",
@@ -5246,7 +5410,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "8",
@@ -5270,7 +5435,8 @@
       }
      ],
      "barrata": true,
-     "annotazioni_manoscritte": "riga barrata"
+     "annotazioni_manoscritte": "riga barrata",
+     "correzioni": []
     },
     {
      "seq": "9",
@@ -5302,7 +5468,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "10",
@@ -5334,7 +5501,8 @@
       }
      ],
      "barrata": true,
-     "annotazioni_manoscritte": "riga barrata"
+     "annotazioni_manoscritte": "riga barrata",
+     "correzioni": []
     },
     {
      "seq": "11",
@@ -5366,7 +5534,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     }
    ]
   },
@@ -5480,7 +5649,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "13",
@@ -5512,7 +5682,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "14",
@@ -5544,7 +5715,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "15",
@@ -5568,7 +5740,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "16",
@@ -5592,7 +5765,8 @@
       }
      ],
      "barrata": true,
-     "annotazioni_manoscritte": "MAG 1; riga barrata"
+     "annotazioni_manoscritte": "MAG 1; riga barrata",
+     "correzioni": []
     },
     {
      "seq": "17",
@@ -5616,7 +5790,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "18",
@@ -5640,7 +5815,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "19",
@@ -5672,7 +5848,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "20",
@@ -5704,7 +5881,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "21",
@@ -5736,7 +5914,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "22",
@@ -5768,7 +5947,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "23",
@@ -5800,7 +5980,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "24",
@@ -5816,7 +5997,8 @@
       }
      ],
      "barrata": true,
-     "annotazioni_manoscritte": "MAG 1; riga barrata"
+     "annotazioni_manoscritte": "MAG 1; riga barrata",
+     "correzioni": []
     },
     {
      "seq": "25",
@@ -5832,7 +6014,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "26",
@@ -5864,7 +6047,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -6009,7 +6193,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "13",
@@ -6041,7 +6226,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "14",
@@ -6073,7 +6259,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "15",
@@ -6097,7 +6284,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "16",
@@ -6121,7 +6309,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "17",
@@ -6145,7 +6334,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "18",
@@ -6169,7 +6359,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "19",
@@ -6201,7 +6392,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "20",
@@ -6233,7 +6425,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "21",
@@ -6265,7 +6458,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "22",
@@ -6297,7 +6491,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "23",
@@ -6329,7 +6524,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "24",
@@ -6345,7 +6541,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "25",
@@ -6361,7 +6558,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "26",
@@ -6393,7 +6591,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -6522,7 +6721,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "28",
@@ -6554,7 +6754,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "29",
@@ -6578,7 +6779,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2; VERONELLI"
+     "annotazioni_manoscritte": "MAG 2; VERONELLI",
+     "correzioni": []
     },
     {
      "seq": "30",
@@ -6610,7 +6812,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "31",
@@ -6626,7 +6829,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "32",
@@ -6642,7 +6846,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "33",
@@ -6658,7 +6863,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "34",
@@ -6674,7 +6880,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "35",
@@ -6690,7 +6897,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "36",
@@ -6706,7 +6914,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "37",
@@ -6742,7 +6951,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "38",
@@ -6770,7 +6980,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "39",
@@ -6786,7 +6997,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "40",
@@ -6818,7 +7030,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "41",
@@ -6842,7 +7055,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "42",
@@ -6858,7 +7072,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "43",
@@ -6874,7 +7089,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     }
    ]
   },
@@ -7026,7 +7242,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "13",
@@ -7058,7 +7275,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "14",
@@ -7090,7 +7308,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "15",
@@ -7114,7 +7333,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "16",
@@ -7138,7 +7358,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "17",
@@ -7162,7 +7383,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "18",
@@ -7186,7 +7408,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "19",
@@ -7218,7 +7441,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "20",
@@ -7250,7 +7474,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "21",
@@ -7282,7 +7507,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "22",
@@ -7314,7 +7540,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "23",
@@ -7346,7 +7573,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "24",
@@ -7362,7 +7590,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "25",
@@ -7378,7 +7607,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "26",
@@ -7410,7 +7640,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     }
    ]
   },
@@ -7541,7 +7772,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "28",
@@ -7573,7 +7805,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "29",
@@ -7597,7 +7830,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "30",
@@ -7629,7 +7863,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "31",
@@ -7645,7 +7880,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "32",
@@ -7661,7 +7897,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "33",
@@ -7677,7 +7914,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "34",
@@ -7693,7 +7931,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "35",
@@ -7709,7 +7948,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "36",
@@ -7725,7 +7965,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "37",
@@ -7761,7 +8002,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "38",
@@ -7789,7 +8031,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "39",
@@ -7805,7 +8048,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "40",
@@ -7837,7 +8081,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "41",
@@ -7861,7 +8106,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "42",
@@ -7877,7 +8123,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "43",
@@ -7893,7 +8140,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     }
    ]
   },
@@ -8025,7 +8273,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -8057,7 +8306,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -8089,7 +8339,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -8121,7 +8372,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "5",
@@ -8153,7 +8405,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "6",
@@ -8177,7 +8430,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "7",
@@ -8201,7 +8455,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "8",
@@ -8225,7 +8480,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "9",
@@ -8257,7 +8513,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "10",
@@ -8289,7 +8546,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "11",
@@ -8321,7 +8579,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     }
    ]
   },
@@ -8440,7 +8699,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "13",
@@ -8472,7 +8732,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "14",
@@ -8504,7 +8765,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "15",
@@ -8528,7 +8790,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "16",
@@ -8552,7 +8815,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "17",
@@ -8576,7 +8840,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "18",
@@ -8600,7 +8865,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "19",
@@ -8632,7 +8898,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "20",
@@ -8664,7 +8931,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "21",
@@ -8696,7 +8964,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "22",
@@ -8728,7 +8997,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "23",
@@ -8760,7 +9030,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "24",
@@ -8776,7 +9047,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "25",
@@ -8792,7 +9064,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "26",
@@ -8824,7 +9097,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     }
    ]
   },
@@ -8936,7 +9210,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "2",
@@ -8980,7 +9255,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "3",
@@ -9024,7 +9300,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "4",
@@ -9068,7 +9345,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     }
    ]
   },
@@ -9132,7 +9410,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "28",
@@ -9164,7 +9443,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "29",
@@ -9188,7 +9468,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "30",
@@ -9220,7 +9501,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "31",
@@ -9236,7 +9518,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "32",
@@ -9252,7 +9535,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "33",
@@ -9268,7 +9552,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "34",
@@ -9284,7 +9569,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "35",
@@ -9300,7 +9586,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "36",
@@ -9316,7 +9603,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "37",
@@ -9352,7 +9640,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "38",
@@ -9380,7 +9669,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "39",
@@ -9396,7 +9686,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "40",
@@ -9428,7 +9719,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 2"
+     "annotazioni_manoscritte": "MAG 2",
+     "correzioni": []
     },
     {
      "seq": "41",
@@ -9452,7 +9744,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     },
     {
      "seq": "42",
@@ -9468,7 +9761,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": ""
+     "annotazioni_manoscritte": "",
+     "correzioni": []
     },
     {
      "seq": "43",
@@ -9484,7 +9778,8 @@
       }
      ],
      "barrata": false,
-     "annotazioni_manoscritte": "MAG 1"
+     "annotazioni_manoscritte": "MAG 1",
+     "correzioni": []
     }
    ]
   },

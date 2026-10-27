@@ -38,10 +38,10 @@ Il fornitore e' sempre adidas, il destinatario sempre Jute Sport SRL.
 
 Estrai SOLO quello che e' STAMPATO. Le scritte a mano non vanno mai usate per
 correggere i dati stampati: vanno trascritte a parte (`annotazioni_manoscritte`,
-`codice_manoscritto`, `magazzino_pagina`, `note_pagina`) e sara' un operatore a
-decidere. Questa separazione e' la regola piu' importante: un dato stampato che
-sostituisci con la tua lettura di una calligrafia diventa un errore che finisce
-dritto in magazzino.
+`codice_manoscritto`, `correzioni`, `magazzino_pagina`, `note_pagina`) e sara' il
+programma ad applicarle, mostrando all'operatore il valore stampato e quello
+corretto. Questa separazione e' la regola piu' importante: se sovrascrivi un dato
+stampato con la tua lettura di una calligrafia, nessuno puo' piu' controllarla.
 
 LAYOUT CHE PUOI INCONTRARE (ne esistono altri: adattati)
 1. DELIVERY NOTE con colonne Seq-no | Article | Name | Total | Size/Qty | Price
@@ -115,11 +115,20 @@ ALTRE ANNOTAZIONI A MANO
   segni: un tratto di penna sopra il testo, uno scarabocchio sopra la riga, una
   X o una barra sul numero Seq-no. Guarda la colonna Seq-no riga per riga: una
   X piccola sul numero basta, anche se il resto della riga e' pulito.
-- quantita' o taglie corrette a penna: lascia il valore STAMPATO nei campi dati e
-  annota la correzione, es. "qta XS corretta a mano da 6 a 5".
+- quantita' corrette a penna: lascia il valore STAMPATO nei campi dati, annota
+  la correzione (es. "qta XS corretta a mano da 6 a 5") e riportala in
+  `correzioni`: {taglia_stampata: "XS", taglia_corretta: "", qta_corretta: 5}.
 - numeri scritti a mano sopra o sotto le taglie (es. "4-", "5", "6"): sono la
-  taglia come la chiama il magazzino. Trascrivili nelle annotazioni; NON
-  sostituiscono la taglia stampata.
+  taglia come la chiama il magazzino. Lascia la taglia STAMPATA nei campi dati,
+  trascrivili nelle annotazioni e riportali in `correzioni`, una voce per ogni
+  taglia stampata: {taglia_stampata: "550", taglia_corretta: "4-", qta_corretta: -1}.
+  Abbina ogni numero scritto a mano alla taglia stampata che gli sta sopra o
+  sotto, nell'ordine in cui compaiono.
+- in `correzioni` usa -1 per una quantita' non corretta e "" per una taglia non
+  corretta; se la stessa taglia ha corretti sia taglia sia quantita', una voce sola.
+  Metti una correzione SOLO se leggi la scritta con sicurezza: se una cifra a
+  mano e' ambigua non riportarla in `correzioni`, trascrivila nelle annotazioni
+  e spiega in `incertezze`.
 - codice articolo scritto a mano: va in `codice_manoscritto` della riga a cui si
   riferisce, MAI in `codice_articolo`, nemmeno se quello stampato e' piccolo o
   difficile da leggere. Non inventare una riga per un codice scritto a mano.
@@ -308,11 +317,11 @@ _MAG = re.compile(r"(?<![A-Za-z0-9])M(?:AG)?\.?\s*(\d)(?![0-9])", re.IGNORECASE)
 
 
 def _firma(pagina: PaginaEstratta) -> list[tuple]:
-    """Quello che finisce nel carico, riga per riga: codice, taglie, barrata, magazzino.
+    """Quello che finisce nel carico, riga per riga: codice, taglie, barrata,
+    magazzino e le correzioni a mano (codice e taglie) che il programma applica.
 
     Descrizioni, colori e note possono differire fra due modelli senza che il
-    carico cambi; questi quattro no. E' la stessa regola con cui il banco di
-    prova giudica una riga perfetta.
+    carico cambi; questi campi no.
     """
     firma = []
     for riga in pagina.righe:
@@ -326,12 +335,20 @@ def _firma(pagina: PaginaEstratta) -> list[tuple]:
         magazzini = set(_MAG.findall(riga.annotazioni_manoscritte))
         if not magazzini and not riga.barrata:
             magazzini = set(_MAG.findall(pagina.magazzino_pagina))
+        # le correzioni a mano entrano nel carico: due letture che le leggono
+        # diverse non sono concordi
+        correzioni = sorted(
+            (c.taglia_stampata.strip().upper(), c.taglia_corretta.strip().upper(), c.qta_corretta)
+            for c in riga.correzioni
+        )
         firma.append(
             (
                 riga.codice_articolo.strip().upper(),
                 tuple(sorted(coppie)),
                 riga.barrata,
                 tuple(sorted(magazzini)),
+                riga.codice_manoscritto.strip().upper(),
+                tuple(correzioni),
             )
         )
     return firma
