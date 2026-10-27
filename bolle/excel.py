@@ -102,6 +102,19 @@ def _autoampiezza(ws) -> None:
         )
 
 
+def _solo_testo(ws) -> None:
+    """Niente formule: openpyxl scrive come formula ogni testo che inizia con '='.
+
+    I testi arrivano dalla bolla (letta da un modello) o da chi usa l'app: un
+    "=HYPERLINK(...)" o "=cmd|..." diventerebbe una formula eseguita da chi apre
+    il file. Il valore resta identico, cambia solo il tipo della cella.
+    """
+    for riga in ws.iter_rows():
+        for cella in riga:
+            if cella.data_type == "f":
+                cella.data_type = "s"
+
+
 def esporta(doc: dict[str, Any], dest: Path | None = None) -> Path:
     righe = doc.get("righe", [])
 
@@ -111,6 +124,7 @@ def esporta(doc: dict[str, Any], dest: Path | None = None) -> Path:
     _intesta(ws, EXCEL_HEADERS)
     for magazzino, codice, variante, qta in aggrega(righe):
         ws.append([magazzino, codice, variante, qta])
+    _solo_testo(ws)
     _autoampiezza(ws)
 
     tracc = wb.create_sheet("Tracciabilita")
@@ -136,6 +150,7 @@ def esporta(doc: dict[str, Any], dest: Path | None = None) -> Path:
                 ),
             ]
         )
+    _solo_testo(tracc)
     _autoampiezza(tracc)
 
     if dest is None:

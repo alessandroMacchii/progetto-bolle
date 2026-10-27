@@ -42,10 +42,19 @@ API_IMAGE_MAX_EDGE = int(os.getenv("BOLLE_API_MAX_EDGE", "1600"))
 # Pagine lette in contemporanea. Oltre 4 si rischiano i limiti di frequenza dell'API.
 ESTRAZIONI_PARALLELE = max(1, int(os.getenv("BOLLE_PARALLELO", "4")))
 
+# Tetti sull'upload: un file enorme riempie il disco, un PDF da mille pagine
+# finisce tutto al modello e sulla fattura.
+MAX_UPLOAD_MB = int(os.getenv("BOLLE_MAX_MB", "40"))
+MAX_PAGINE = int(os.getenv("BOLLE_MAX_PAGINE", "60"))
+
 # --- accesso ----------------------------------------------------------------
 # Vuota = nessun login (uso sul PC dell'ufficio). Online va sempre impostata.
 ACCESSO_UTENTE = os.getenv("BOLLE_UTENTE", "bolle")
 ACCESSO_PASSWORD = os.getenv("BOLLE_PASSWORD", "")
+# Header con l'indirizzo vero del client quando davanti c'e' un proxy fidato
+# (cf-connecting-ip col tunnel Cloudflare, fly-client-ip su Fly.io). Vuoto =
+# indirizzo della connessione.
+IP_HEADER = os.getenv("BOLLE_IP_HEADER", "").strip().lower()
 
 # --- magazzini --------------------------------------------------------------
 MAGAZZINI = [m.strip() for m in os.getenv("BOLLE_MAGAZZINI", "MAG 1,MAG 2").split(",")]

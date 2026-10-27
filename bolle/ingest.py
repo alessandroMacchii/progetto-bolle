@@ -18,6 +18,11 @@ from PIL import Image
 from .config import API_IMAGE_MAX_EDGE, PAGES_DIR, RENDER_DPI
 
 IMMAGINI = {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp", ".webp"}
+FORMATI = IMMAGINI | {".pdf"}
+
+
+class TroppePagine(ValueError):
+    pass
 
 
 @dataclass
@@ -88,7 +93,7 @@ def _salva_pagina(img: Image.Image, dest_dir: Path, numero: int) -> Pagina:
     return Pagina(numero, png, jpg, rotazione_suggerita(img))
 
 
-def carica(percorso: Path, doc_id: str) -> list[Pagina]:
+def carica(percorso: Path, doc_id: str, max_pagine: int = 0) -> list[Pagina]:
     """Esplode un PDF o un'immagine nelle sue pagine normalizzate."""
     dest = PAGES_DIR / doc_id
     percorso = Path(percorso)
@@ -99,6 +104,10 @@ def carica(percorso: Path, doc_id: str) -> list[Pagina]:
 
     pagine: list[Pagina] = []
     with pymupdf.open(percorso) as doc:
+        if max_pagine and doc.page_count > max_pagine:
+            raise TroppePagine(
+                f"il PDF ha {doc.page_count} pagine, il massimo e' {max_pagine}: dividilo"
+            )
         for i, page in enumerate(doc, start=1):
             pix = page.get_pixmap(dpi=RENDER_DPI)
             with Image.open(io.BytesIO(pix.tobytes("png"))) as img:

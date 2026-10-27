@@ -77,6 +77,8 @@ def main() -> int:
     # va decisa prima di importare la configurazione dell'app, che la legge una volta
     password = _password()
     os.environ["BOLLE_PASSWORD"] = password
+    # davanti c'e' Cloudflare: l'indirizzo vero di chi tenta il login sta qui
+    os.environ["BOLLE_IP_HEADER"] = "cf-connecting-ip"
     from .config import ACCESSO_UTENTE, EXTRACTOR_BACKEND
 
     if EXTRACTOR_BACKEND == "mock":
