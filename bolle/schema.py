@@ -6,7 +6,7 @@ con tipi semplici, quindi i valori mancanti usano sentinelle documentate
 """
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, PrivateAttr
 
 
 class TagliaEstratta(BaseModel):
@@ -83,6 +83,9 @@ class PaginaEstratta(BaseModel):
         "(es. 'ok 8 colli', firme, date). '' se niente",
     )
     righe: list[RigaEstratta]
+    # Chi ha letto la pagina, per misurare la cascata nella prova. Privato: non
+    # entra nello schema che vede il modello.
+    _motore: str = PrivateAttr(default="")
 
 
 # --- stato di lavoro (post-estrazione, editabile dall'operatore) -------------

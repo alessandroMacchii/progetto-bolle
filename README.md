@@ -91,6 +91,16 @@ confermare; quando ne nomina piu' di uno (pagina 3) non si indovina: si segnala.
 e intercetta gli errori di lettura da sola: le righe che non quadrano vengono
 evidenziate. Sulle 14 pagine di esempio tutte le 33 righe quadrano.
 
+**Due modelli economici, uno forte quando non concordano** (`BOLLE_EXTRACTOR=consenso`).
+Gemini 3.8 Flash e Haiku 5.5 leggono ogni pagina in parallelo; se concordano su
+codici, taglie, barrate e magazzini si tiene la lettura, altrimenti la pagina
+passa a Opus 5.5. Due modelli diversi raramente sbagliano allo stesso modo, quindi
+il disaccordo intercetta anche gli errori che il modello non sa di fare. Sul banco
+di prova: stessa qualita' di Opus da solo (34/37 pagine perfette, 0 errori non
+segnalati) a 0,040 $/pagina invece di 0,070. Sulle 14 pagine con calligrafia vera,
+dal vivo, meta' delle pagine sono passate a Opus: li' il costo e' ~0,05 $/pagina.
+Ogni pagina registra chi l'ha letta (campo `motore`), per misurarlo nella prova.
+
 **Estrazione a backend intercambiabile.** Il resto dell'applicazione conosce
 solo `estrai(jpg, numero) -> PaginaEstratta`. Vedi "Portare tutto in casa".
 
@@ -213,7 +223,9 @@ Tutto da `.env`:
 | Variabile | Default | Note |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | — | necessaria con `BOLLE_EXTRACTOR=claude` |
-| `BOLLE_EXTRACTOR` | `claude` | `claude` \| `openrouter` \| `mock` \| `local` |
+| `BOLLE_EXTRACTOR` | `claude` | `claude` \| `openrouter` \| `consenso` \| `mock` \| `local` |
+| `BOLLE_CONSENSO_MODELLI` | `google/gemini-3.8-flash,anthropic/claude-haiku-5.5` | i due lettori economici del consenso |
+| `BOLLE_CONSENSO_ARBITRO` | `anthropic/claude-opus-5.5` | chi legge quando i due non concordano |
 | `OPENROUTER_API_KEY` | — | necessaria con `BOLLE_EXTRACTOR=openrouter` e per i modelli OpenRouter del banco di prova |
 | `BOLLE_OPENROUTER_MODEL` | `anthropic/claude-opus-5.5` | id del modello su openrouter.ai/models |
 | `BOLLE_MODEL` | `claude-opus-5-5` | con `BOLLE_EXTRACTOR=claude`; `claude-sonnet-5-5` costa circa la meta' |

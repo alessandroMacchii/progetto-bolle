@@ -20,10 +20,19 @@ for _d in (DATA_DIR, PAGES_DIR, UPLOAD_DIR, EXPORT_DIR, CONFIG_DIR):
     _d.mkdir(parents=True, exist_ok=True)
 
 # --- estrazione -------------------------------------------------------------
-EXTRACTOR_BACKEND = os.getenv("BOLLE_EXTRACTOR", "claude")  # claude | openrouter | local | mock
+EXTRACTOR_BACKEND = os.getenv("BOLLE_EXTRACTOR", "claude")  # claude | openrouter | consenso | local | mock
 MODEL = os.getenv("BOLLE_MODEL", "claude-opus-5-5")
 # usato solo con BOLLE_EXTRACTOR=openrouter; id su https://openrouter.ai/models
 OPENROUTER_MODEL = os.getenv("BOLLE_OPENROUTER_MODEL", "anthropic/claude-opus-5.5")
+# BOLLE_EXTRACTOR=consenso: due modelli economici leggono la pagina; se le
+# letture coincidono si tiene la prima, altrimenti decide l'arbitro.
+CONSENSO_MODELLI = [
+    m.strip()
+    for m in os.getenv(
+        "BOLLE_CONSENSO_MODELLI", "google/gemini-3.8-flash,anthropic/claude-haiku-5.5"
+    ).split(",")
+]
+CONSENSO_ARBITRO = os.getenv("BOLLE_CONSENSO_ARBITRO", "anthropic/claude-opus-5.5")
 
 # Risoluzione di rendering. La PNG ad alta risoluzione serve all'operatore per
 # leggere la bolla a schermo; la JPEG ridotta e' quella che viaggia verso il

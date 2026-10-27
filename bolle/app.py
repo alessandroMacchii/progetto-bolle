@@ -218,6 +218,7 @@ def _leggi_documento(doc_id: str, pagine: list[ingest.Pagina], estrattore: Any) 
                     "warehouse": estratta.warehouse,
                     "total_pieces": estratta.total_pieces_dichiarato,
                     "avvisi": verifica_pagina(estratta, righe_pagina),
+                    "motore": estratta._motore,
                 }
             )
             # il modello vede la pagina meglio di un'euristica sui pixel

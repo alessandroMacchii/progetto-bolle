@@ -8,6 +8,9 @@ L'estrattore e' un'interfaccia con piu' implementazioni intercambiabili
   openrouter  stesso prompt e stesso schema, ma verso un modello di un altro
           fornitore (Gemini, GPT, Qwen...) via OpenRouter. Serve a confrontare.
           Chiave in OPENROUTER_API_KEY, modello in BOLLE_OPENROUTER_MODEL.
+  consenso  due modelli economici via OpenRouter; se non concordano sul carico
+          legge il modello forte. Costa ~la meta' di Opus da solo a parita' di
+          qualita' sul banco di prova. Vedi `EstrattoreConsenso`.
   mock    nessuna chiamata di rete, rilegge il gold set. Serve a provare
           interfaccia ed export senza spendere e senza credenziali.
   local   segnaposto per un motore OCR in casa (Tesseract/PaddleOCR, oppure un
@@ -20,13 +23,15 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Protocol
 
-from .config import MODEL, OPENROUTER_MODEL
+from .config import CONSENSO_ARBITRO, CONSENSO_MODELLI, MODEL, OPENROUTER_MODEL
 from .ingest import come_base64
 from .schema import PaginaEstratta
 
@@ -290,6 +295,84 @@ class EstrattoreOpenRouter:
         return PaginaEstratta.model_validate_json(testo)
 
 
+# "MAG 1", "mag2", ma anche "M1" / "M. 2": come le scrive a margine il magazzino
+_MAG = re.compile(r"(?<![A-Za-z0-9])M(?:AG)?\.?\s*(\d)(?![0-9])", re.IGNORECASE)
+
+
+def _firma(pagina: PaginaEstratta) -> list[tuple]:
+    """Quello che finisce nel carico, riga per riga: codice, taglie, barrata, magazzino.
+
+    Descrizioni, colori e note possono differire fra due modelli senza che il
+    carico cambi; questi quattro no. E' la stessa regola con cui il banco di
+    prova giudica una riga perfetta.
+    """
+    firma = []
+    for riga in pagina.righe:
+        coppie = []
+        for token in riga.size_qty_raw.split():
+            taglia, _, qta = token.rpartition("/")
+            if not taglia or not qta.isdigit():
+                coppie = [(t.taglia.strip().upper(), t.qta) for t in riga.taglie]
+                break
+            coppie.append((taglia.upper(), int(qta)))
+        magazzini = set(_MAG.findall(riga.annotazioni_manoscritte))
+        if not magazzini and not riga.barrata:
+            magazzini = set(_MAG.findall(pagina.magazzino_pagina))
+        firma.append(
+            (
+                riga.codice_articolo.strip().upper(),
+                tuple(sorted(coppie)),
+                riga.barrata,
+                tuple(sorted(magazzini)),
+            )
+        )
+    return firma
+
+
+class EstrattoreConsenso:
+    """Due modelli economici in parallelo; se non concordano decide il modello forte.
+
+    Due modelli diversi raramente sbagliano allo stesso modo: il disaccordo
+    intercetta anche gli errori che il singolo modello non sa di fare, cosa che
+    l'auto-segnalazione (`incertezze`) non fa. Sul banco di prova, con Gemini
+    3.8 Flash + Haiku 5.5 e Opus 5.5 come arbitro: stessa qualita' di Opus da
+    solo (34/37 pagine perfette, 0 errori non segnalati), 0,040 $ a pagina
+    invece di 0,070, con 11 pagine su 37 passate all'arbitro.
+    """
+
+    def __init__(
+        self, modelli: list[str] = CONSENSO_MODELLI, arbitro: str = CONSENSO_ARBITRO
+    ) -> None:
+        if len(modelli) != 2:
+            raise RuntimeError("BOLLE_CONSENSO_MODELLI deve elencare esattamente due modelli")
+        self._lettori = [EstrattoreOpenRouter(m) for m in modelli]
+        self._arbitro = EstrattoreOpenRouter(arbitro)
+        self._nomi = [m.split("/")[-1] for m in modelli]
+        self._nome_arbitro = arbitro.split("/")[-1]
+
+    def estrai(self, jpg: Path, numero: int) -> PaginaEstratta:
+        def leggi(lettore: EstrattoreOpenRouter) -> PaginaEstratta | Exception:
+            try:
+                return lettore.estrai(jpg, numero)
+            except Exception as exc:
+                return exc
+
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            prima, seconda = pool.map(leggi, self._lettori)
+
+        if isinstance(prima, Exception) or isinstance(seconda, Exception):
+            motivo = "una lettura e' fallita"
+        elif _firma(prima) == _firma(seconda):
+            prima._motore = f"{self._nomi[0]} + {self._nomi[1]} concordi"
+            return prima
+        else:
+            motivo = "letture discordi"
+
+        pagina = self._arbitro.estrai(jpg, numero)
+        pagina._motore = f"{self._nome_arbitro} ({motivo})"
+        return pagina
+
+
 class EstrattoreMock:
     """Rilegge il gold set: prova l'app senza rete, credenziali o costi."""
 
@@ -333,6 +416,8 @@ def crea_estrattore(backend: str | None = None) -> Estrattore:
         return EstrattoreClaude()
     if scelta == "openrouter":
         return EstrattoreOpenRouter()
+    if scelta == "consenso":
+        return EstrattoreConsenso()
     if scelta == "mock":
         return EstrattoreMock()
     if scelta == "local":
