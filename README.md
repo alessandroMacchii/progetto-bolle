@@ -232,6 +232,8 @@ Tutto da `.env`:
 | `BOLLE_PARALLELO` | `4` | pagine lette in contemporanea |
 | `BOLLE_PASSWORD` | — | se impostata, il browser chiede utente e password. Online e' obbligatoria |
 | `BOLLE_UTENTE` | `bolle` | nome utente del login |
+| `BOLLE_IP_HEADER` | — | header con l'IP vero dietro un proxy fidato (`cf-connecting-ip` col tunnel, lo imposta `bolle.online`). Serve al blocco dopo 10 password sbagliate |
+| `BOLLE_MAX_MB` / `BOLLE_MAX_PAGINE` | `40` / `60` | tetti sull'upload |
 | `BOLLE_HOST` / `PORT` | `127.0.0.1` / `8000` | nel container `0.0.0.0` |
 | `BOLLE_DATA_DIR` | `data/` | database, scansioni, export |
 | `BOLLE_MAGAZZINI` | `MAG 1,MAG 2` | i magazzini selezionabili |
