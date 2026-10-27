@@ -95,23 +95,28 @@ MAGAZZINI SCRITTI A MANO
 I magazzini sono "MAG 1" e "MAG 2", a penna o a matita, a volte evidenziati o
 cerchiati, a volte abbreviati ("M1", "M 2", "mag2"). In `annotazioni_manoscritte`
 scrivili sempre nella forma normalizzata "MAG 1" / "MAG 2".
-- Scritto accanto o sopra una riga: va su quella riga.
+- Scritto accanto o sopra una riga: va su quella riga. Se la scritta copre i
+  token Size/Qty di una riga, appartiene a QUELLA riga anche se sconfina nella
+  riga sopra o sotto.
 - Una graffa o una parentesi a margine che abbraccia piu' righe: va su OGNUNA
   delle righe abbracciate.
 - Una sola scritta per tutta la pagina ("TUTTO MAG 2", un MAG grande in testa
   al foglio): mettila in `magazzino_pagina`, non sulle righe.
 - Riferito a singole taglie: scrivi a quali, es.
   "9-: 1 pezzo MAG 2, 2 pezzi MAG 1".
-- A cavallo fra una riga barrata e una riga attiva: appartiene alla riga
-  ATTIVA, perche' a una riga cancellata non si assegna un magazzino. Se invece
-  sta chiaramente sulla riga barrata, o e' barrato anche lui, lascialo li'.
+- Su una riga barrata, o a cavallo fra una riga barrata e una attiva: un MAG
+  NON barrato appartiene alla riga ATTIVA piu' vicina (di solito quella subito
+  sotto), perche' a una riga cancellata non si assegna un magazzino. Resta sulla
+  riga barrata solo un MAG barrato anche lui (cancellato insieme alla riga).
 - Se la cifra non si distingue (1 oppure 2?) NON tirare a indovinare: scrivi
   "MAG ?" e spiega in `incertezze`.
 
 ALTRE ANNOTAZIONI A MANO
-- riga cancellata con un tratto di penna, uno scarabocchio o una X (anche solo
-  sul numero di riga): metti `barrata` a true, ma estrai comunque tutti i dati
-  stampati della riga.
+- riga cancellata: metti `barrata` a true, ma estrai comunque tutti i dati
+  stampati della riga. Conta come cancellata se c'e' ANCHE UNO SOLO di questi
+  segni: un tratto di penna sopra il testo, uno scarabocchio sopra la riga, una
+  X o una barra sul numero Seq-no. Guarda la colonna Seq-no riga per riga: una
+  X piccola sul numero basta, anche se il resto della riga e' pulito.
 - quantita' o taglie corrette a penna: lascia il valore STAMPATO nei campi dati e
   annota la correzione, es. "qta XS corretta a mano da 6 a 5".
 - numeri scritti a mano sopra o sotto le taglie (es. "4-", "5", "6"): sono la
@@ -132,7 +137,12 @@ cifra centrale coperta". Metti comunque nel campo la lettura piu' probabile.
 Se un numero scritto a mano accanto a una taglia aiuta a capire quale delle due
 letture e' giusta puoi tenerne conto, ma dillo in `incertezze`.
 Lascia `incertezze` vuoto quando la lettura e' netta: se segnali tutto,
-l'operatore smette di guardare.
+l'operatore smette di guardare. In particolare NON segnalare:
+- quantita' coperte ma confermate dal Total di riga (il programma lo verifica
+  gia' da solo);
+- campi che non vanno nel carico: descrizione, colore, Seq-no, prezzo.
+Segnala invece sempre codice articolo e NOMI di taglia letti a fatica: il Total
+di riga non li controlla (550/2 e 580/2 danno lo stesso totale).
 
 ALTRE REGOLE
 - Se un valore non e' leggibile affatto usa "" per le stringhe e 0 per i numeri.
@@ -334,10 +344,10 @@ class EstrattoreConsenso:
 
     Due modelli diversi raramente sbagliano allo stesso modo: il disaccordo
     intercetta anche gli errori che il singolo modello non sa di fare, cosa che
-    l'auto-segnalazione (`incertezze`) non fa. Sul banco di prova, con Gemini
-    3.8 Flash + Haiku 5.5 e Opus 5.5 come arbitro: stessa qualita' di Opus da
-    solo (34/37 pagine perfette, 0 errori non segnalati), 0,040 $ a pagina
-    invece di 0,070, con 11 pagine su 37 passate all'arbitro.
+    l'auto-segnalazione (`incertezze`) non fa. Sul banco di prova, prompt v3,
+    con Gemini 3.8 Flash + Haiku 5.5 e Opus 5.5 come arbitro: 36/37 pagine
+    perfette (Opus da solo 35/37), 0 errori non segnalati, 0,033 $ a pagina
+    invece di 0,070, con 9 pagine su 37 passate all'arbitro.
     """
 
     def __init__(

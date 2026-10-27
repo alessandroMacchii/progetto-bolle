@@ -96,9 +96,17 @@ Gemini 3.8 Flash e Haiku 5.5 leggono ogni pagina in parallelo; se concordano su
 codici, taglie, barrate e magazzini si tiene la lettura, altrimenti la pagina
 passa a Opus 5.5. Due modelli diversi raramente sbagliano allo stesso modo, quindi
 il disaccordo intercetta anche gli errori che il modello non sa di fare. Sul banco
-di prova: stessa qualita' di Opus da solo (34/37 pagine perfette, 0 errori non
-segnalati) a 0,040 $/pagina invece di 0,070. Sulle 14 pagine con calligrafia vera,
-dal vivo, meta' delle pagine sono passate a Opus: li' il costo e' ~0,05 $/pagina.
+di prova, prompt v3: 36/37 pagine perfette e 14/14 sulla calligrafia vera (Opus da
+solo 35/37), 0 errori non segnalati, 0,033 $/pagina invece di 0,070. Col prompt v2,
+dal vivo sulle 14 pagine reali, meta' delle pagine erano passate a Opus: li' il
+costo sale verso 0,05 $/pagina.
+
+**Il prompt si misura, non si ritocca a occhio.** v1 -> v2 -> v3 sono passati tutti
+dal banco di prova (`bench/`); i precedenti restano in `bench/prompt_v1.txt` e
+`bench/prompt_v2.txt`. Il v3 ha aggiunto: barrata anche con una sola X sul Seq-no,
+MAG non barrato su una riga barrata alla riga attiva vicina, MAG sopra le taglie
+alla riga di quelle taglie, niente segnalazioni su quantita' gia' confermate dal
+Total o su campi fuori dal carico.
 Ogni pagina registra chi l'ha letta (campo `motore`), per misurarlo nella prova.
 
 **Estrazione a backend intercambiabile.** Il resto dell'applicazione conosce

@@ -8,14 +8,17 @@
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | gemini-3.8-flash prompt v1 | 26/37 | 85% | 100% | 97% | 127/155 (+1 inventati) | 12/15 | 8 | 8 | 0 (0 a vuoto) | $0.0167 | 32 |
 | gemini-3.8-flash prompt v2 | 31/37 | 97% | 100% | 100% | 150/155 (+2 inventati) | 15/15 | 2 | 1 | 2 (1 a vuoto) | $0.0159 | 27 |
+| gemini-3.8-flash prompt v3 | 32/37 | 96% | 99% | 100% | 150/155 (+2 inventati) | 15/15 | 4 | 4 | 5 (5 a vuoto) | $0.0148 | 20 |
 | gemini-pro prompt v1 | 26/37 | 88% | 100% | 96% | 140/155 (+1 inventati) | 9/15 | 10 | 10 | 0 (0 a vuoto) | $0.0589 | 38 |
 | gemini-pro prompt v2 | 32/37 | 97% | 100% | 99% | 152/155 (+1 inventati) | 15/15 | 3 | 0 | 11 (8 a vuoto) | $0.0691 | 41 |
 | haiku-4.5 prompt v1 | 8/37 | 38% | 89% | 79% | 29/155 (+1 inventati) | 1/15 | 14 | 14 | 0 (0 a vuoto) | $0.0082 | n.d. |
 | haiku-5.5 prompt v2 | 24/37 | 90% | 99% | 99% | 141/155 (+2 inventati) | 10/15 | 5 | 1 | 49 (45 a vuoto) | $0.0025 | 15 |
+| haiku-5.5 prompt v3 | 28/37 | 93% | 99% | 99% | 142/155 | 14/15 | 6 | 2 | 27 (23 a vuoto) | $0.0026 | 15 |
 | locale-qwen3.5-0.8b (4 casi su 37) | 0/4 | 32% | 36% | 32% | 0/0 | 0/0 | 19 | 19 | 0 (0 a vuoto) | $0.0000 | 210 |
 | opus-5.5 prompt v1 | 34/37 | 99% | 100% | 100% | 153/155 (+1 inventati) | 15/15 | 1 | 1 | 0 (0 a vuoto) | $0.0355 | n.d. |
 | opus-5.5 prompt v2 | 35/37 | 99% | 100% | 100% | 153/155 (+1 inventati) | 15/15 | 0 | 0 | 41 (41 a vuoto) | $0.0386 | n.d. |
 | opus-5.5-api prompt v2 | 34/37 | 99% | 100% | 100% | 153/155 (+2 inventati) | 15/15 | 0 | 0 | 21 (21 a vuoto) | $0.0699 | 24 |
+| opus-5.5-api prompt v3 | 35/37 | 99% | 100% | 100% | 153/155 | 15/15 | 0 | 0 | 14 (14 a vuoto) | $0.0700 | 23 |
 | sonnet-5.5 prompt v1 | 31/37 | 97% | 99% | 99% | 154/155 (+2 inventati) | 15/15 | 5 | 5 | 0 (0 a vuoto) | $0.0176 | n.d. |
 | sonnet-5.5 prompt v2 | 32/37 | 98% | 99% | 100% | 153/155 | 15/15 | 3 | 0 | 24 (21 a vuoto) | $0.0188 | n.d. |
 | sonnet-5.5-api prompt v2 | 32/37 | 98% | 100% | 100% | 152/155 (+1 inventati) | 15/15 | 2 | 0 | 21 (19 a vuoto) | $0.0370 | 14 |
@@ -26,13 +29,16 @@
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | gemini-3.8-flash prompt v1 | 10/14 | 74% | 96% | 96% | 16/17 (+1 inventati) | 5/8 | 2 | 2 | 0 (0 a vuoto) |  |  |
 | gemini-3.8-flash prompt v2 | 11/14 | 85% | 96% | 96% | 16/17 (+1 inventati) | 8/8 | 2 | 1 | 1 (0 a vuoto) |  |  |
+| gemini-3.8-flash prompt v3 | 12/14 | 89% | 100% | 96% | 16/17 (+1 inventati) | 8/8 | 1 | 1 | 1 (1 a vuoto) |  |  |
 | gemini-pro prompt v1 | 10/14 | 63% | 100% | 93% | 16/17 (+1 inventati) | 2/8 | 2 | 2 | 0 (0 a vuoto) |  |  |
 | gemini-pro prompt v2 | 12/14 | 93% | 96% | 96% | 17/17 | 8/8 | 2 | 0 | 3 (1 a vuoto) |  |  |
 | haiku-4.5 prompt v1 | 4/14 | 37% | 81% | 59% | 13/17 (+1 inventati) | 0/8 | 8 | 8 | 0 (0 a vuoto) |  |  |
 | haiku-5.5 prompt v2 | 8/14 | 59% | 96% | 89% | 16/17 (+1 inventati) | 3/8 | 4 | 0 | 16 (12 a vuoto) |  |  |
+| haiku-5.5 prompt v3 | 9/14 | 78% | 96% | 89% | 16/17 | 7/8 | 4 | 1 | 13 (10 a vuoto) |  |  |
 | opus-5.5 prompt v1 | 12/14 | 89% | 96% | 100% | 16/17 (+1 inventati) | 8/8 | 1 | 1 | 0 (0 a vuoto) |  |  |
 | opus-5.5 prompt v2 | 13/14 | 93% | 100% | 100% | 16/17 (+1 inventati) | 8/8 | 0 | 0 | 15 (15 a vuoto) |  |  |
 | opus-5.5-api prompt v2 | 13/14 | 93% | 100% | 100% | 16/17 (+1 inventati) | 8/8 | 0 | 0 | 9 (9 a vuoto) |  |  |
+| opus-5.5-api prompt v3 | 14/14 | 100% | 100% | 100% | 17/17 | 8/8 | 0 | 0 | 8 (8 a vuoto) |  |  |
 | sonnet-5.5 prompt v1 | 10/14 | 81% | 93% | 96% | 16/17 (+1 inventati) | 8/8 | 3 | 3 | 0 (0 a vuoto) |  |  |
 | sonnet-5.5 prompt v2 | 11/14 | 89% | 93% | 96% | 17/17 | 8/8 | 3 | 0 | 13 (10 a vuoto) |  |  |
 | sonnet-5.5-api prompt v2 | 10/14 | 81% | 96% | 96% | 15/17 (+1 inventati) | 8/8 | 2 | 0 | 12 (10 a vuoto) |  |  |
@@ -43,14 +49,17 @@
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | gemini-3.8-flash prompt v1 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | gemini-3.8-flash prompt v2 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
+| gemini-3.8-flash prompt v3 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | gemini-pro prompt v1 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | gemini-pro prompt v2 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | haiku-4.5 prompt v1 | 3/4 | 96% | 100% | 96% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | haiku-5.5 prompt v2 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 5 (5 a vuoto) |  |  |
+| haiku-5.5 prompt v3 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 1 (1 a vuoto) |  |  |
 | locale-qwen3.5-0.8b | 0/4 | 32% | 36% | 32% | 0/0 | 0/0 | 19 | 19 | 0 (0 a vuoto) |  |  |
 | opus-5.5 prompt v1 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | opus-5.5 prompt v2 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | opus-5.5-api prompt v2 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
+| opus-5.5-api prompt v3 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | sonnet-5.5 prompt v1 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | sonnet-5.5 prompt v2 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | sonnet-5.5-api prompt v2 | 4/4 | 100% | 100% | 100% | 0/0 | 0/0 | 0 | 0 | 0 (0 a vuoto) |  |  |
@@ -61,64 +70,69 @@
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | gemini-3.8-flash prompt v1 | 12/19 | 83% | 100% | 97% | 111/138 | 7/7 | 6 | 6 | 0 (0 a vuoto) |  |  |
 | gemini-3.8-flash prompt v2 | 16/19 | 97% | 100% | 100% | 134/138 (+1 inventati) | 7/7 | 0 | 0 | 1 (1 a vuoto) |  |  |
+| gemini-3.8-flash prompt v3 | 16/19 | 96% | 98% | 100% | 134/138 (+1 inventati) | 7/7 | 3 | 3 | 4 (4 a vuoto) |  |  |
 | gemini-pro prompt v1 | 12/19 | 89% | 100% | 96% | 124/138 | 7/7 | 8 | 8 | 0 (0 a vuoto) |  |  |
 | gemini-pro prompt v2 | 16/19 | 97% | 100% | 99% | 135/138 (+1 inventati) | 7/7 | 1 | 0 | 8 (7 a vuoto) |  |  |
 | haiku-4.5 prompt v1 | 1/19 | 24% | 88% | 77% | 16/138 | 1/7 | 6 | 6 | 0 (0 a vuoto) |  |  |
 | haiku-5.5 prompt v2 | 12/19 | 92% | 99% | 99% | 125/138 (+1 inventati) | 7/7 | 1 | 1 | 28 (28 a vuoto) |  |  |
+| haiku-5.5 prompt v3 | 15/19 | 93% | 99% | 99% | 126/138 | 7/7 | 2 | 1 | 13 (12 a vuoto) |  |  |
 | opus-5.5 prompt v1 | 18/19 | 99% | 100% | 100% | 137/138 | 7/7 | 0 | 0 | 0 (0 a vuoto) |  |  |
 | opus-5.5 prompt v2 | 18/19 | 99% | 100% | 100% | 137/138 | 7/7 | 0 | 0 | 26 (26 a vuoto) |  |  |
 | opus-5.5-api prompt v2 | 17/19 | 99% | 100% | 100% | 137/138 (+1 inventati) | 7/7 | 0 | 0 | 12 (12 a vuoto) |  |  |
+| opus-5.5-api prompt v3 | 17/19 | 99% | 100% | 100% | 136/138 | 7/7 | 0 | 0 | 6 (6 a vuoto) |  |  |
 | sonnet-5.5 prompt v1 | 17/19 | 98% | 100% | 99% | 138/138 (+1 inventati) | 7/7 | 2 | 2 | 0 (0 a vuoto) |  |  |
 | sonnet-5.5 prompt v2 | 17/19 | 99% | 100% | 100% | 136/138 | 7/7 | 0 | 0 | 11 (11 a vuoto) |  |  |
 | sonnet-5.5-api prompt v2 | 18/19 | 99% | 100% | 100% | 137/138 | 7/7 | 0 | 0 | 9 (9 a vuoto) |  |  |
 
 ## Caso per caso (righe perfette / righe)
 
-| caso | cosa prova | gemini-3.8-flash prompt v1 | gemini-3.8-flash prompt v2 | gemini-pro prompt v1 | gemini-pro prompt v2 | haiku-4.5 prompt v1 | haiku-5.5 prompt v2 | locale-qwen3.5-0.8b | opus-5.5 prompt v1 | opus-5.5 prompt v2 | opus-5.5-api prompt v2 | sonnet-5.5 prompt v1 | sonnet-5.5 prompt v2 | sonnet-5.5-api prompt v2 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| reale-01 | pagina di esempio con calligrafia vera | 1/2 ⚠ | 1/2 ⚠ | 2/2 | 1/2 ⚠ | 1/2 | 1/2 ⚠ |  | 2/2 | 2/2 | 2/2 | 1/2 ⚠ | 1/2 ⚠ | 1/2 ⚠ |
-| reale-02 | pagina di esempio con calligrafia vera | 1/2 ⚠ | 1/2 ⚠ | 0/2 ⚠ | 1/2 ⚠ | 0/2 ⚠ | 0/2 ⚠ |  | 2/2 | 2/2 | 2/2 | 1/2 ⚠ | 1/2 ⚠ | 1/2 ⚠ |
-| reale-03 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 ⚠ | 0/1 ⚠ |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
-| reale-04 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 ⚠ | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
-| reale-05 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
-| reale-06 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
-| reale-07 | pagina di esempio con calligrafia vera | 1/4 | 4/4 | 1/4 | 4/4 | 1/4 | 2/4 |  | 4/4 | 4/4 | 4/4 | 3/4 ⚠ | 3/4 ⚠ | 3/4 |
-| reale-08 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
-| reale-09 | pagina di esempio con calligrafia vera | 3/3 | 3/3 | 3/3 | 3/3 | 0/3 ⚠ | 3/3 |  | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
-| reale-10 | pagina di esempio con calligrafia vera | 4/4 | 4/4 | 1/4 | 4/4 | 1/4 ⚠ | 1/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
-| reale-11 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
-| reale-12 | pagina di esempio con calligrafia vera | 2/4 | 2/4 | 2/4 | 4/4 | 3/4 | 2/4 |  | 2/4 | 2/4 | 2/4 | 2/4 | 4/4 | 2/4 |
-| reale-13 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
-| reale-14 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 | 1/1 |  | 0/1 ⚠ | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
-| pulita-C | bolla bianca, come arrivata | 4/4 | 4/4 | 4/4 | 4/4 | 2/4 | 4/4 | 0/4 ⚠ | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
-| pulita-P1 | bolla bianca, come arrivata | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | FALLITA | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
-| pulita-P2 | bolla bianca, come arrivata | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 0/15 ⚠ | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
-| pulita-P3 | bolla bianca, come arrivata | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 15/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 |
-| sint-C-mag-penna | MAG a penna blu su ogni riga | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
-| sint-C-mag-evidenziato | MAG a penna nera evidenziato in giallo/verde, sopra le taglie | 2/4 ⚠ | 4/4 | 1/4 ⚠ | 4/4 | 0/4 ⚠ | 3/4 |  | 4/4 | 4/4 | 4/4 | 2/4 ⚠ | 4/4 | 4/4 |
-| sint-C-mag-cerchiato-matita | MAG a MATITA, cerchiato | 3/4 | 3/4 | 3/4 | 3/4 | 0/4 | 3/4 |  | 3/4 | 3/4 | 3/4 | 4/4 | 3/4 | 3/4 |
-| sint-C-split-taglia | una taglia divisa su due magazzini (2 MAG 1 + 1 MAG 2) | 4/4 | 4/4 | 2/4 ⚠ | 4/4 | 1/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
-| sint-C-barrate | riga 3 cancellata con un tratto, riga 4 con X sul numero | 2/4 ⚠ | 4/4 | 4/4 | 4/4 | 0/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
-| sint-C-qta-corretta | quantita' stampata S/5 barrata e corretta a mano in 4 | 2/4 ⚠ | 4/4 | 2/4 ⚠ | 4/4 | 0/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
-| sint-P1-mag-ogni-riga | 11 righe fitte, MAG su ognuna | 11/11 | 11/11 | 11/11 | 11/11 | 1/11 | 11/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
-| sint-P1-graffe | due graffe a margine: 'M2' per le righe 1-2, 'M1' per 3-11 | 11/11 | 11/11 | 11/11 | 11/11 | 0/11 | 11/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
-| sint-P1-solo-spunte | solo spunte di controllo e 'ok 8 colli': nessun magazzino | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
-| sint-P1-mix | MAG su alcune righe, 2 barrate, 1 con X, spunte | 11/11 | 11/11 | 11/11 | 11/11 | 8/11 | 11/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
-| sint-P2-evidenziati | 15 righe, MAG evidenziato su ognuna, 2 righe barrate | 15/15 | 15/15 | 15/15 | 15/15 | 1/15 | 15/15 |  | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
-| sint-P2-matita | 15 righe, MAG a MATITA leggera | 15/15 | 15/15 | 15/15 | 15/15 | 1/15 | 15/15 |  | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
-| sint-P3-rossa-codice | 17 righe, penna rossa, nome cliente e codice aggiunti a mano | 17/17 | 17/17 | 17/17 | 17/17 | 4/17 | 17/17 |  | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 |
-| sint-P2-mag-di-pagina | un solo 'TUTTO MAG 2' in testa alla pagina | 1/15 | 15/15 | 15/15 | 15/15 | 1/15 | 15/15 |  | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
-| sint-P3-sopra-taglie | MAG scritto SOPRA la colonna Size/Qty: copre lo stampato | 17/17 | 17/17 | 16/17 ⚠ | 15/17 ⚠ | 12/17 ⚠ | 16/17 |  | 17/17 | 17/17 | 16/17 | 16/17 | 17/17 | 17/17 |
-| sint-P1-ruotata-90 | scansione coricata (90 gradi) con MAG | 1/11 | 9/11 | 1/11 | 11/11 | 1/11 | 1/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
-| sint-P2-capovolta | scansione capovolta (180 gradi), pulita | 15/15 | 15/15 | 15/15 | 15/15 | 1/15 | 14/15 ⚠ |  | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
-| sint-C-foto-telefono | foto da telefono: storta, in ombra, sfocata, compressa | 2/4 | 2/4 | 2/4 | 2/4 | 0/4 ⚠ | 3/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
-| sint-P3-fax | bianco e nero a bassa risoluzione (fax/fotocopia) | 17/17 | 17/17 | 17/17 | 17/17 | 4/17 ⚠ | 16/17 |  | 17/17 | 17/17 | 17/17 | 17/17 | 16/17 | 17/17 |
+| caso | cosa prova | gemini-3.8-flash prompt v1 | gemini-3.8-flash prompt v2 | gemini-3.8-flash prompt v3 | gemini-pro prompt v1 | gemini-pro prompt v2 | haiku-4.5 prompt v1 | haiku-5.5 prompt v2 | haiku-5.5 prompt v3 | locale-qwen3.5-0.8b | opus-5.5 prompt v1 | opus-5.5 prompt v2 | opus-5.5-api prompt v2 | opus-5.5-api prompt v3 | sonnet-5.5 prompt v1 | sonnet-5.5 prompt v2 | sonnet-5.5-api prompt v2 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| reale-01 | pagina di esempio con calligrafia vera | 1/2 ⚠ | 1/2 ⚠ | 2/2 | 2/2 | 1/2 ⚠ | 1/2 | 1/2 ⚠ | 1/2 ⚠ |  | 2/2 | 2/2 | 2/2 | 2/2 | 1/2 ⚠ | 1/2 ⚠ | 1/2 ⚠ |
+| reale-02 | pagina di esempio con calligrafia vera | 1/2 ⚠ | 1/2 ⚠ | 1/2 ⚠ | 0/2 ⚠ | 1/2 ⚠ | 0/2 ⚠ | 0/2 ⚠ | 0/2 ⚠ |  | 2/2 | 2/2 | 2/2 | 2/2 | 1/2 ⚠ | 1/2 ⚠ | 1/2 ⚠ |
+| reale-03 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 ⚠ | 0/1 ⚠ | 0/1 ⚠ |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
+| reale-04 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 ⚠ | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
+| reale-05 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
+| reale-06 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
+| reale-07 | pagina di esempio con calligrafia vera | 1/4 | 4/4 | 4/4 | 1/4 | 4/4 | 1/4 | 2/4 | 3/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 3/4 ⚠ | 3/4 ⚠ | 3/4 |
+| reale-08 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
+| reale-09 | pagina di esempio con calligrafia vera | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 0/3 ⚠ | 3/3 | 3/3 |  | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
+| reale-10 | pagina di esempio con calligrafia vera | 4/4 | 4/4 | 4/4 | 1/4 | 4/4 | 1/4 ⚠ | 1/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| reale-11 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
+| reale-12 | pagina di esempio con calligrafia vera | 2/4 | 2/4 | 2/4 | 2/4 | 4/4 | 3/4 | 2/4 | 4/4 |  | 2/4 | 2/4 | 2/4 | 4/4 | 2/4 | 4/4 | 2/4 |
+| reale-13 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |  | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
+| reale-14 | pagina di esempio con calligrafia vera | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 0/1 | 1/1 | 1/1 |  | 0/1 ⚠ | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
+| pulita-C | bolla bianca, come arrivata | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 2/4 | 4/4 | 4/4 | 0/4 ⚠ | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| pulita-P1 | bolla bianca, come arrivata | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | FALLITA | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
+| pulita-P2 | bolla bianca, come arrivata | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 0/15 ⚠ | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
+| pulita-P3 | bolla bianca, come arrivata | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 15/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 |
+| sint-C-mag-penna | MAG a penna blu su ogni riga | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 4/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| sint-C-mag-evidenziato | MAG a penna nera evidenziato in giallo/verde, sopra le taglie | 2/4 ⚠ | 4/4 | 4/4 | 1/4 ⚠ | 4/4 | 0/4 ⚠ | 3/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 2/4 ⚠ | 4/4 | 4/4 |
+| sint-C-mag-cerchiato-matita | MAG a MATITA, cerchiato | 3/4 | 3/4 | 3/4 | 3/4 | 3/4 | 0/4 | 3/4 | 3/4 |  | 3/4 | 3/4 | 3/4 | 3/4 | 4/4 | 3/4 | 3/4 |
+| sint-C-split-taglia | una taglia divisa su due magazzini (2 MAG 1 + 1 MAG 2) | 4/4 | 4/4 | 4/4 | 2/4 ⚠ | 4/4 | 1/4 | 4/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| sint-C-barrate | riga 3 cancellata con un tratto, riga 4 con X sul numero | 2/4 ⚠ | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 4/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| sint-C-qta-corretta | quantita' stampata S/5 barrata e corretta a mano in 4 | 2/4 ⚠ | 4/4 | 4/4 | 2/4 ⚠ | 4/4 | 0/4 | 4/4 | 4/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| sint-P1-mag-ogni-riga | 11 righe fitte, MAG su ognuna | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 1/11 | 11/11 | 11/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
+| sint-P1-graffe | due graffe a margine: 'M2' per le righe 1-2, 'M1' per 3-11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 0/11 | 11/11 | 11/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
+| sint-P1-solo-spunte | solo spunte di controllo e 'ok 8 colli': nessun magazzino | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
+| sint-P1-mix | MAG su alcune righe, 2 barrate, 1 con X, spunte | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 8/11 | 11/11 | 11/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
+| sint-P2-evidenziati | 15 righe, MAG evidenziato su ognuna, 2 righe barrate | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 1/15 | 15/15 | 15/15 |  | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
+| sint-P2-matita | 15 righe, MAG a MATITA leggera | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 1/15 | 15/15 | 15/15 |  | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
+| sint-P3-rossa-codice | 17 righe, penna rossa, nome cliente e codice aggiunti a mano | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 4/17 | 17/17 | 17/17 |  | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 |
+| sint-P2-mag-di-pagina | un solo 'TUTTO MAG 2' in testa alla pagina | 1/15 | 15/15 | 15/15 | 15/15 | 15/15 | 1/15 | 15/15 | 15/15 |  | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
+| sint-P3-sopra-taglie | MAG scritto SOPRA la colonna Size/Qty: copre lo stampato | 17/17 | 17/17 | 17/17 | 16/17 ⚠ | 15/17 ⚠ | 12/17 ⚠ | 16/17 | 17/17 |  | 17/17 | 17/17 | 16/17 | 17/17 | 16/17 | 17/17 | 17/17 |
+| sint-P1-ruotata-90 | scansione coricata (90 gradi) con MAG | 1/11 | 9/11 | 6/11 ⚠ | 1/11 | 11/11 | 1/11 | 1/11 | 1/11 |  | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 | 11/11 |
+| sint-P2-capovolta | scansione capovolta (180 gradi), pulita | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 1/15 | 14/15 ⚠ | 13/15 ⚠ |  | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 | 15/15 |
+| sint-C-foto-telefono | foto da telefono: storta, in ombra, sfocata, compressa | 2/4 | 2/4 | 2/4 | 2/4 | 2/4 | 0/4 ⚠ | 3/4 | 3/4 |  | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| sint-P3-fax | bianco e nero a bassa risoluzione (fax/fotocopia) | 17/17 | 17/17 | 17/17 | 17/17 | 17/17 | 4/17 ⚠ | 16/17 | 17/17 |  | 17/17 | 17/17 | 17/17 | 16/17 | 17/17 | 16/17 | 17/17 |
 
 ⚠ = almeno un errore silenzioso (non intercettato dal checksum).
 
 - **gemini-3.8-flash prompt v1**: Via OpenRouter, API vera con output vincolato allo schema. Costo MISURATO. Prompt e schema v1.
 
 - **gemini-3.8-flash prompt v2**: Via OpenRouter, API vera con output vincolato allo schema. Prompt corrente (v2). Costo MISURATO.
+
+- **gemini-3.8-flash prompt v3**: Via OpenRouter, API vera con output vincolato allo schema. Prompt v3 (barrate sul Seq-no, MAG su riga barrata, incertezze ristrette). Costo MISURATO.
 
 - **gemini-pro prompt v1**: Via OpenRouter, API vera con output vincolato allo schema. Costo MISURATO. Prompt e schema v1.
 
@@ -128,6 +142,8 @@
 
 - **haiku-5.5 prompt v2**: Via OpenRouter, API vera con output vincolato allo schema. Costo MISURATO.
 
+- **haiku-5.5 prompt v3**: Via OpenRouter, API vera con output vincolato allo schema. Prompt v3 (barrate sul Seq-no, MAG su riga barrata, incertezze ristrette). Costo MISURATO.
+
 - **locale-qwen3.5-0.8b**: Ollama su CPU (Ryzen 7 7730U, nessuna GPU)
 
 - **opus-5.5 prompt v1**: Letto come sotto-agente di Claude Code, non via API: stesso prompt e schema, ma senza output vincolato e con le pagine lette in sequenza nella stessa sessione. Costo STIMATO dal listino (ragionamento escluso), non misurato.
@@ -135,6 +151,8 @@
 - **opus-5.5 prompt v2**: Sotto-agente di Claude Code, non API. Prompt v2 (regole su magazzini, incertezze, codice a mano). Costo STIMATO dal listino, ragionamento escluso. 14 casi aggiunti il 2026-10-09 con il prompt v2 corrente (una riga in piu' sui pacchi misti).
 
 - **opus-5.5-api prompt v2**: Via OpenRouter, API vera con output vincolato allo schema, una pagina per chiamata, ragionamento alle impostazioni predefinite. Costo MISURATO.
+
+- **opus-5.5-api prompt v3**: Via OpenRouter, API vera con output vincolato allo schema. Prompt v3 (barrate sul Seq-no, MAG su riga barrata, incertezze ristrette). Costo MISURATO.
 
 - **sonnet-5.5 prompt v1**: Letto come sotto-agente di Claude Code, non via API: stesso prompt e schema, ma senza output vincolato e con le pagine lette in sequenza nella stessa sessione. Costo STIMATO dal listino (ragionamento escluso), non misurato.
 
@@ -196,6 +214,20 @@
 - `sint-C-mag-cerchiato-matita`: riga 1 magazzino: atteso ['MAG 2'], letto ['MAG 1'] ('MAG 1')
 - `sint-P1-ruotata-90`: riga 2 magazzino: atteso -, letto ['MAG 2'] ('MAG 2')
 - `sint-P1-ruotata-90`: riga 3 magazzino: atteso ['MAG 2'], letto ['MAG 1'] ('MAG 1')
+- `sint-C-foto-telefono`: riga 1 magazzino: atteso ['MAG 1'], letto ['MAG 2'] ('MAG 2')
+- `sint-C-foto-telefono`: riga 4 magazzino: atteso ['MAG 1'], letto ['MAG 2'] ('MAG 2')
+
+### gemini-3.8-flash prompt v3
+
+- `reale-02`: riga 1 taglie: atteso '550/2 560/2', letto '550/2 570/2'
+- `reale-12`: riga 2 magazzino: atteso -, letto ['MAG 1'] ('MAG 1')
+- `reale-12`: riga 3 magazzino: atteso ['MAG 1'], letto - ('')
+- `sint-C-mag-cerchiato-matita`: riga 1 magazzino: atteso ['MAG 2'], letto ['MAG 1'] ('MAG 1')
+- `sint-P1-ruotata-90`: riga 2 magazzino: atteso -, letto ['MAG 2'] ('MAG 2')
+- `sint-P1-ruotata-90`: riga 3 magazzino: atteso ['MAG 2'], letto ['MAG 1'] ('MAG 1')
+- `sint-P1-ruotata-90`: riga 7 codice: atteso JZ6549, letto 'JZ2549'
+- `sint-P1-ruotata-90`: riga 8 codice: atteso JZ6550, letto 'JZ2550'
+- `sint-P1-ruotata-90`: riga 9 codice: atteso JZ6557, letto 'JZ2557'
 - `sint-C-foto-telefono`: riga 1 magazzino: atteso ['MAG 1'], letto ['MAG 2'] ('MAG 2')
 - `sint-C-foto-telefono`: riga 4 magazzino: atteso ['MAG 1'], letto ['MAG 2'] ('MAG 2')
 
@@ -466,6 +498,29 @@
 - `sint-C-foto-telefono`: riga 4 magazzino: atteso ['MAG 1'], letto - ('MAG ?')
 - `sint-P3-fax`: riga 41 magazzino: atteso ['MAG 1'], letto - ('MAG ?')
 
+### haiku-5.5 prompt v3
+
+- `reale-01`: riga 2 codice: atteso JD9573, letto 'UD9573'
+- `reale-02`: riga 1 taglie: atteso '550/2 560/2', letto '550/2 580/2'
+- `reale-02`: riga 2 taglie: atteso '580/1 620/1 640/2', letto '560/1 620/1 640/2'
+- `reale-03`: riga 1 taglie: atteso '8/1 9-/3 11-/1', letto '8-/1 9-/3 11-/1'
+- `reale-07`: riga 3 barrata: atteso True, letto False
+- `reale-11`: riga 1 magazzino: atteso ['MAG 1'], letto - ('')
+- `sint-C-mag-cerchiato-matita`: riga 1 magazzino: atteso ['MAG 2'], letto ['MAG 1'] ('MAG 1')
+- `sint-P1-ruotata-90`: riga 1 magazzino: atteso ['MAG 2'], letto - ('')
+- `sint-P1-ruotata-90`: riga 3 magazzino: atteso ['MAG 2'], letto - ('')
+- `sint-P1-ruotata-90`: riga 4 magazzino: atteso ['MAG 1'], letto - ('')
+- `sint-P1-ruotata-90`: riga 5 magazzino: atteso ['MAG 2'], letto - ('')
+- `sint-P1-ruotata-90`: riga 6 magazzino: atteso ['MAG 1'], letto - ('')
+- `sint-P1-ruotata-90`: riga 7 magazzino: atteso ['MAG 2'], letto - ('')
+- `sint-P1-ruotata-90`: riga 8 magazzino: atteso ['MAG 1'], letto - ('')
+- `sint-P1-ruotata-90`: riga 9 magazzino: atteso ['MAG 2'], letto - ('')
+- `sint-P1-ruotata-90`: riga 10 magazzino: atteso ['MAG 1'], letto - ('')
+- `sint-P1-ruotata-90`: riga 11 magazzino: atteso ['MAG 2'], letto - ('')
+- `sint-P2-capovolta`: riga 14 codice: atteso JZ6593, letto 'JZ6693'
+- `sint-P2-capovolta`: riga 24 taglie: atteso '5/20', letto 'S/20'
+- `sint-C-foto-telefono`: riga 4 magazzino: atteso ['MAG 1'], letto - ('MAG ?')
+
 ### locale-qwen3.5-0.8b
 
 - `pulita-C`: riga 1 codice: atteso KB8172, letto ''
@@ -540,6 +595,11 @@
 - `reale-12`: riga 3 magazzino: atteso ['MAG 1'], letto - ('')
 - `sint-C-mag-cerchiato-matita`: riga 1 magazzino: atteso ['MAG 2'], letto - ('MAG ?')
 - `sint-P3-sopra-taglie`: riga 27 magazzino: atteso -, letto ['MAG 1'] ('MAG 1 (scritto a cavallo tra riga 27 e riga 28, potrebbe riferirsi a una sola delle due)')
+
+### opus-5.5-api prompt v3
+
+- `sint-C-mag-cerchiato-matita`: riga 1 magazzino: atteso ['MAG 2'], letto - ('MAG ?')
+- `sint-P3-fax`: riga 41 magazzino: atteso ['MAG 1'], letto - ('MAG ?')
 
 ### sonnet-5.5 prompt v1
 
