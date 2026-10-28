@@ -115,5 +115,11 @@ def carica(percorso: Path, doc_id: str, max_pagine: int = 0) -> list[Pagina]:
     return pagine
 
 
+def da_immagini(immagini: list[Image.Image], doc_id: str) -> list[Pagina]:
+    """Pagine gia' pronte, una per immagine: quelle della scansione da fotocamera."""
+    dest = PAGES_DIR / doc_id
+    return [_salva_pagina(img, dest, i) for i, img in enumerate(immagini, start=1)]
+
+
 def come_base64(jpg: Path) -> str:
     return base64.standard_b64encode(jpg.read_bytes()).decode("ascii")

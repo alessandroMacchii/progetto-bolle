@@ -424,6 +424,79 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
                        background: var(--linea-velo); color: var(--linea-cupo); }
 #errore-divisione { font-size: 0.86rem; color: var(--segnale); min-height: 1.2em; }
 
+/* --------------------------------------------------------------- scansione */
+.comandi-carica { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+
+.scan { height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 12px;
+        padding: 16px clamp(16px, 2vw, 32px); overflow: hidden; }
+.scan-testa { display: flex; align-items: center; gap: 8px 16px; flex-wrap: wrap; }
+.scan-testa h1 { font-weight: 600; font-size: 1.35rem; letter-spacing: -0.006em; line-height: 1.08; }
+.scan-guida { color: var(--nero-medio); font-size: 0.95rem; }
+
+/* il palco e' scuro: la foto ci si stacca come su un tavolo */
+.scan-palco { position: relative; min-height: 0; padding: 28px; overflow: hidden;
+              border-radius: var(--raggio-scheda); background: var(--nero); }
+.scan-vista { width: 100%; height: 100%; display: grid; place-items: center; }
+/* la cornice prende le proporzioni della foto (le calcola adatta()): cosi'
+   l'immagine la riempie e coordinate 0..1 della cornice = coordinate della foto */
+.cornice { position: relative; }
+.cornice > img, .cornice > video { position: absolute; inset: 0; width: 100%; height: 100%;
+                                   display: block; border-radius: 4px; }
+.cornice > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.velo-fuori { fill: rgba(14, 26, 43, 0.55); fill-rule: evenodd; }
+.contorno { fill: rgba(194, 65, 12, 0.1); stroke: var(--accento); stroke-width: 2.5;
+            vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.contorno.stabile { fill: rgba(194, 65, 12, 0.22); }
+
+/* le quattro maniglie: bersaglio 44px, il punto vero e' il centro */
+.angolo { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0;
+          border: 0; border-radius: 50%; background: transparent; cursor: grab; touch-action: none; }
+.angolo::after { content: ""; position: absolute; inset: 10px; border-radius: 50%;
+                 background: var(--accento); border: 3px solid #fff; box-shadow: var(--ombra-leggera);
+                 transition: transform 0.2s var(--esce-quart); }
+.angolo:hover::after, .angolo:focus-visible::after, .angolo.preso::after { transform: scale(1.25); }
+.angolo.preso { cursor: grabbing; }
+.angolo:focus-visible { outline-offset: 0; }
+/* la lente: il dito copre proprio l'angolo che sta spostando */
+#lente { position: absolute; width: 128px; height: 128px; border-radius: 50%; pointer-events: none;
+         border: 3px solid #fff; box-shadow: var(--ombra); background: var(--nero); z-index: 3; }
+
+.scan-attesa { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center;
+               background: rgba(14, 26, 43, 0.55); color: #fff; font-weight: 500; }
+.scan-attesa span { display: inline-flex; gap: 10px; align-items: center; padding: 0.8rem 1.4rem;
+                    border-radius: var(--pillola); background: var(--nero); box-shadow: var(--ombra); }
+.scan-palco.lampo::after { content: ""; position: absolute; inset: 0; background: #fff; pointer-events: none;
+                           animation: lampo 0.4s var(--esce-quart) forwards; }
+@keyframes lampo { from { opacity: 0.85; } to { opacity: 0; } }
+
+.senza-camera { display: grid; justify-items: center; gap: 16px; max-width: 34rem; text-align: center;
+                color: #fff; }
+.senza-camera h2 { font-weight: 600; font-size: 1.35rem; }
+.senza-camera p { color: var(--acqua); }
+.senza-camera .bottone.secondario { color: #fff; border-color: var(--acqua); }
+.senza-camera .bottone.secondario:hover:not(:disabled) { background: rgba(255, 255, 255, 0.08); border-color: #fff; }
+
+.scan-fondo { display: grid; gap: 12px; }
+.scan-comandi { display: flex; align-items: center; justify-content: center; gap: 8px 12px; flex-wrap: wrap; }
+.scatto { width: 72px; height: 72px; flex: none; border-radius: 50%; cursor: pointer;
+          border: 4px solid var(--accento); background: var(--accento); box-shadow: inset 0 0 0 4px #fff;
+          transition: transform 0.2s var(--esce-quart), background-color 0.25s var(--esce-quart); }
+.scatto:hover:not(:disabled) { background: var(--accento-cupo); }
+.scatto:active:not(:disabled) { transform: scale(0.92); }
+.scatto:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.miniature { display: flex; gap: 8px; overflow-x: auto; padding: 2px; justify-content: center; }
+.miniature button { position: relative; flex: none; width: 56px; height: 72px; padding: 0; cursor: pointer;
+                    border: 1px solid var(--reticolo); border-radius: 10px; overflow: hidden;
+                    background: var(--carta-chiara); transition: border-color 0.25s var(--esce-quart); }
+.miniature button:hover { border-color: var(--linea); }
+.miniature button[aria-current=true] { border: 2px solid var(--accento); }
+.miniature img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.miniature .numero { position: absolute; left: 4px; bottom: 4px; min-width: 20px; padding: 0 5px;
+                     border-radius: var(--pillola); background: var(--nero); color: #fff;
+                     font-size: 0.75rem; font-weight: 600; line-height: 20px; }
+.miniature .aggiungi { display: grid; place-items: center; color: var(--linea); border-style: dashed; }
+
 /* ---------------------------------------------------------------- soglie */
 /* Sotto i 1024px il divisorio non ha senso: le schede si impilano e la pagina
    scorre. La tabella scorre in orizzontale dentro la sua scheda. */
@@ -437,6 +510,8 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
   .pannello, .pannello--righe { grid-template-rows: unset; }
   #visore { max-height: 60vh; }
   .tabella-scorrevole { max-height: 75vh; }
+  .scan { height: auto; overflow: visible; }
+  .scan-palco { height: 62dvh; padding: 24px; }
 }
 @media (max-width: 760px) {
   .marchio small { display: none; }
@@ -466,6 +541,10 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
   <symbol id="i-attesa" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/></symbol>
   <symbol id="i-penna" viewBox="0 0 24 24"><path d="M4 20h4L19.5 8.5a2.5 2.5 0 0 0-3.5-3.5L4 16.5z"/><path d="M14.5 6.5 18 10"/></symbol>
   <symbol id="i-freccia" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h2.5l1.5-2h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-galleria" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 9"/></symbol>
+  <symbol id="i-ritaglio" viewBox="0 0 24 24"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></symbol>
+  <symbol id="i-indietro" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
 </defs></svg>
 
 <div class="app">
@@ -505,13 +584,117 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
     <div id="dropzone">
       <svg class="ico ico--28" aria-hidden="true"><use href="#i-file"/></svg>
       <h2>Trascina qui il PDF o la foto</h2>
-      <p>oppure sceglilo dal computer</p>
-      <button class="bottone" id="btn-sfoglia" type="button">Scegli un file</button>
+      <p>oppure sceglilo dal computer, o fotografa la bolla</p>
+      <div class="comandi-carica">
+        <button class="bottone" id="btn-sfoglia" type="button">Scegli un file</button>
+        <button class="bottone secondario" id="btn-scansiona" type="button">
+          <svg class="ico ico--14" aria-hidden="true"><use href="#i-camera"/></svg><span>Scansiona con la fotocamera</span></button>
+      </div>
       <input type="file" id="file" accept=".pdf,image/*" hidden>
       <p class="suggerimento">Una bolla da 14 pagine si legge in circa un minuto.</p>
     </div>
     <div id="stato-upload" aria-live="polite"></div>
   </div>
+</section>
+
+<!-- ------------------------------- scansione ------------------------------- -->
+<!-- Tre viste sullo stesso palco: la fotocamera dal vivo, il ritaglio con le
+     quattro maniglie, la pagina pronta. Le foto restano qui finche' non si
+     preme "Leggi la bolla". -->
+<section class="scan" id="schermata-scan" aria-labelledby="titolo-scan" hidden>
+  <div class="scan-testa">
+    <button class="disco" id="scan-esci" type="button" aria-label="Torna al caricamento">
+      <svg class="ico ico--14" aria-hidden="true"><use href="#i-indietro"/></svg></button>
+    <div>
+      <h1 id="titolo-scan">Scansiona la bolla</h1>
+      <p class="scan-guida" id="scan-guida" aria-live="polite"></p>
+    </div>
+    <div class="crescita"></div>
+    <button class="prenota" id="scan-leggi" type="button" disabled>Leggi la bolla
+      <span class="chip-freccia" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><use href="#i-freccia"/></svg></span>
+    </button>
+  </div>
+
+  <div class="scan-palco" id="scan-palco">
+    <div class="scan-vista" id="vista-camera">
+      <div class="cornice" id="cornice-camera">
+        <video id="video" playsinline muted autoplay></video>
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <polygon class="contorno" id="contorno-live" points=""/></svg>
+      </div>
+      <div class="senza-camera" id="senza-camera" hidden>
+        <svg class="ico ico--28" aria-hidden="true"><use href="#i-camera"/></svg>
+        <h2>Fotocamera non disponibile qui</h2>
+        <p id="motivo-camera"></p>
+        <div class="comandi-carica">
+          <button class="bottone" id="scan-foto" type="button">
+            <svg class="ico ico--14" aria-hidden="true"><use href="#i-camera"/></svg>Scatta una foto</button>
+          <button class="bottone secondario" id="scan-galleria-2" type="button">
+            <svg class="ico ico--14" aria-hidden="true"><use href="#i-galleria"/></svg>Scegli dalle foto</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="scan-vista" id="vista-ritaglio" hidden>
+      <div class="cornice" id="cornice-ritaglio">
+        <img id="foto-ritaglio" alt="Foto della pagina da ritagliare">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path class="velo-fuori" id="velo-ritaglio" d=""/>
+          <polygon class="contorno" id="contorno-ritaglio" points=""/></svg>
+        <button class="angolo" type="button" data-i="0" aria-label="Angolo in alto a sinistra: spostalo con le frecce"></button>
+        <button class="angolo" type="button" data-i="1" aria-label="Angolo in alto a destra: spostalo con le frecce"></button>
+        <button class="angolo" type="button" data-i="2" aria-label="Angolo in basso a destra: spostalo con le frecce"></button>
+        <button class="angolo" type="button" data-i="3" aria-label="Angolo in basso a sinistra: spostalo con le frecce"></button>
+        <canvas id="lente" width="256" height="256" hidden></canvas>
+      </div>
+    </div>
+
+    <div class="scan-vista" id="vista-risultato" hidden>
+      <div class="cornice" id="cornice-risultato"><img id="foto-risultato" alt="Pagina scansionata"></div>
+    </div>
+
+    <div class="scan-attesa" id="scan-attesa" hidden><span id="scan-attesa-testo"></span></div>
+  </div>
+
+  <div class="scan-fondo">
+    <div class="avvisi" id="scan-avvisi"></div>
+
+    <div class="scan-comandi" id="comandi-camera">
+      <button class="bottone secondario compatto" id="scan-galleria" type="button">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-galleria"/></svg>Dalle foto</button>
+      <button class="scatto" id="scan-scatta" type="button" aria-label="Scatta la foto della pagina"></button>
+      <div class="pillole" role="group" aria-label="Scatto automatico">
+        <button type="button" id="scan-auto" aria-pressed="true">Scatto automatico</button>
+      </div>
+    </div>
+
+    <div class="scan-comandi" id="comandi-ritaglio" hidden>
+      <button class="bottone nudo compatto" id="scan-rifai" type="button">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-camera"/></svg>Rifai la foto</button>
+      <button class="bottone secondario compatto" id="scan-tutta" type="button">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-adatta"/></svg>Tutta la foto</button>
+      <button class="bottone" id="scan-conferma" type="button">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-spunta"/></svg>Ritaglia</button>
+    </div>
+
+    <div class="scan-comandi" id="comandi-risultato" hidden>
+      <div class="pillole" id="scan-resa" role="group" aria-label="Resa della pagina">
+        <button type="button" data-migliora="1">Migliorata</button>
+        <button type="button" data-migliora="0">Originale</button>
+      </div>
+      <button class="bottone nudo compatto" id="scan-bordi" type="button">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-ritaglio"/></svg>Modifica i bordi</button>
+      <button class="bottone pericolo compatto" id="scan-elimina" type="button">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-cestino"/></svg>Elimina</button>
+      <button class="bottone" id="scan-altra" type="button">
+        <svg class="ico ico--14" aria-hidden="true"><use href="#i-piu"/></svg>Altra pagina</button>
+    </div>
+
+    <div class="miniature" id="scan-pagine" role="group" aria-label="Pagine scansionate"></div>
+  </div>
+
+  <input type="file" id="scan-file" accept="image/*" capture="environment" hidden>
+  <input type="file" id="scan-file-galleria" accept="image/*" multiple hidden>
 </section>
 
 <!-- -------------------------------- lavoro --------------------------------- -->
@@ -700,6 +883,7 @@ $('#scelta-doc').onchange = e => e.target.value ? apri(e.target.value) : mostraU
 $('#btn-nuovo').onclick = () => { $('#scelta-doc').value = ''; mostraUpload(); };
 
 function mostraUpload(){
+  chiudiScan();
   $('#schermata-lavoro').hidden = true;
   $('#schermata-upload').hidden = false;
   $('#stato-upload').innerHTML = '';
@@ -721,7 +905,14 @@ dz.ondrop = e => {
    mancano e si dice di non chiudere. */
 const pausa = ms => new Promise(r => setTimeout(r, ms));
 
-async function invia(file){
+function invia(file){
+  const fd = new FormData(); fd.append('file', file);
+  return leggiBolla(file.name, () => api('/api/documenti', { method: 'POST', body: fd }));
+}
+
+/* `carica` manda la bolla al server (file o scansione) e ne restituisce l'id;
+   da li' in poi l'attesa e' la stessa */
+async function leggiBolla(nome, carica){
   const stato = $('#stato-upload');
   const inizio = Date.now();
   let lette = 0, totali = 0;
@@ -732,16 +923,15 @@ async function invia(file){
     stato.innerHTML =
       `<div class="avviso">${icona('i-attesa', 'ico ico--14 girella')}
          <span><b>Lettura in corso…</b><br>
-         ${esc(file.name)} · ${avanzamento}${sec}s trascorsi. Non chiudere questa finestra.</span></div>
+         ${esc(nome)} · ${avanzamento}${sec}s trascorsi. Non chiudere questa finestra.</span></div>
        <div class="avanzamento" style="margin-top:12px"><span${totali ? ` class="fissa" style="width:${percento}%"` : ''}></span></div>`;
   };
   disegnaAttesa();
   const battito = setInterval(disegnaAttesa, 1000);
-  $('#btn-sfoglia').disabled = true;
+  $('#btn-sfoglia').disabled = $('#btn-scansiona').disabled = true;
 
-  const fd = new FormData(); fd.append('file', file);
   try {
-    const doc = await api('/api/documenti', { method: 'POST', body: fd });
+    const doc = await carica();
     totali = doc.pagine_totali;
     for (;;) {
       await pausa(1500);
@@ -755,12 +945,452 @@ async function invia(file){
   } catch (err) {
     clearInterval(battito);
     stato.innerHTML = `<div class="avviso avviso--blocco">${icona('i-blocco', 'ico ico--14')}
-      <span><b>Non sono riuscito a leggere il file.</b><br>${esc(err.message)}</span></div>`;
+      <span><b>Non sono riuscito a leggere la bolla.</b><br>${esc(err.message)}</span></div>`;
   } finally {
-    $('#btn-sfoglia').disabled = false;
+    $('#btn-sfoglia').disabled = $('#btn-scansiona').disabled = false;
     $('#file').value = '';
   }
 }
+
+/* --- scansione da fotocamera ------------------------------------------------ */
+/* Le foto restano nel browser finche' la bolla non e' completa: il server non
+   tiene stato, ogni chiamata gli rimanda la foto. Bordi, ritaglio e
+   miglioramento li fa bolle/scan.py; qui si scatta e si spostano gli angoli.
+   Gli angoli sono [x, y] normalizzati 0..1 sulla foto, come sul server. */
+const LATO_FOTO = 2600;           // = scan.LATO_MAX: oltre non serve
+const TUTTA = [[0, 0], [1, 0], [1, 1], [0, 1]];
+const SCAN = {
+  pagine: [],     // {foto, url, w, h, angoli, trovati, avvisi, migliora, anteprima}
+  corrente: -1,
+  vista: 'camera',
+  stream: null,
+  giro: 0,        // cambia a ogni avvio/arresto: ferma il ciclo dal vivo vecchio
+  auto: true,
+  occupato: false,
+};
+try { SCAN.auto = localStorage.getItem('scan-auto') !== '0'; } catch {}
+
+const paginaScan = () => SCAN.pagine[SCAN.corrente];
+const comeFormData = (campi) => {
+  const fd = new FormData();
+  for (const [k, v] of Object.entries(campi)) v instanceof Blob ? fd.append(k, v, 'pagina.jpg') : fd.append(k, v);
+  return fd;
+};
+const versoBlob = (tela, qualita) => new Promise(ok => tela.toBlob(ok, 'image/jpeg', qualita));
+
+function guida(testo){ $('#scan-guida').textContent = testo; }
+function attesa(testo){
+  $('#scan-attesa').hidden = !testo;
+  $('#scan-attesa-testo').innerHTML = testo ? icona('i-attesa', 'ico ico--14 girella') + esc(testo) : '';
+}
+
+/* la cornice prende le proporzioni della foto e lo spazio che c'e' */
+function adatta(){
+  if ($('#schermata-scan').hidden) return;
+  const [cornice, w, h] = {
+    camera:    [$('#cornice-camera'), $('#video').videoWidth, $('#video').videoHeight],
+    ritaglio:  [$('#cornice-ritaglio'), paginaScan()?.w, paginaScan()?.h],
+    risultato: [$('#cornice-risultato'), $('#foto-risultato').naturalWidth, $('#foto-risultato').naturalHeight],
+  }[SCAN.vista];
+  const vista = cornice.parentElement;
+  if (!w || !h || !vista.clientWidth) return;
+  const scala = Math.min(vista.clientWidth / w, vista.clientHeight / h);
+  cornice.style.width = w * scala + 'px';
+  cornice.style.height = h * scala + 'px';
+}
+addEventListener('resize', adatta);
+
+/* --- entrare e uscire --- */
+function apriScan(){
+  $('#schermata-upload').hidden = true;
+  $('#schermata-lavoro').hidden = true;
+  $('#schermata-scan').hidden = false;
+  mostraVista(SCAN.pagine.length && SCAN.corrente >= 0 ? (paginaScan().anteprima ? 'risultato' : 'ritaglio') : 'camera');
+}
+function chiudiScan(){
+  fermaCamera();
+  $('#schermata-scan').hidden = true;
+  etichettaScansiona();
+}
+// le pagine scattate sopravvivono all'uscita: il bottone dice che si possono riprendere
+function etichettaScansiona(){
+  const n = SCAN.pagine.length;
+  $('#btn-scansiona span').textContent = n
+    ? `Riprendi la scansione (${n} ${n === 1 ? 'pagina' : 'pagine'})` : 'Scansiona con la fotocamera';
+}
+function svuotaScan(){
+  for (const p of SCAN.pagine){ URL.revokeObjectURL(p.url); p.anteprima && URL.revokeObjectURL(p.anteprima); }
+  SCAN.pagine = []; SCAN.corrente = -1;
+  etichettaScansiona();
+}
+$('#btn-scansiona').onclick = apriScan;
+$('#scan-esci').onclick = mostraUpload;
+
+function mostraVista(nome){
+  SCAN.vista = nome;
+  for (const v of ['camera', 'ritaglio', 'risultato']){
+    $('#vista-' + v).hidden = v !== nome;
+    $('#comandi-' + v).hidden = v !== nome;
+  }
+  if (nome === 'camera') avviaCamera(); else fermaCamera();
+  disegnaScan();
+}
+
+function disegnaScan(){
+  const n = SCAN.pagine.length;
+  $('#scan-pagine').innerHTML = SCAN.pagine.map((p, i) =>
+    `<button type="button" data-i="${i}" aria-current="${i === SCAN.corrente && SCAN.vista !== 'camera'}"
+       aria-label="Pagina ${i + 1}${p.anteprima ? '' : ', da ritagliare'}">
+       <img src="${p.anteprima || p.url}" alt=""><span class="numero">${i + 1}</span></button>`).join('') +
+    (n ? `<button type="button" class="aggiungi" data-i="nuova" aria-label="Fotografa un'altra pagina"
+           aria-current="${SCAN.vista === 'camera'}">${icona('i-piu')}</button>` : '');
+  const leggi = $('#scan-leggi');
+  leggi.disabled = !n;
+  leggi.firstChild.textContent = n > 1 ? `Leggi la bolla (${n} pagine) ` : 'Leggi la bolla ';
+
+  const p = paginaScan();
+  let avvisi = [];
+  if (SCAN.vista === 'ritaglio' && p){
+    guida(`Pagina ${SCAN.corrente + 1} · trascina gli angoli sui bordi del foglio`);
+    if ($('#foto-ritaglio').getAttribute('src') !== p.url) $('#foto-ritaglio').src = p.url;
+    disegnaAngoli();
+    if (!p.trovati) avvisi.push(['info', 'Non ho trovato i bordi del foglio: sposta tu i quattro angoli.']);
+    avvisi.push(...p.avvisi.map(a => ['conferma', a]));
+  } else if (SCAN.vista === 'risultato' && p){
+    guida(`Pagina ${SCAN.corrente + 1} pronta · fotografa la prossima o leggi la bolla`);
+    if ($('#foto-risultato').getAttribute('src') !== p.anteprima) $('#foto-risultato').src = p.anteprima;
+    $('#scan-resa').querySelectorAll('button').forEach(b =>
+      b.setAttribute('aria-pressed', String(b.dataset.migliora === (p.migliora ? '1' : '0'))));
+  }
+  $('#scan-auto').setAttribute('aria-pressed', String(SCAN.auto));
+  $('#scan-avvisi').innerHTML = avvisi.map(([tipo, a]) =>
+    `<div class="avviso ${tipo === 'conferma' ? 'avviso--conferma' : ''}">${icona(tipo === 'conferma' ? 'i-avviso' : 'i-info', 'ico ico--14')}<span>${esc(a)}</span></div>`).join('');
+  adatta();
+}
+
+$('#scan-pagine').onclick = e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.i === 'nuova') return mostraVista('camera');
+  SCAN.corrente = +b.dataset.i;
+  mostraVista(paginaScan().anteprima ? 'risultato' : 'ritaglio');
+};
+
+/* --- fotocamera dal vivo --- */
+/* Serve un contesto sicuro: localhost o HTTPS (il tunnel della prova online lo
+   e'). Altrimenti, o senza fotocamera, resta la fotocamera del telefono via
+   <input capture>, che e' anche quella che scatta meglio. */
+async function avviaCamera(){
+  $('#senza-camera').hidden = true;
+  $('#cornice-camera').hidden = false;
+  $('#comandi-camera').hidden = false;
+  if (SCAN.stream) return;
+  const giro = ++SCAN.giro;
+  if (!navigator.mediaDevices?.getUserMedia)
+    return senzaCamera(window.isSecureContext
+      ? 'Questo browser non dà accesso alla fotocamera.'
+      : 'Il browser dà la fotocamera solo alle pagine in HTTPS.');
+  guida('Avvio la fotocamera…');
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: {
+      facingMode: { ideal: 'environment' }, width: { ideal: 3840 }, height: { ideal: 2160 } } });
+  } catch (err) {
+    return senzaCamera(err.name === 'NotAllowedError'
+      ? 'Hai negato il permesso alla fotocamera: puoi riattivarlo dal lucchetto nella barra degli indirizzi.'
+      : 'Non trovo una fotocamera su questo dispositivo.');
+  }
+  // nel frattempo si e' usciti dalla vista: la fotocamera non serve piu'
+  if (giro !== SCAN.giro){ stream.getTracks().forEach(t => t.stop()); return; }
+  SCAN.stream = stream;
+  const video = $('#video');
+  video.srcObject = stream;
+  video.onloadedmetadata = adatta;
+  await video.play().catch(() => {});
+  cicloDalVivo(giro);
+}
+
+function senzaCamera(motivo){
+  $('#cornice-camera').hidden = true;
+  $('#senza-camera').hidden = false;
+  // otturatore e scatto automatico non servono: i comandi sono nel riquadro
+  $('#comandi-camera').hidden = true;
+  $('#motivo-camera').textContent = motivo + ' Fotografa la pagina o sceglila dalle foto.';
+  guida('');
+  $('#scan-scatta').disabled = true;
+}
+
+function fermaCamera(){
+  SCAN.giro++;
+  SCAN.stream?.getTracks().forEach(t => t.stop());
+  SCAN.stream = null;
+  $('#video').srcObject = null;
+  $('#contorno-live').setAttribute('points', '');
+}
+
+/* Ogni ~300ms un fotogramma piccolo va al server, che dice dove sta il foglio.
+   Quando il contorno resta fermo per 4 letture di fila (~1,2s) e lo scatto
+   automatico e' acceso, si scatta da soli. */
+async function cicloDalVivo(giro){
+  const video = $('#video'), tela = document.createElement('canvas');
+  let precedenti = null, fermi = 0;
+  $('#scan-scatta').disabled = false;
+  while (giro === SCAN.giro){
+    const inizio = performance.now();
+    if (video.videoWidth && !SCAN.occupato){
+      const s = 480 / Math.max(video.videoWidth, video.videoHeight);
+      tela.width = Math.round(video.videoWidth * s); tela.height = Math.round(video.videoHeight * s);
+      tela.getContext('2d').drawImage(video, 0, 0, tela.width, tela.height);
+      try {
+        const r = await api('/api/scan/bordi?veloce=true', { method: 'POST', body: comeFormData({ foto: await versoBlob(tela, 0.7) }) });
+        if (giro !== SCAN.giro) break;
+        const contorno = $('#contorno-live');
+        if (r.trovati){
+          const spostamento = precedenti
+            ? Math.max(...r.angoli.flatMap((p, i) => [Math.abs(p[0] - precedenti[i][0]), Math.abs(p[1] - precedenti[i][1])]))
+            : 1;
+          fermi = spostamento < 0.02 ? fermi + 1 : 0;
+          precedenti = r.angoli;
+          contorno.setAttribute('points', r.angoli.map(([x, y]) => `${x * 100},${y * 100}`).join(' '));
+          contorno.classList.toggle('stabile', fermi >= 2);
+          guida(SCAN.auto ? (fermi >= 2 ? 'Tieni fermo…' : 'Foglio trovato: tieni fermo il telefono')
+                          : 'Foglio trovato: premi il pulsante per scattare');
+          if (SCAN.auto && fermi >= 4){ fermi = 0; scatta(); }
+        } else {
+          fermi = 0; precedenti = null;
+          contorno.setAttribute('points', '');
+          guida('Inquadra tutto il foglio, meglio su un piano scuro');
+        }
+      } catch { /* una lettura persa non conta: si riprova al giro dopo */ }
+    }
+    await pausa(Math.max(60, 300 - (performance.now() - inizio)));
+  }
+}
+
+$('#scan-auto').onclick = () => {
+  SCAN.auto = !SCAN.auto;
+  try { localStorage.setItem('scan-auto', SCAN.auto ? '1' : '0'); } catch {}
+  disegnaScan();
+};
+
+/* ImageCapture scatta una foto vera alla risoluzione del sensore (Chrome su
+   Android); dove manca si prende il fotogramma del video */
+async function scatta(){
+  if (SCAN.occupato || !SCAN.stream) return;
+  SCAN.occupato = true;
+  const palco = $('#scan-palco');
+  palco.classList.remove('lampo'); void palco.offsetWidth; palco.classList.add('lampo');
+  let foto = null;
+  try {
+    const traccia = SCAN.stream.getVideoTracks()[0];
+    if ('ImageCapture' in window) foto = await new ImageCapture(traccia).takePhoto().catch(() => null);
+    if (!foto){
+      const video = $('#video'), tela = document.createElement('canvas');
+      tela.width = video.videoWidth; tela.height = video.videoHeight;
+      tela.getContext('2d').drawImage(video, 0, 0);
+      foto = await versoBlob(tela, 0.92);
+    }
+  } finally {
+    SCAN.occupato = false;
+  }
+  await aggiungiFoto([foto]);
+}
+$('#scan-scatta').onclick = scatta;
+
+$('#scan-foto').onclick = () => $('#scan-file').click();
+$('#scan-galleria').onclick = $('#scan-galleria-2').onclick = () => $('#scan-file-galleria').click();
+$('#scan-file').onchange = $('#scan-file-galleria').onchange = e => {
+  const file = [...e.target.files];
+  e.target.value = '';
+  if (file.length) aggiungiFoto(file);
+};
+
+/* Ogni foto passa da una tela: si raddrizza secondo l'EXIF del telefono, si
+   riduce a LATO_FOTO e diventa un JPEG senza EXIF. Cosi' browser e server
+   vedono la stessa immagine, con gli stessi angoli. */
+async function preparaFoto(blob){
+  let bmp;
+  try { bmp = await createImageBitmap(blob, { imageOrientation: 'from-image' }); }
+  catch { throw new Error('il browser non sa aprire questa foto (HEIC?): scattala da qui'); }
+  const s = Math.min(1, LATO_FOTO / Math.max(bmp.width, bmp.height));
+  const tela = document.createElement('canvas');
+  tela.width = Math.round(bmp.width * s); tela.height = Math.round(bmp.height * s);
+  tela.getContext('2d').drawImage(bmp, 0, 0, tela.width, tela.height);
+  bmp.close();
+  return { foto: await versoBlob(tela, 0.9), w: tela.width, h: tela.height };
+}
+
+async function aggiungiFoto(blobs){
+  fermaCamera();
+  let prima = -1;
+  try {
+    for (const [k, blob] of blobs.entries()){
+      attesa(blobs.length > 1 ? `Cerco i bordi · foto ${k + 1} di ${blobs.length}…` : 'Cerco i bordi del foglio…');
+      const { foto, w, h } = await preparaFoto(blob);
+      const r = await api('/api/scan/bordi', { method: 'POST', body: comeFormData({ foto }) });
+      SCAN.pagine.push({ foto, url: URL.createObjectURL(foto), w, h,
+        angoli: r.angoli, trovati: r.trovati, avvisi: r.avvisi, migliora: true, anteprima: null });
+      if (prima < 0) prima = SCAN.pagine.length - 1;
+    }
+  } catch (err) {
+    toast('Foto non usabile: ' + err.message, 'errore');
+  } finally {
+    attesa('');
+  }
+  if (prima < 0) return mostraVista('camera');
+  SCAN.corrente = prima;
+  mostraVista('ritaglio');
+}
+
+/* --- ritaglio: quattro maniglie e una lente --- */
+function disegnaAngoli(){
+  const p = paginaScan(); if (!p) return;
+  const punti = p.angoli.map(([x, y]) => `${x * 100},${y * 100}`);
+  $('#contorno-ritaglio').setAttribute('points', punti.join(' '));
+  // il velo copre tutto tranne il foglio: rettangolo intero meno il quadrilatero
+  $('#velo-ritaglio').setAttribute('d', `M0 0H100V100H0Z M${punti.join(' L')}Z`);
+  document.querySelectorAll('.angolo').forEach(b => {
+    const [x, y] = p.angoli[+b.dataset.i];
+    b.style.left = x * 100 + '%';
+    b.style.top = y * 100 + '%';
+  });
+}
+
+function angoloSpostato(){
+  const p = paginaScan();
+  if (p.anteprima){ URL.revokeObjectURL(p.anteprima); p.anteprima = null; }
+  disegnaAngoli();
+}
+
+function lente(i){
+  const p = paginaScan(), tela = $('#lente'), cornice = $('#cornice-ritaglio');
+  const [x, y] = p.angoli[i];
+  const cw = cornice.clientWidth, ch = cornice.clientHeight;
+  // ingrandimento 3x rispetto a come si vede la foto a schermo
+  const lato = 128 / 3 * (p.w / cw);
+  const ctx = tela.getContext('2d');
+  ctx.fillStyle = '#0e1a2b';
+  ctx.fillRect(0, 0, tela.width, tela.height);
+  ctx.drawImage($('#foto-ritaglio'), x * p.w - lato / 2, y * p.h - lato / 2, lato, lato, 0, 0, tela.width, tela.height);
+  ctx.strokeStyle = '#c2410c'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(tela.width / 2, 0); ctx.lineTo(tela.width / 2, tela.height);
+  ctx.moveTo(0, tela.height / 2); ctx.lineTo(tela.width, tela.height / 2);
+  ctx.stroke();
+  // sopra il dito; se non c'e' posto, sotto
+  const sopra = y * ch - 64 - 96;
+  tela.style.left = x * cw - 64 + 'px';
+  tela.style.top = (sopra < -20 ? y * ch + 40 : sopra) + 'px';
+  tela.hidden = false;
+}
+
+document.querySelectorAll('.angolo').forEach(b => {
+  const i = +b.dataset.i;
+  let inizio = null;
+  b.onpointerdown = e => {
+    e.preventDefault();
+    b.setPointerCapture(e.pointerId);
+    b.classList.add('preso');
+    // si sposta della distanza percorsa dal dito: niente salto se lo si
+    // afferra fuori centro
+    inizio = { x: e.clientX, y: e.clientY, angolo: [...paginaScan().angoli[i]] };
+    lente(i);
+  };
+  b.onpointermove = e => {
+    if (!inizio) return;
+    const r = $('#cornice-ritaglio').getBoundingClientRect();
+    const limita = v => Math.min(1, Math.max(0, v));
+    paginaScan().angoli[i] = [limita(inizio.angolo[0] + (e.clientX - inizio.x) / r.width),
+                              limita(inizio.angolo[1] + (e.clientY - inizio.y) / r.height)];
+    angoloSpostato();
+    lente(i);
+  };
+  b.onpointerup = b.onpointercancel = () => {
+    inizio = null;
+    b.classList.remove('preso');
+    $('#lente').hidden = true;
+  };
+  b.onkeydown = e => {
+    const passo = e.shiftKey ? 0.02 : 0.004;
+    const d = { ArrowLeft: [-passo, 0], ArrowRight: [passo, 0], ArrowUp: [0, -passo], ArrowDown: [0, passo] }[e.key];
+    if (!d) return;
+    e.preventDefault();
+    const a = paginaScan().angoli[i];
+    paginaScan().angoli[i] = [Math.min(1, Math.max(0, a[0] + d[0])), Math.min(1, Math.max(0, a[1] + d[1]))];
+    angoloSpostato();
+  };
+});
+
+$('#scan-tutta').onclick = () => {
+  paginaScan().angoli = TUTTA.map(p => [...p]);
+  angoloSpostato();
+};
+
+/* "Rifai la foto": la pagina sbagliata si toglie e si torna a scattare */
+$('#scan-rifai').onclick = () => {
+  eliminaPagina();
+  mostraVista('camera');
+};
+
+async function anteprimaPagina(){
+  const p = paginaScan();
+  attesa(p.migliora ? 'Raddrizzo e pulisco la pagina…' : 'Raddrizzo la pagina…');
+  try {
+    const r = await fetch('/api/scan/anteprima', { method: 'POST',
+      body: comeFormData({ foto: p.foto, angoli: JSON.stringify(p.angoli), migliora: p.migliora }) });
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+    if (p.anteprima) URL.revokeObjectURL(p.anteprima);
+    p.anteprima = URL.createObjectURL(await r.blob());
+    return true;
+  } catch (err) {
+    toast('Ritaglio non riuscito: ' + err.message, 'errore');
+    return false;
+  } finally {
+    attesa('');
+  }
+}
+
+$('#scan-conferma').onclick = async () => {
+  if (await anteprimaPagina()) mostraVista('risultato');
+};
+$('#foto-risultato').onload = adatta;
+
+/* --- pagina pronta --- */
+$('#scan-resa').onclick = async e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const p = paginaScan(), migliora = b.dataset.migliora === '1';
+  if (p.migliora === migliora) return;
+  p.migliora = migliora;
+  await anteprimaPagina();
+  disegnaScan();
+};
+$('#scan-bordi').onclick = () => mostraVista('ritaglio');
+$('#scan-altra').onclick = () => mostraVista('camera');
+
+function eliminaPagina(){
+  const [p] = SCAN.pagine.splice(SCAN.corrente, 1);
+  if (p){ URL.revokeObjectURL(p.url); p.anteprima && URL.revokeObjectURL(p.anteprima); }
+  SCAN.corrente = Math.min(SCAN.corrente, SCAN.pagine.length - 1);
+}
+$('#scan-elimina').onclick = () => {
+  eliminaPagina();
+  toast('Pagina eliminata');
+  mostraVista(SCAN.corrente < 0 ? 'camera' : (paginaScan().anteprima ? 'risultato' : 'ritaglio'));
+};
+
+/* Tutte le pagine, anche quelle non ancora ritagliate (con gli angoli che
+   hanno), vanno al server: da li' e' come aver caricato un PDF */
+$('#scan-leggi').onclick = () => {
+  const n = SCAN.pagine.length; if (!n) return;
+  const fd = new FormData();
+  SCAN.pagine.forEach((p, i) => fd.append('foto', p.foto, `pagina-${i + 1}.jpg`));
+  fd.append('pagine', JSON.stringify(SCAN.pagine.map(p => [p.angoli, p.migliora])));
+  mostraUpload();
+  leggiBolla(`scansione di ${n} ${n === 1 ? 'pagina' : 'pagine'}`, async () => {
+    const doc = await api('/api/scan/documento', { method: 'POST', body: fd });
+    svuotaScan();   // solo ora: se l'invio fallisce le foto restano da riprovare
+    return doc;
+  });
+};
 
 /* --- apertura documento ---------------------------------------------------- */
 async function apri(id){
@@ -771,6 +1401,7 @@ async function apri(id){
   SCELTE.clear(); APERTE.clear();
   FILTRO = 'tutte'; AMBITO = 'pagina';
   $('#titolo-lavoro').textContent = 'Revisione di ' + DOC.nome;
+  chiudiScan();
   $('#schermata-upload').hidden = true;
   $('#schermata-lavoro').hidden = false;
   $('#riquadro-errori').hidden = true;

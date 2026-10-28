@@ -56,7 +56,8 @@ Per l'uso vero serve un hosting: il `Dockerfile` e' pronto (dati nel volume
 
 ## Come si usa
 
-1. Trascina la bolla (PDF multipagina o foto) nella schermata di caricamento.
+1. Trascina la bolla (PDF multipagina o foto) nella schermata di caricamento,
+   oppure fotografala con `Scansiona con la fotocamera` (vedi sotto).
 2. Ogni pagina viene estratta e trasformata in **una riga per taglia**.
 3. A sinistra c'e' la scansione, a destra le righe. Si correggono i campi in
    linea, si assegna il magazzino, si eliminano le righe barrate, si aggiungono
@@ -76,6 +77,35 @@ sopra si legge il motivo.
 | `Elimina` / `Ripristina` | esclude una riga senza perderla: resta nel foglio di tracciabilita' |
 | `+ Riga manuale` | collo arrivato senza documentazione |
 | `Ruota` | raddrizza una scansione coricata |
+
+### Scansionare dalla fotocamera
+
+Dal telefono o dal tablet, senza scanner:
+
+1. **Scatto.** La fotocamera si apre nella pagina; quando il contorno arancione
+   aggancia il foglio e resta fermo per circa un secondo, scatta da sola (lo
+   scatto automatico si spegne dalla pillola). `Dalle foto` prende foto gia'
+   fatte, anche piu' di una alla volta.
+2. **Ritaglio.** I quattro angoli trovati si correggono trascinando le
+   maniglie; mentre si trascina, una lente ingrandisce il punto sotto il dito.
+   Da tastiera: Tab sulla maniglia e frecce (Maiuscolo per passi lunghi).
+3. **Pagina pronta.** `Migliorata` (predefinita) toglie ombre e dominante
+   gialla e alza il contrasto restando **a colori**: niente bianco e nero da
+   scanner, che cancellerebbe evidenziatore, matita e penna rossa. `Originale`
+   tiene la foto solo raddrizzata.
+4. `Altra pagina` per le bolle di piu' fogli, poi `Leggi la bolla`: da li' e'
+   come aver caricato un PDF.
+
+Bordi, raddrizzamento e miglioramento sono visione artificiale classica
+(OpenCV, `bolle/scan.py`), senza modelli: pochi millisecondi per il
+rilevamento, una frazione di secondo per pagina per il resto. In `data/uploads`
+restano le foto originali (`<id>_foto_pNN.jpg`, per rifare il ritaglio) e il
+PDF delle pagine elaborate.
+
+La fotocamera nella pagina richiede HTTPS o `localhost`: va col tunnel della
+prova online e sul PC, non con `http://192.168.x.x`. Dove non e' disponibile,
+la schermata offre `Scatta una foto`, che sul telefono apre la fotocamera di
+sistema.
 
 ## Scelte di progetto
 
@@ -222,6 +252,7 @@ ed export non cambiano.
 bolle/
   config.py    percorsi, magazzini, colonne export (tutto da .env)
   ingest.py    PDF/immagine -> PNG per l'operatore + JPEG per il modello, rotazione
+  scan.py      foto da fotocamera -> bordi del foglio, raddrizzamento, pulizia
   schema.py    struttura dei dati estratti e delle righe di lavoro
   extract.py   estrattori intercambiabili: claude | openrouter | consenso | mock
   sizes.py     parsing Size/Qty, checksum, mappa taglia -> variante

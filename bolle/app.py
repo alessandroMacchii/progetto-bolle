@@ -17,12 +17,12 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Annotated, Any
 
-from fastapi import FastAPI, HTTPException, Request, UploadFile
+from fastapi import FastAPI, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, TypeAdapter, ValidationError
 
-from . import excel, ingest, store
+from . import excel, ingest, scan, store
 from .config import (
     ACCESSO_PASSWORD,
     ACCESSO_UTENTE,
@@ -281,6 +281,10 @@ def carica_documento(file: UploadFile) -> dict[str, Any]:
     except Exception as exc:  # file illeggibile: va detto, non ingoiato
         raise HTTPException(400, f"impossibile leggere il file: {type(exc).__name__}") from exc
 
+    return _avvia_lettura(doc_id, nome, pagine)
+
+
+def _avvia_lettura(doc_id: str, nome: str, pagine: list[ingest.Pagina]) -> dict[str, Any]:
     try:
         estrattore = crea_estrattore()
     except Exception as exc:  # tipicamente: credenziali mancanti
@@ -512,6 +516,101 @@ def export(doc_id: str) -> FileResponse:
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         filename=percorso.name,
     )
+
+
+# --- scansione da fotocamera ---------------------------------------------------
+# Senza stato: le foto restano nel browser finche' la bolla non e' completa, e
+# ogni chiamata le rimanda. L'interfaccia le riduce a ~2600px prima, quindi
+# pesano circa un mega l'una.
+
+Punto = Annotated[list[Annotated[float, Field(ge=0, le=1)]], Field(min_length=2, max_length=2)]
+Quadrilatero = Annotated[list[Punto], Field(min_length=4, max_length=4)]
+_ANGOLI = TypeAdapter(Quadrilatero)
+_SCANSIONE = TypeAdapter(list[tuple[Quadrilatero, bool]])
+
+MAX_FOTO_MB = 15
+
+
+def _byte_con_tetto(file: UploadFile, tetto_mb: int) -> bytes:
+    dati = file.file.read((tetto_mb << 20) + 1)
+    if len(dati) > tetto_mb << 20:
+        raise HTTPException(413, f"foto troppo grande: massimo {tetto_mb} MB")
+    return dati
+
+
+def _foto(dati: bytes) -> Any:
+    try:
+        return scan.leggi(dati)
+    except Exception as exc:
+        raise HTTPException(400, f"immagine illeggibile: {type(exc).__name__}") from exc
+
+
+def _elabora(img: Any, angoli: list[list[float]], pulisci: bool) -> Any:
+    try:
+        return scan.elabora(img, angoli, pulisci)
+    except ValueError as exc:  # angoli degeneri: tutti nello stesso punto
+        raise HTTPException(400, str(exc)) from exc
+
+
+@api.post("/api/scan/bordi")
+def scan_bordi(foto: UploadFile, veloce: bool = False) -> dict[str, Any]:
+    """Dove sta il foglio nella foto. `veloce` salta i controlli di qualita':
+    lo usa l'anteprima dal vivo, che chiede piu' volte al secondo."""
+    img = _foto(_byte_con_tetto(foto, MAX_FOTO_MB))
+    angoli = scan.trova_angoli(img)
+    return {
+        "angoli": angoli or scan.TUTTA_LA_FOTO,
+        "trovati": angoli is not None,
+        "avvisi": [] if veloce else scan.qualita(img, angoli),
+    }
+
+
+@api.post("/api/scan/anteprima")
+def scan_anteprima(
+    foto: UploadFile, angoli: Annotated[str, Form()], migliora: Annotated[bool, Form()] = True
+) -> Response:
+    try:
+        quadrilatero = _ANGOLI.validate_json(angoli)
+    except ValidationError as exc:
+        raise HTTPException(400, "angoli non validi") from exc
+    pagina = _elabora(_foto(_byte_con_tetto(foto, MAX_FOTO_MB)), quadrilatero, migliora)
+    return Response(scan.jpeg(scan.riduci(pagina, 1400), 82), media_type="image/jpeg")
+
+
+@api.post("/api/scan/documento")
+def scan_documento(
+    foto: list[UploadFile], pagine: Annotated[str, Form()]
+) -> dict[str, Any]:
+    """Le foto della bolla, una per pagina, con i loro angoli: diventa un
+    documento come uno caricato da file e va in lettura.
+
+    `pagine` e' un JSON [[angoli, migliora], ...] nello stesso ordine delle foto.
+    In uploads restano le foto originali (per rifare il ritaglio) e il PDF
+    delle pagine elaborate, cioe' la scansione vera e propria.
+    """
+    try:
+        scelte = _SCANSIONE.validate_json(pagine)
+    except ValidationError as exc:
+        raise HTTPException(400, "angoli non validi") from exc
+    if not foto or len(scelte) != len(foto):
+        raise HTTPException(400, "serve una scelta di angoli per ogni foto")
+    if len(foto) > MAX_PAGINE:
+        raise HTTPException(400, f"troppe pagine: il massimo e' {MAX_PAGINE}")
+
+    doc_id = store.nuovo_id()
+    nome = time.strftime("scansione %d-%m-%Y %H.%M.pdf")
+    elaborate = []
+    for i, (file, (angoli, pulisci)) in enumerate(zip(foto, scelte), start=1):
+        dati = _byte_con_tetto(file, MAX_FOTO_MB)
+        img = _foto(dati)
+        (UPLOAD_DIR / f"{doc_id}_foto_p{i:02d}.jpg").write_bytes(dati)
+        elaborate.append(scan.in_pil(_elabora(img, angoli, pulisci)))
+
+    elaborate[0].save(
+        UPLOAD_DIR / f"{doc_id}_{nome}", "PDF", save_all=True,
+        append_images=elaborate[1:], resolution=200, quality=85,
+    )
+    return _avvia_lettura(doc_id, nome, ingest.da_immagini(elaborate, doc_id))
 
 
 # --- interfaccia -------------------------------------------------------------

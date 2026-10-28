@@ -20,7 +20,7 @@ if errorlevel 1 (
 )
 
 rem --- dipendenze installate? solo alla prima accensione -----------------------
-python -c "import fastapi, fitz, openpyxl" >nul 2>nul
+python -c "import fastapi, fitz, openpyxl, cv2" >nul 2>nul
 if errorlevel 1 (
   echo   Prima accensione: installo le librerie. Ci vuole un minuto.
   echo.
