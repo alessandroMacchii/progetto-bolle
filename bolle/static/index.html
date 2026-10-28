@@ -171,11 +171,11 @@ tbody tr:focus-within { scroll-margin-block: calc(var(--equidistanza) * 8); }
 .chip-freccia {
   display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%;
   background: rgba(255, 255, 255, 0.16); color: #fff;
-  transition: transform 0.4s var(--esce-expo);
+  transition: transform 0.25s var(--esce-quart);
 }
 .prenota.secondario .chip-freccia { background: var(--accento); }
 .chip-freccia svg { width: 1.05rem; height: 1.05rem; }
-.prenota:hover > .chip-freccia { transform: rotate(45deg); }
+.prenota:hover > .chip-freccia { transform: scale(1.12); }
 .prenota:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* disco: comando con la sola icona, bersaglio 44px */
@@ -223,7 +223,9 @@ label.campo-etichetta { display: grid; gap: 6px; font-weight: 600; font-size: 0.
 .marchio { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--nero);
            text-decoration: none; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em;
            white-space: nowrap; min-height: 44px; }
-.marchio svg { width: 40px; height: 40px; color: var(--linea); }
+/* il logo della scuola, poi il nome dell'app dietro un filetto */
+.marchio img { height: 40px; width: auto; display: block; }
+.marchio > span { padding-left: 0.75rem; border-left: 1px solid var(--reticolo); }
 .marchio small { display: block; font-weight: 500; font-size: 0.78rem; letter-spacing: 0;
                  color: var(--nero-medio); }
 .testata-centro { margin-inline: auto; display: flex; align-items: center; gap: 12px; min-width: 0; }
@@ -306,6 +308,8 @@ main { min-height: 0; }
    accessibile del bottone, quindi il colore non e' l'unico veicolo */
 .strip button .punto { position: absolute; top: 5px; right: 5px; width: 7px; height: 7px;
                        border-radius: 50%; background: var(--accento); }
+.strip button .punto--blocco { background: var(--segnale); }
+.strip button .punto--info { background: var(--linea); }
 
 /* filtri e ambito: pillole di scelta */
 .pillole { display: inline-flex; flex-wrap: wrap; gap: 6px; }
@@ -356,6 +360,9 @@ td.vuoto { padding: calc(var(--equidistanza) * 6) 24px; text-align: center; colo
 .segnala:hover { border-color: var(--accento); }
 .segnala--blocco { background: var(--segnale-velo); color: var(--segnale-cupo); }
 .segnala--blocco:hover { border-color: var(--segnale); }
+/* solo informazioni: il colore della linea e la "i", per non sembrare un problema */
+.segnala--info { background: var(--linea-velo); color: var(--linea-cupo); }
+.segnala--info:hover { border-color: var(--linea); }
 
 tr.dettaglio td { padding: 4px 12px 16px; background: rgba(238, 242, 247, 0.6); }
 .avvisi { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
@@ -394,17 +401,21 @@ tr.dettaglio td { padding: 4px 12px 16px; background: rgba(238, 242, 247, 0.6); 
   display: flex; align-items: center; gap: 10px; padding: 0.8rem 1.4rem;
   border-radius: var(--pillola); background: var(--nero); color: #fff;
   font-size: 0.92rem; font-weight: 500; box-shadow: var(--ombra);
-  animation: sale 0.55s var(--esce-expo) both;
+  animation: sale 0.3s var(--esce-quart) both;
 }
-@keyframes sale { from { opacity: 0; transform: translate(-50%, 1rem); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes sale { from { opacity: 0; transform: translateX(-50%) scale(0.94); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
 
-.girella { animation: gira 900ms linear infinite; }
-@keyframes gira { to { transform: rotate(360deg); } }
+/* in attesa: l'icona pulsa, niente rotazioni */
+.girella { animation: pulsa 1.2s ease-in-out infinite; }
+@keyframes pulsa { 0%, 100% { transform: scale(0.82); opacity: 0.6; } 50% { transform: scale(1); opacity: 1; } }
 
 .avanzamento { height: 6px; border-radius: var(--pillola); background: var(--reticolo); overflow: hidden; }
-.avanzamento span { display: block; height: 100%; width: 35%; border-radius: var(--pillola);
-                    background: var(--accento); animation: scorri 1.4s ease-in-out infinite; }
-@keyframes scorri { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+/* senza totale noto la barra cresce da sinistra e ricomincia */
+.avanzamento span { display: block; height: 100%; width: 100%; border-radius: var(--pillola);
+                    background: var(--accento); transform-origin: left;
+                    animation: cresci 1.6s var(--esce-quart) infinite; }
+@keyframes cresci { 0% { transform: scaleX(0); opacity: 1; } 75% { transform: scaleX(1); opacity: 1; }
+                    100% { transform: scaleX(1); opacity: 0; } }
 .avanzamento span.fissa { animation: none; transition: width 0.4s var(--esce-quart); }
 
 /* finestra Dividi: <dialog> nativo, che intrappola il fuoco e chiude con Esc da solo */
@@ -413,8 +424,8 @@ dialog {
   background: var(--carta-chiara); color: var(--nero); box-shadow: var(--ombra);
   width: min(30rem, calc(100vw - 32px));
 }
-dialog[open] { animation: sale-dialogo 0.45s var(--esce-expo); }
-@keyframes sale-dialogo { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: none; } }
+dialog[open] { animation: sale-dialogo 0.3s var(--esce-quart); }
+@keyframes sale-dialogo { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
 dialog::backdrop { background: rgba(14, 26, 43, 0.4); backdrop-filter: blur(6px); }
 dialog h2 { padding: 24px 28px 0; font-weight: 600; font-size: 1.35rem; letter-spacing: -0.006em; line-height: 1.08; }
 dialog .corpo { padding: 20px 28px; display: grid; gap: 16px; }
@@ -538,7 +549,7 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
   <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M13 3v6h6"/></symbol>
   <symbol id="i-spunta" viewBox="0 0 24 24"><path d="M4 12.5 9 17.5 20 6.5"/></symbol>
   <symbol id="i-chiudi" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
-  <symbol id="i-attesa" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/></symbol>
+  <symbol id="i-attesa" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-penna" viewBox="0 0 24 24"><path d="M4 20h4L19.5 8.5a2.5 2.5 0 0 0-3.5-3.5L4 16.5z"/><path d="M14.5 6.5 18 10"/></symbol>
   <symbol id="i-freccia" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
   <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h2.5l1.5-2h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/></symbol>
@@ -552,12 +563,7 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
 <header class="testata">
   <div class="testata-riga">
     <a class="marchio" href="/">
-      <!-- il marchio: un collo da magazzino, in linea cosi' eredita il colore -->
-      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M20 5 34 12v16L20 35 6 28V12Z"/><path d="M6 12l14 7 14-7"/><path d="M20 19v16"/>
-        <path d="M13 8.5l14 7"/>
-      </svg>
+      <img src="/static/img/its-rizzoli.png" width="120" height="40" alt="ITS Academy Angelo Rizzoli">
       <span>Carico merci<small>revisione bolle</small></span>
     </a>
 
@@ -823,10 +829,15 @@ const annuncia = testo => { $('#annuncio').textContent = testo; };
    L'operatore va disturbato solo quando il programma non sa davvero cosa
    fare: dati che non quadrano (blocco) o che non dicono dove va la merce
    (conferma), o con una taglia che config/varianti.csv non sa tradurre
-   (conferma). Tutto il resto (magazzino preso dalla penna, lettura incerta ma
-   con i totali che tornano) e' solo informazione. */
+   (conferma). Il magazzino preso dalla penna non si segnala affatto (nessuno):
+   e' il caso normale. Tutto il resto (lettura incerta ma con i totali che
+   tornano, note a mano) e' solo informazione, con la "i" e il colore della
+   linea: non deve sembrare un problema. */
 function gravita(avviso){
   const a = avviso.toLowerCase();
+  // il magazzino a penna e' la norma, non una notizia: l'avviso resta nei dati
+  // (il banco di prova e il server lo usano) ma a schermo non si segnala
+  if (a.startsWith('magazzino proposto dall')) return 'nessuno';
   // il testo dopo i due punti e' del modello: non va cercato per parole chiave
   if (a.startsWith('lettura incerta') || a.startsWith('dal pacco misto')) return 'info';
   // taglia fuori da config/varianti.csv: la variante e' solo la taglia ricopiata
@@ -841,12 +852,14 @@ function gravita(avviso){
       || a.startsWith('magazzino a mano non applicato')) return 'conferma';
   return 'info';
 }
-function gravitaRiga(riga){
-  const livelli = (riga.avvisi || []).map(gravita);
+const avvisiVisibili = avvisi => (avvisi || []).filter(a => gravita(a) !== 'nessuno');
+const ICONA_LIVELLO = { blocco: 'i-blocco', conferma: 'i-avviso', info: 'i-info' };
+function livelloMassimo(livelli){
   if (livelli.includes('blocco')) return 'blocco';
   if (livelli.includes('conferma')) return 'conferma';
   return livelli.length ? 'info' : '';
 }
+const gravitaRiga = riga => livelloMassimo(avvisiVisibili(riga.avvisi).map(gravita));
 
 /* Perche' una riga non puo' finire nell'Excel. Ricalca le regole di
    excel.problemi_bloccanti: il server resta l'autorita', questo serve solo a
@@ -1409,14 +1422,15 @@ async function apri(id){
 }
 
 const paginaCorrente = () => (DOC?.pagine || []).find(p => p.numero === PAGINA) || {};
-const avvisiPagina = p => (p.avvisi || []).length + (p.errore ? 1 : 0);
+const avvisiPagina = p => avvisiVisibili(p.avvisi).length + (p.errore ? 1 : 0);
+const livelloPagina = p => p.errore ? 'blocco' : livelloMassimo(avvisiVisibili(p.avvisi).map(gravita));
 
 function disegna(){
   $('#strip-pagine').innerHTML = DOC.pagine.map(p => {
     const n = avvisiPagina(p);
     const nome = n ? `Pagina ${p.numero}, ${n} segnalazioni` : `Pagina ${p.numero}`;
     return `<button type="button" data-p="${p.numero}" aria-current="${p.numero === PAGINA}" aria-label="${nome}">
-      ${p.numero}${n ? '<span class="punto"></span>' : ''}</button>`;
+      ${p.numero}${n ? `<span class="punto punto--${livelloPagina(p)}"></span>` : ''}</button>`;
   }).join('');
 
   $('#scansione').src = `/api/documenti/${DOC.id}/pagine/${PAGINA}.png`;
@@ -1429,8 +1443,8 @@ function disegna(){
   if (p.total_pieces)     meta.push(`<span>Total Pieces <b>${p.total_pieces}</b></span>`);
   $('#meta-pagina').innerHTML = meta.join('') +
     (p.errore ? `<div class="avviso avviso--blocco" style="flex:1 0 100%">${icona('i-blocco', 'ico ico--14')}<span>${esc(p.errore)}</span></div>` : '') +
-    (p.avvisi || []).map(a =>
-      `<div class="avviso avviso--conferma" style="flex:1 0 100%">${icona('i-avviso', 'ico ico--14')}<span>${esc(a)}</span></div>`).join('');
+    avvisiVisibili(p.avvisi).map(a => [gravita(a), a]).map(([liv, a]) =>
+      `<div class="avviso avviso--${liv}" style="flex:1 0 100%">${icona(ICONA_LIVELLO[liv], 'ico ico--14')}<span>${esc(a)}</span></div>`).join('');
 
   disegnaFiltro();
   disegnaRighe();
@@ -1512,7 +1526,7 @@ function nellAmbito(){
 // solo i casi in cui serve davvero una persona: le righe con soli avvisi
 // informativi vanno nel carico cosi' come sono
 const daControllare = r => !r.eliminata
-  && (motiviBloccanti(r).length || (r.avvisi || []).some(a => gravita(a) !== 'info'));
+  && (motiviBloccanti(r).length || (r.avvisi || []).some(a => ['conferma', 'blocco'].includes(gravita(a))));
 
 function disegnaFiltro(){
   const righe = nellAmbito();
@@ -1643,7 +1657,7 @@ function disegnaRighe(){
     CONFIG.magazzini.map(m => `<option ${m === r.magazzino ? 'selected' : ''}>${esc(m)}</option>`).join('');
 
   $('#righe').innerHTML = righe.length ? righe.map(r => {
-    const avvisi = r.avvisi || [];
+    const avvisi = avvisiVisibili(r.avvisi);
     const blocchi = motiviBloccanti(r);
     const livello = blocchi.length ? 'blocco' : gravitaRiga(r);
     const scelta = SCELTE.has(r.id);
@@ -1652,10 +1666,10 @@ function disegnaRighe(){
     const descrizione = [r.descrizione, r.colore].filter(Boolean).join(' · ');
 
     const pastiglia = n
-      ? `<button type="button" class="segnala ${livello === 'blocco' ? 'segnala--blocco' : ''}"
+      ? `<button type="button" class="segnala ${livello === 'conferma' ? '' : 'segnala--' + livello}"
                  data-azione="dettaglio" aria-expanded="${aperta}" aria-controls="dett-${r.id}"
                  aria-label="${n} segnalazioni: ${aperta ? 'nascondi' : 'mostra'} il dettaglio">
-           ${icona(livello === 'blocco' ? 'i-blocco' : 'i-avviso', 'ico ico--14')}${n}</button>`
+           ${icona(ICONA_LIVELLO[livello], 'ico ico--14')}${n}</button>`
       : '';
 
     const classi = ['riga',
@@ -1709,7 +1723,7 @@ function disegnaRighe(){
     ];
     return principale + `<tr class="dettaglio" id="dett-${r.id}"><td colspan="11">
       <ul class="avvisi">${voci.map(([liv, testo]) => `<li class="avviso avviso--${liv}">
-        ${icona(liv === 'blocco' ? 'i-blocco' : liv === 'conferma' ? 'i-avviso' : 'i-info', 'ico ico--14')}
+        ${icona(ICONA_LIVELLO[liv], 'ico ico--14')}
         <span>${esc(testo)}</span></li>`).join('')}</ul>
       ${r.annotazioni_manoscritte ? `<div class="manoscritto">${icona('i-penna', 'ico ico--14')}
         <span><b>Scritto a mano sulla bolla:</b> <q>${esc(r.annotazioni_manoscritte)}</q><br>
