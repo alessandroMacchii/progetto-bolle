@@ -292,6 +292,27 @@ main { min-height: 0; }
 .avviso-doppione { margin: 12px 12px 0; }
 .avviso-doppione a { color: inherit; font-weight: 600; text-underline-offset: 3px; }
 
+/* bolle gia' caricate: una scheda con una riga per bolla, tutta cliccabile.
+   Numero in evidenza, il resto in piccolo, lo stato in un cartellino */
+.elenco-bolle { display: grid; gap: calc(var(--equidistanza) * 1.5); margin-top: calc(var(--equidistanza) * 2); }
+.elenco-bolle h2 { font-weight: 600; font-size: 1.15rem; letter-spacing: -0.006em; line-height: 1.08; }
+.bolle, .bolle ul { margin: 0; padding: 0; list-style: none; }
+.bolle { background: var(--carta-chiara); border: 1px solid var(--reticolo); border-radius: var(--raggio-scheda); overflow: hidden; }
+.bolle li + li, .gruppo li { border-top: 1px solid var(--reticolo); }
+.bolla { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 16px;
+         width: 100%; min-height: 64px; padding: 12px 20px; border: 0; background: transparent;
+         font: inherit; color: inherit; text-align: left; cursor: pointer;
+         transition: background-color 0.2s var(--esce-quart); }
+.bolla:hover { background: var(--carta-bassa); }
+.bolla-titolo { font-weight: 600; color: var(--linea-cupo); }
+.bolla-dettagli { grid-column: 1; display: flex; flex-wrap: wrap; gap: 0 14px; font-size: 0.86rem; color: var(--nero-medio); }
+/* .bolla davanti: sul telefono i cartellini della testata spariscono, questi no */
+.bolla .cartellino { display: inline-flex; grid-column: 2; grid-row: 1 / span 2; }
+/* doppioni: un titoletto nel colore dell'azione e le righe rientrate sotto */
+.gruppo-testa { display: flex; gap: 8px; align-items: center; margin: 0; padding: 14px 20px 6px;
+                font-size: 0.86rem; font-weight: 600; color: var(--accento-cupo); }
+.gruppo .bolla { padding-left: 42px; }
+
 /* lo stato vuoto: tratteggio decorativo, dice cosa fare dopo */
 #dropzone {
   display: grid; justify-items: center; gap: calc(var(--equidistanza) * 2);
@@ -606,6 +627,79 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
 @media (max-width: 760px) {
   .marchio small { display: none; }
   .cartellino { display: none; }
+
+  /* telefono: la tendina delle bolle lascia la testata (resta una riga sola,
+     sempre a vista con l'export); le bolle si scelgono dall'elenco della
+     schermata iniziale, a cui porta il + */
+  .testata-centro { display: none; }
+
+  /* la scansione lascia spazio alle righe, che sono il lavoro */
+  #visore { max-height: 45vh; }
+  #barra-azioni > .cella-tenue { display: none; }
+  /* con righe selezionate la barra galleggia in fondo allo schermo, su una
+     riga che scorre di lato: le azioni restano sotto il pollice anche mentre
+     si spuntano schede lontane dalla cima */
+  #barra-azioni.con-selezione {
+    position: fixed; left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom)); z-index: 30;
+    flex-wrap: nowrap; overflow-x: auto; background: var(--carta-chiara);
+    border: 1px solid var(--reticolo); border-radius: var(--raggio-scheda); box-shadow: var(--ombra);
+  }
+  #barra-azioni.con-selezione > * { flex: none; }
+  .lavoro:has(#barra-azioni.con-selezione) { padding-bottom: 96px; }
+
+  /* Righe come schede: una sola area che scorre (la pagina), niente
+     scorrimento orizzontale. In cima selezione, segnalazioni, seq e azioni;
+     sotto i campi, ognuno con la sua etichetta. L'ordine lo da' `order`,
+     il DOM resta quello della tabella. */
+  .tabella-scorrevole { max-height: none; overflow: visible; }
+  #zona-tabella table, #zona-tabella thead, #righe, #righe tr.dettaglio, #righe tr.dettaglio td,
+  #righe td.vuoto { display: block; min-width: 0; }
+  #zona-tabella thead tr { display: flex; }
+  #zona-tabella thead th { position: static; }
+  #zona-tabella thead th:not(:first-child) { display: none; }
+  #zona-tabella thead th:first-child { display: flex; align-items: center; gap: 10px; width: auto !important;
+                                       padding: 12px 16px; font-weight: 500; color: var(--nero-medio); }
+  #zona-tabella thead th:first-child::after { content: "seleziona tutte"; }
+
+  #righe tr.riga { display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+                   padding: 12px 16px 16px; border-bottom: 1px solid var(--reticolo); }
+  #righe tr.riga > td { padding: 0; border: 0; min-width: 0; }
+  /* la banda di stato passa dalla prima cella a tutta la scheda */
+  tbody tr.riga--segnalata td:first-child, tbody tr.riga--blocco td:first-child { box-shadow: none; }
+  #righe tr.riga--segnalata { box-shadow: inset 4px 0 0 var(--accento); }
+  #righe tr.riga--blocco { box-shadow: inset 4px 0 0 var(--segnale); }
+
+  #righe .cella-seq { flex: 1; }
+  #righe .cella-seq::before { content: "seq "; }
+  #righe .azioni-riga { order: 1; }
+  #righe td[data-e="descrizione"] { order: 2; flex: 1 0 100%; }
+  #righe td[data-e="codice"], #righe td[data-e="taglia"] { order: 3; flex: 1 0 calc(50% - 4px); }
+  #righe td[data-e="variante"] { order: 4; flex: 1 0 40%; }
+  #righe td[data-e="qtà"] { order: 4; flex: 1 0 18%; }
+  #righe td[data-e="magazzino"] { order: 4; flex: 1 0 28%; }
+  #righe td[data-e]::before { content: attr(data-e); display: block; margin-bottom: 4px;
+                              font-weight: 600; font-size: 0.8rem; line-height: 1.3; color: var(--linea); }
+  /* nelle schede la larghezza la danno le righe della scheda, non i minimi della tabella */
+  #righe .campo.cella { min-width: 0; font-size: 1rem; }   /* 16px: niente zoom su iPhone */
+  #righe .descrizione-campo { min-width: 0; }
+
+  /* elenco delle bolle: lo stato va sotto, il numero prende tutta la riga */
+  .bolla { grid-template-columns: 1fr; padding-inline: 16px; }
+  .bolla .cartellino { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 6px; }
+  .gruppo-testa { padding-inline: 16px; }
+  .gruppo .bolla { padding-left: 38px; }
+}
+
+/* touch: niente da trascinare, e la fotocamera e' a portata di mano. La
+   scansione passa davanti, nel colore dell'azione */
+.solo-tocco { display: none; }
+@media (pointer: coarse) {
+  .solo-mouse { display: none; }
+  .solo-tocco { display: inline; }
+  #btn-scansiona { order: -1; background: var(--accento); border-color: var(--accento); color: #fff; }
+  #btn-scansiona:hover:not(:disabled) { background: var(--accento-cupo); border-color: var(--accento-cupo); }
+  #btn-sfoglia { background: transparent; border-color: var(--nero-tenue); color: var(--nero); }
+  #btn-sfoglia:hover:not(:disabled) { background: var(--carta-bassa); border-color: var(--nero); }
 }
 </style>
 </head>
@@ -677,8 +771,8 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
     <p class="lavori-come" id="lavori-come"></p>
     <div id="dropzone">
       <svg class="ico ico--28" aria-hidden="true"><use href="#i-file"/></svg>
-      <h2>Trascina qui il PDF o la foto</h2>
-      <p>oppure sceglilo dal computer, o fotografa la bolla</p>
+      <h2><span class="solo-mouse">Trascina qui il PDF o la foto</span><span class="solo-tocco">Fotografa la bolla</span></h2>
+      <p><span class="solo-mouse">oppure sceglilo dal computer, o fotografa la bolla</span><span class="solo-tocco">oppure scegli un PDF o una foto già fatta</span></p>
       <div class="comandi-carica">
         <button class="bottone" id="btn-sfoglia" type="button">Scegli un file</button>
         <button class="bottone secondario" id="btn-scansiona" type="button">
@@ -688,6 +782,12 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
       <p class="suggerimento">Una bolla da 14 pagine si legge in circa un minuto.</p>
     </div>
     <div id="stato-upload" aria-live="polite"></div>
+
+    <!-- le bolle gia' caricate: una riga ciascuna, i doppioni raccolti insieme -->
+    <section class="elenco-bolle" id="elenco-bolle" aria-labelledby="titolo-elenco" hidden>
+      <h2 id="titolo-elenco">Bolle caricate</h2>
+      <ul class="bolle" id="bolle"></ul>
+    </section>
   </div>
 </section>
 
@@ -1097,14 +1197,62 @@ mostraOperatore();
 
 async function ricaricaElenco(selezionato){
   const elenco = await api('/api/documenti');
+  // la tendina resta per cambiare bolla mentre si lavora: file, numero, ora e
+  // operatore; pagine, righe e date di export sono nell'elenco della schermata iniziale
   $('#scelta-doc').innerHTML = '<option value="">Scegli una bolla già caricata</option>' +
     elenco.map(d => `<option value="${esc(d.id)}">${[
-      d.nome, numeriDoc(d.numeri), quando(d.creato_il), d.operatore,
-      `${d.pagine} pag`, d.in_lettura ? 'in lettura…' : d.righe + ' righe',
-      d.esportato ? 'esportata il ' + quando(d.esportato) : '',
+      d.nome, numeriDoc(d.numeri), quando(d.creato_il), d.operatore, d.esportato ? 'esportata' : '',
     ].filter(Boolean).map(esc).join(' · ')}</option>`).join('');
+  disegnaElenco(elenco);
   if (selezionato){ $('#scelta-doc').value = selezionato; await apri(selezionato); }
 }
+
+/* Bolle con un numero di documento in comune, o lo stesso file: di solito la
+   stessa bolla caricata due volte. Si raccolgono insieme (union-find sui
+   numeri e sull'impronta), nell'ordine dell'elenco: la piu' recente prima. */
+function raggruppaDoppioni(elenco){
+  const capo = {}, primo = {};
+  const trova = id => capo[id] === id ? id : (capo[id] = trova(capo[id]));
+  for (const d of elenco){
+    capo[d.id] = d.id;
+    const chiavi = [...(d.numeri || []).map(n => 'n:' + n), d.impronta ? 'f:' + d.impronta : ''].filter(Boolean);
+    for (const k of chiavi){
+      if (primo[k]) capo[trova(d.id)] = trova(primo[k]); else primo[k] = d.id;
+    }
+  }
+  const gruppi = new Map();
+  for (const d of elenco){
+    const c = trova(d.id);
+    gruppi.has(c) ? gruppi.get(c).push(d) : gruppi.set(c, [d]);
+  }
+  return [...gruppi.values()];
+}
+
+function disegnaElenco(elenco){
+  const riga = d => {
+    const [classe, stato] = d.in_lettura ? ['', 'in lettura']
+      : d.esportato ? ['', 'esportata il ' + quando(d.esportato).split(',')[0]]
+      : ['attenzione', 'da esportare'];
+    return `<li><button type="button" class="bolla" data-apri="${esc(d.id)}">
+      <span class="bolla-titolo">${esc(numeriDoc(d.numeri) || d.nome)}</span>
+      <span class="bolla-dettagli">
+        ${d.numeri?.length ? `<span>${esc(d.nome)}</span>` : ''}
+        <span>${esc(quando(d.creato_il))}${d.operatore ? ' da ' + esc(d.operatore) : ''}</span>
+        <span>${d.pagine} pag, ${d.in_lettura ? 'righe in arrivo' : d.righe + ' righe'}</span>
+      </span>
+      <span class="cartellino ${classe}">${esc(stato)}</span></button></li>`;
+  };
+  $('#bolle').innerHTML = raggruppaDoppioni(elenco).map(g => g.length < 2 ? riga(g[0])
+    : `<li class="gruppo">
+         <p class="gruppo-testa">${icona('i-avviso', 'ico ico--14')}${g.length} caricamenti con bolle in comune: nel gestionale ognuna va una volta sola</p>
+         <ul>${g.map(riga).join('')}</ul></li>`).join('');
+  $('#elenco-bolle').hidden = !elenco.length;
+}
+$('#bolle').onclick = e => {
+  const b = e.target.closest('[data-apri]'); if (!b) return;
+  $('#scelta-doc').value = b.dataset.apri;
+  apri(b.dataset.apri);
+};
 
 $('#scelta-doc').onchange = e => e.target.value ? apri(e.target.value) : mostraUpload();
 $('#btn-nuovo').onclick = () => { $('#scelta-doc').value = ''; mostraUpload(); };
@@ -1860,8 +2008,9 @@ function disegnaAzioni(){
   const magazzini = CONFIG.magazzini
     .map(m => `<button type="button" class="bottone secondario compatto" data-mag="${esc(m)}">${esc(m)}</button>`).join('');
 
+  $('#barra-azioni').classList.toggle('con-selezione', SCELTE.size > 0);
   $('#barra-azioni').innerHTML = SCELTE.size
-    ? `<span class="etichetta" style="color:var(--accento-cupo)">${SCELTE.size} righe selezionate</span>
+    ? `<span class="etichetta" style="color:var(--accento-cupo)">${SCELTE.size} ${SCELTE.size === 1 ? 'riga selezionata' : 'righe selezionate'}</span>
        <span class="etichetta">assegna a</span>${magazzini}
        <button type="button" class="bottone secondario compatto" data-azione="verifica">
          ${icona('i-spunta', 'ico ico--14')}Verificate</button>
@@ -2006,17 +2155,17 @@ function disegnaRighe(){
       <td><input type="checkbox" data-azione="scegli" ${scelta ? 'checked' : ''}
                  aria-label="Seleziona la riga ${esc(r.codice_articolo || 'senza codice')} taglia ${esc(r.taglia)}"></td>
       <td>${pastiglia}</td>
-      <td class="cella-tenue">${esc(r.seq)}${AMBITO === 'tutte' ? `<small class="pag-riga">pag ${r.pagina}</small>` : ''}</td>
-      <td><input class="campo cella testo-riga" data-c="codice_articolo" value="${esc(r.codice_articolo)}"
+      <td class="cella-tenue cella-seq">${esc(r.seq)}${AMBITO === 'tutte' ? `<small class="pag-riga">pag ${r.pagina}</small>` : ''}</td>
+      <td data-e="codice"><input class="campo cella testo-riga" data-c="codice_articolo" value="${esc(r.codice_articolo)}"
                  ${r.codice_stampato ? `title="stampato sulla bolla: ${esc(r.codice_stampato)}, corretto a mano"` : ''}
                  ${r.eliminata ? 'disabled' : ''} aria-label="Codice articolo"></td>
-      <td><textarea class="campo cella testo-riga descrizione-campo" data-c="descrizione" rows="1" cols="10"
+      <td data-e="descrizione"><textarea class="campo cella testo-riga descrizione-campo" data-c="descrizione" rows="1" cols="10"
                     ${r.eliminata ? 'disabled' : ''} aria-label="Descrizione e colore">${esc(descrizione)}</textarea></td>
-      <td><input class="campo cella testo-riga" data-c="taglia" value="${esc(r.taglia)}"
+      <td data-e="taglia"><input class="campo cella testo-riga" data-c="taglia" value="${esc(r.taglia)}"
                  title="${r.taglia_stampata ? `stampato sulla bolla: ${esc(r.taglia_stampata)}, corretto a mano. ` : ''}Cambiandola la variante si ricalcola da config/varianti.csv"
                  ${r.eliminata ? 'disabled' : ''} aria-label="Taglia">
         ${r.taglia_stampata ? `<s class="colore cella-tenue" title="stampato sulla bolla, corretto a mano">${esc(r.taglia_stampata)}</s>` : ''}</td>
-      <td>${varianteNuova(r)
+      <td data-e="variante">${varianteNuova(r)
         ? `<div class="variante-nuova">
              <input class="campo cella testo-riga" data-c="variante" value="${esc(r.variante)}"
                     title="taglia non in config/varianti.csv: confermando la variante ce la si aggiunge"
@@ -2026,10 +2175,10 @@ function disegnaRighe(){
                ${icona('i-spunta', 'ico ico--14')}</button></div>`
         : `<input class="campo cella testo-riga" data-c="variante" value="${esc(r.variante)}"
                   ${r.eliminata ? 'disabled' : ''} aria-label="Variante">`}</td>
-      <td><input class="campo cella testo-riga col-num" data-c="qta" type="number" min="0" value="${r.qta}"
+      <td data-e="qtà"><input class="campo cella testo-riga col-num" data-c="qta" type="number" min="0" value="${r.qta}"
                  ${r.qta_stampata >= 0 ? `title="stampato sulla bolla: ${r.qta_stampata}, corretto a mano"` : ''}
                  ${r.eliminata ? 'disabled' : ''} aria-label="Quantità"></td>
-      <td><select class="campo cella testo-riga" data-c="magazzino" ${r.eliminata ? 'disabled' : ''}
+      <td data-e="magazzino"><select class="campo cella testo-riga" data-c="magazzino" ${r.eliminata ? 'disabled' : ''}
                   aria-label="Magazzino">${opzioniMag(r)}</select></td>
       <td class="azioni-riga"><div>
         <button type="button" class="disco" data-azione="verifica" aria-pressed="${!!r.verificata}"
