@@ -1666,6 +1666,9 @@ function disegna(){
   }).join('');
 
   $('#scansione').src = `/api/documenti/${DOC.id}/pagine/${PAGINA}.png`;
+  // la pagina dopo si scarica gia' adesso: con la cache il passaggio e' immediato
+  const dopo = DOC.pagine[DOC.pagine.findIndex(p => p.numero === PAGINA) + 1];
+  if (dopo) new Image().src = `/api/documenti/${DOC.id}/pagine/${dopo.numero}.png`;
 
   const p = paginaCorrente();
   const meta = [];
@@ -1935,6 +1938,16 @@ function disegnaRighe(){
   const opzioniMag = r => (r.magazzino ? '' : '<option value="" selected disabled>—</option>') +
     CONFIG.magazzini.map(m => `<option ${m === r.magazzino ? 'selected' : ''}>${esc(m)}</option>`).join('');
 
+  // la tabella si rifa' da capo: chi aveva il fuoco (es. il campo raggiunto col
+  // Tab mentre il precedente si salvava) lo ritrova, col testo non ancora salvato
+  const attivo = document.activeElement;
+  const trAttivo = $('#righe').contains(attivo) && attivo.closest('tr[data-id]');
+  const chiave = trAttivo && (attivo.dataset.c ? `[data-c="${attivo.dataset.c}"]`
+    : attivo.dataset.azione ? `[data-azione="${attivo.dataset.azione}"]` : '');
+  const bozza = chiave && 'defaultValue' in attivo && attivo.value !== attivo.defaultValue ? attivo.value : null;
+  let cursore = null;
+  try { cursore = [attivo.selectionStart, attivo.selectionEnd]; } catch {}
+
   $('#righe').innerHTML = righe.length ? righe.map(r => {
     const avvisi = avvisiVisibili(r.avvisi);
     const blocchi = motiviBloccanti(r);
@@ -2024,7 +2037,29 @@ function disegnaRighe(){
       : FILTRO === 'escluse' ? 'Nessuna riga esclusa.'
       : 'Nessuna riga su questa pagina. Se è arrivato un collo senza documento, aggiungi una riga manuale.'}</td></tr>`;
 
-  $('#righe').querySelectorAll('textarea[data-c]').forEach(adattaAltezza);
+  const nuovo = chiave && $(`#riga-${trAttivo.dataset.id} ${chiave}`);
+  if (nuovo && bozza !== null){
+    nuovo.value = bozza;
+    // un valore messo da codice non fa scattare 'change' all'uscita dal campo:
+    // lo si manda a mano, se il browser non l'ha gia' fatto (si e' scritto ancora)
+    let mandato = false;
+    nuovo.addEventListener('change', () => { mandato = true; }, { once: true });
+    nuovo.addEventListener('blur', () => {
+      if (!mandato && nuovo.value !== nuovo.defaultValue) nuovo.dispatchEvent(new Event('change', { bubbles: true }));
+    }, { once: true });
+  }
+
+  // prima tutte le letture e poi tutte le scritture: alternate, costringevano
+  // il browser a rifare l'impaginazione a ogni riga (250 ms su 59 righe, ora 20)
+  const aree = [...$('#righe').querySelectorAll('textarea[data-c]')];
+  aree.forEach(el => { el.style.height = 'auto'; });
+  aree.map(el => el.scrollHeight).forEach((h, i) => { aree[i].style.height = h + 2 + 'px'; });
+
+  if (nuovo){
+    nuovo.focus({ preventScroll: true });
+    if (cursore?.[0] != null) nuovo.setSelectionRange(...cursore);
+  }
+
   const selezionabili = righe.filter(r => !r.eliminata);
   const tutte = $('#scegli-tutte');
   tutte.checked = selezionabili.length > 0 && selezionabili.every(r => SCELTE.has(r.id));

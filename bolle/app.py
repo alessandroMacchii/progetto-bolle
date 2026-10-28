@@ -507,7 +507,12 @@ def immagine(doc_id: str, numero: int) -> FileResponse:
     percorso = PAGES_DIR / doc_id / f"p{numero:03d}.png"
     if not percorso.exists():
         raise HTTPException(404, "pagina non trovata")
-    return FileResponse(percorso, media_type="image/png")
+    # la pagina si scrive una volta sola, quando nasce il documento (id nuovo a
+    # ogni caricamento): il browser la puo' tenere. "private": niente cache
+    # condivise in mezzo, sono bolle di clienti
+    return FileResponse(
+        percorso, media_type="image/png", headers={"Cache-Control": "private, max-age=86400"}
+    )
 
 
 @api.patch("/api/documenti/{doc_id}/righe/{riga_id}")
