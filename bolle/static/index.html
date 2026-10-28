@@ -188,6 +188,8 @@ tbody tr:focus-within { scroll-margin-block: calc(var(--equidistanza) * 8); }
 .disco:hover:not(:disabled) { border-color: var(--nero-tenue); background: var(--carta-bassa); color: var(--nero); }
 .disco.pericolo:hover:not(:disabled) { border-color: var(--segnale); background: var(--segnale-velo); color: var(--segnale); }
 .disco:disabled { opacity: 0.4; cursor: not-allowed; }
+/* stato acceso (riga verificata): il colore della linea, come "pronte per l'export" */
+.disco[aria-pressed="true"] { background: var(--linea-velo); border-color: var(--linea); color: var(--linea-cupo); }
 
 /* ------------------------------------------------------------------ campi */
 .campo {
@@ -237,6 +239,8 @@ label.campo-etichetta { display: grid; gap: 6px; font-weight: 600; font-size: 0.
               font-weight: 500; font-size: 0.8rem;
               background: var(--linea-velo); color: var(--linea-cupo); }
 .cartellino.attenzione { background: var(--accento-velo); color: var(--accento-cupo); }
+button.cartellino { border: 0; cursor: pointer; font: inherit; font-weight: 500; font-size: 0.8rem; }
+button.cartellino:hover { box-shadow: inset 0 0 0 1px currentColor; }
 
 main { min-height: 0; }
 
@@ -245,6 +249,8 @@ main { min-height: 0; }
 .upload-scatola { max-width: 46rem; margin: 0 auto; display: grid; gap: calc(var(--equidistanza) * 3); }
 .upload h1 { font-weight: 500; font-size: clamp(2.3rem, 5.4vw, 4rem); letter-spacing: -0.032em; line-height: 1.03; }
 .upload .introduzione { max-width: 62ch; color: var(--nero-medio); font-size: 1.05rem; }
+.campo-operatore { max-width: 24rem; }
+.campo-operatore small { font-weight: 400; color: var(--nero-medio); }
 
 /* lo stato vuoto: tratteggio decorativo, dice cosa fare dopo */
 #dropzone {
@@ -344,6 +350,9 @@ tbody tr.riga--fuori .testo-riga { text-decoration: line-through; color: var(--n
 .col-num { text-align: right; }
 .cella-tenue { color: var(--nero-medio); }
 .descrizione { display: block; max-width: 26ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* il colore non si modifica: resta sotto la descrizione, in piccolo */
+.colore { display: block; margin-top: 2px; font-size: 0.78rem; max-width: 30ch;
+          overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .azioni-riga { display: flex; gap: 6px; justify-content: flex-end; }
 /* variante di una taglia fuori dal CSV: campo e spunta di conferma affiancati */
 .variante-nuova { display: flex; gap: 6px; align-items: center; }
@@ -571,10 +580,16 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
       <label class="sr-only" for="scelta-doc">Bolla da rivedere</label>
       <select class="campo" id="scelta-doc"></select>
       <span class="cartellino" id="pillola-backend">motore: …</span>
+      <button class="cartellino" id="pillola-operatore" type="button"
+              title="Chi sta lavorando: finisce nell'Excel esportato. Clicca per cambiarlo">operatore: —</button>
     </div>
 
     <button class="prenota secondario" id="btn-nuovo" type="button">Nuova bolla
       <span class="chip-freccia" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><use href="#i-freccia"/></svg></span>
+    </button>
+    <!-- solo mentre si rivede una bolla: lo mostra apri() -->
+    <button class="prenota" id="btn-export" type="button" hidden>Esporta Excel
+      <span class="chip-freccia" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><use href="#i-scarica"/></svg></span>
     </button>
   </div>
 </header>
@@ -587,6 +602,11 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
     <h1 id="titolo-upload">Carica una bolla</h1>
     <p class="introduzione">Ogni pagina viene letta e divisa in una riga per taglia. Poi la
       rivedi accanto alla scansione, assegni i magazzini ed esporti l'Excel per il gestionale.</p>
+    <label class="campo-etichetta campo-operatore">Operatore
+      <input class="campo" type="text" id="operatore" maxlength="60" autocomplete="name"
+             placeholder="Nome e cognome" aria-describedby="nota-operatore">
+      <small id="nota-operatore">Chi carica e corregge la bolla: compare nell'Excel esportato.</small>
+    </label>
     <div id="dropzone">
       <svg class="ico ico--28" aria-hidden="true"><use href="#i-file"/></svg>
       <h2>Trascina qui il PDF o la foto</h2>
@@ -739,9 +759,6 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
       <div class="crescita"></div>
       <button class="bottone secondario compatto" id="btn-aggiungi" type="button">
         <svg class="ico ico--14" aria-hidden="true"><use href="#i-piu"/></svg>Riga manuale</button>
-      <button class="prenota" id="btn-export" type="button">Esporta Excel
-        <span class="chip-freccia" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><use href="#i-scarica"/></svg></span>
-      </button>
     </div>
 
     <div class="pannello-testa" id="barra-azioni"></div>
@@ -756,11 +773,11 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
           <th style="width:46px">seq</th>
           <th style="width:128px">codice</th>
           <th>descrizione</th>
-          <th style="width:72px">taglia</th>
+          <th style="width:96px">taglia</th>
           <th style="width:168px">variante</th>
           <th style="width:88px" class="col-num">qtà</th>
           <th style="width:124px">magazzino</th>
-          <th style="width:104px"><span class="sr-only">Azioni</span></th>
+          <th style="width:156px"><span class="sr-only">Azioni</span></th>
         </tr></thead>
         <tbody id="righe"></tbody>
       </table>
@@ -808,8 +825,16 @@ let FILTRO = 'tutte', AMBITO = 'pagina';
 const SCELTE = new Set();      // id delle righe selezionate
 const APERTE = new Set();      // id delle righe col dettaglio avvisi aperto
 
-const api = async (url, opzioni) => {
-  const r = await fetch(url, opzioni);
+/* Chi sta lavorando: lo si scrive prima di caricare una bolla e il browser lo
+   ricorda. Va con ogni richiesta (codificato: un header non regge gli accenti)
+   e il server lo registra nel foglio Modifiche dell'Excel. */
+let OPERATORE = '';
+try { OPERATORE = localStorage.getItem('operatore') || ''; } catch {}
+const pulisciNome = nome => String(nome || '').split(/\s+/).filter(Boolean).join(' ').slice(0, 60);
+
+const api = async (url, opzioni = {}) => {
+  const headers = { ...(opzioni.headers || {}), 'X-Operatore': encodeURIComponent(OPERATORE) };
+  const r = await fetch(url, { ...opzioni, headers });
   if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
   return r.json();
 };
@@ -828,18 +853,20 @@ const annuncia = testo => { $('#annuncio').textContent = testo; };
 /* Tre livelli di gravita', dedotti dal testo che produce bolle/lavoro.py.
    L'operatore va disturbato solo quando il programma non sa davvero cosa
    fare: dati che non quadrano (blocco) o che non dicono dove va la merce
-   (conferma), o con una taglia che config/varianti.csv non sa tradurre
-   (conferma). Il magazzino preso dalla penna non si segnala affatto (nessuno):
-   e' il caso normale. Tutto il resto (lettura incerta ma con i totali che
-   tornano, note a mano) e' solo informazione, con la "i" e il colore della
-   linea: non deve sembrare un problema. */
+   (conferma), con una taglia che config/varianti.csv non sa tradurre
+   (conferma), o letti a fatica dal modello (lettura incerta, conferma: il
+   Total di riga non controlla codici e nomi di taglia). Il magazzino preso
+   dalla penna non si segnala affatto (nessuno): e' il caso normale. Tutto il
+   resto (pacchi misti, note a mano) e' solo informazione, con la "i" e il
+   colore della linea: non deve sembrare un problema. */
 function gravita(avviso){
   const a = avviso.toLowerCase();
   // il magazzino a penna e' la norma, non una notizia: l'avviso resta nei dati
   // (il banco di prova e il server lo usano) ma a schermo non si segnala
   if (a.startsWith('magazzino proposto dall')) return 'nessuno';
   // il testo dopo i due punti e' del modello: non va cercato per parole chiave
-  if (a.startsWith('lettura incerta') || a.startsWith('dal pacco misto')) return 'info';
+  if (a.startsWith('lettura incerta')) return 'conferma';
+  if (a.startsWith('dal pacco misto')) return 'info';
   // taglia fuori da config/varianti.csv: la variante e' solo la taglia ricopiata
   if (a.startsWith("variante '")) return 'conferma';
   if (a.includes('codice articolo non letto')) return 'blocco';
@@ -870,9 +897,49 @@ function motiviBloccanti(r){
   if (!r.codice_articolo) motivi.push('manca il codice articolo');
   if (r.codice_articolo && !r.variante) motivi.push('manca la variante');
   if (r.codice_articolo && !r.magazzino) motivi.push('manca il magazzino');
+  else if (r.codice_articolo && !CONFIG.magazzini.includes(r.magazzino)) motivi.push('magazzino sconosciuto');
+  if (r.codice_articolo && r.variante && !r.variante_confermata) motivi.push('taglia da validare');
   if (r.codice_articolo && !(r.qta > 0)) motivi.push('quantità a zero');
   return motivi;
 }
+
+function impostaOperatore(nome){
+  OPERATORE = pulisciNome(nome);
+  try { localStorage.setItem('operatore', OPERATORE); } catch {}
+  mostraOperatore();
+}
+function mostraOperatore(){
+  const pillola = $('#pillola-operatore');
+  pillola.textContent = 'operatore: ' + (OPERATORE || '—');
+  pillola.classList.toggle('attenzione', !OPERATORE);
+  if (document.activeElement !== $('#operatore')) $('#operatore').value = OPERATORE;
+}
+// senza operatore non si carica: il campo lo dice e prende il fuoco
+function serveOperatore(){
+  if (OPERATORE) return true;
+  const campo = $('#operatore');
+  if (!$('#schermata-upload').hidden){
+    $('#stato-upload').innerHTML = `<div class="avviso avviso--blocco">${icona('i-blocco', 'ico ico--14')}
+      <span><b>Prima scrivi chi sei</b> nel campo Operatore: finisce nell'Excel esportato.</span></div>`;
+    campo.focus();
+    return false;
+  }
+  return chiediOperatore();
+}
+function chiediOperatore(){
+  const nome = pulisciNome(window.prompt("Chi sta lavorando? Il nome finisce nell'Excel esportato.", OPERATORE));
+  if (nome) impostaOperatore(nome);
+  return !!OPERATORE;
+}
+$('#operatore').oninput = e => {
+  OPERATORE = pulisciNome(e.target.value);
+  try { localStorage.setItem('operatore', OPERATORE); } catch {}
+  mostraOperatore();
+  if (OPERATORE) $('#stato-upload').innerHTML = '';
+};
+$('#operatore').onchange = mostraOperatore;
+$('#pillola-operatore').onclick = chiediOperatore;
+mostraOperatore();
 
 /* --- avvio ---------------------------------------------------------------- */
 (async function avvio(){
@@ -898,6 +965,7 @@ $('#btn-nuovo').onclick = () => { $('#scelta-doc').value = ''; mostraUpload(); }
 function mostraUpload(){
   chiudiScan();
   $('#schermata-lavoro').hidden = true;
+  $('#btn-export').hidden = true;
   $('#schermata-upload').hidden = false;
   $('#stato-upload').innerHTML = '';
 }
@@ -919,6 +987,7 @@ dz.ondrop = e => {
 const pausa = ms => new Promise(r => setTimeout(r, ms));
 
 function invia(file){
+  if (!serveOperatore()) { $('#file').value = ''; return; }
   const fd = new FormData(); fd.append('file', file);
   return leggiBolla(file.name, () => api('/api/documenti', { method: 'POST', body: fd }));
 }
@@ -1015,8 +1084,10 @@ addEventListener('resize', adatta);
 
 /* --- entrare e uscire --- */
 function apriScan(){
+  if (!serveOperatore()) return;
   $('#schermata-upload').hidden = true;
   $('#schermata-lavoro').hidden = true;
+  $('#btn-export').hidden = true;
   $('#schermata-scan').hidden = false;
   mostraVista(SCAN.pagine.length && SCAN.corrente >= 0 ? (paginaScan().anteprima ? 'risultato' : 'ritaglio') : 'camera');
 }
@@ -1407,6 +1478,7 @@ $('#scan-leggi').onclick = () => {
 
 /* --- apertura documento ---------------------------------------------------- */
 async function apri(id){
+  if (!OPERATORE) chiediOperatore();
   DOC = await api('/api/documenti/' + id);
   PAGINA = DOC.pagine.length ? DOC.pagine[0].numero : 1;
   ROTAZIONE = paginaCorrente().rotazione || 0;
@@ -1417,6 +1489,7 @@ async function apri(id){
   chiudiScan();
   $('#schermata-upload').hidden = true;
   $('#schermata-lavoro').hidden = false;
+  $('#btn-export').hidden = false;
   $('#riquadro-errori').hidden = true;
   disegna();
 }
@@ -1524,9 +1597,11 @@ function nellAmbito(){
   return AMBITO === 'tutte' ? DOC.righe : DOC.righe.filter(r => r.pagina === PAGINA);
 }
 // solo i casi in cui serve davvero una persona: le righe con soli avvisi
-// informativi vanno nel carico cosi' come sono
+// informativi vanno nel carico cosi' come sono. "Verificata" toglie dalla coda
+// gli avvisi, non i dati mancanti: quelli bloccano l'export comunque.
+const conAvvisiSeri = r => (r.avvisi || []).some(a => ['conferma', 'blocco'].includes(gravita(a)));
 const daControllare = r => !r.eliminata
-  && (motiviBloccanti(r).length || (r.avvisi || []).some(a => ['conferma', 'blocco'].includes(gravita(a))));
+  && (motiviBloccanti(r).length || (!r.verificata && conAvvisiSeri(r)));
 
 function disegnaFiltro(){
   const righe = nellAmbito();
@@ -1561,6 +1636,8 @@ function disegnaAzioni(){
   $('#barra-azioni').innerHTML = SCELTE.size
     ? `<span class="etichetta" style="color:var(--accento-cupo)">${SCELTE.size} righe selezionate</span>
        <span class="etichetta">assegna a</span>${magazzini}
+       <button type="button" class="bottone secondario compatto" data-azione="verifica">
+         ${icona('i-spunta', 'ico ico--14')}Verificate</button>
        <button type="button" class="bottone pericolo compatto" data-azione="escludi">
          ${icona('i-cestino', 'ico ico--14')}Escludi</button>
        <button type="button" class="bottone secondario compatto" data-azione="ripristina">
@@ -1586,6 +1663,14 @@ $('#barra-azioni').onclick = async e => {
 
   const azione = b.dataset.azione;
   if (azione === 'deseleziona'){ SCELTE.clear(); disegnaRighe(); return; }
+  if (azione === 'verifica'){
+    const ids = [...SCELTE].filter(id => !DOC.righe.find(r => r.id === id)?.eliminata);
+    await Promise.all(ids.map(id => patch(id, { verificata: true })));
+    SCELTE.clear();
+    await ricarica();
+    toast(`${ids.length} righe verificate`);
+    return;
+  }
   if (azione === 'escludi' || azione === 'ripristina'){
     const eliminata = azione === 'escludi';
     const ids = [...SCELTE];
@@ -1659,7 +1744,9 @@ function disegnaRighe(){
   $('#righe').innerHTML = righe.length ? righe.map(r => {
     const avvisi = avvisiVisibili(r.avvisi);
     const blocchi = motiviBloccanti(r);
-    const livello = blocchi.length ? 'blocco' : gravitaRiga(r);
+    // verificata: gli avvisi restano consultabili, ma non chiedono piu' attenzione
+    const verificata = r.verificata && !blocchi.length;
+    const livello = blocchi.length ? 'blocco' : verificata ? 'info' : gravitaRiga(r);
     const scelta = SCELTE.has(r.id);
     const aperta = APERTE.has(r.id);
     const n = avvisi.length + blocchi.length;
@@ -1668,8 +1755,8 @@ function disegnaRighe(){
     const pastiglia = n
       ? `<button type="button" class="segnala ${livello === 'conferma' ? '' : 'segnala--' + livello}"
                  data-azione="dettaglio" aria-expanded="${aperta}" aria-controls="dett-${r.id}"
-                 aria-label="${n} segnalazioni: ${aperta ? 'nascondi' : 'mostra'} il dettaglio">
-           ${icona(ICONA_LIVELLO[livello], 'ico ico--14')}${n}</button>`
+                 aria-label="${n} segnalazioni${verificata ? ', verificate' : ''}: ${aperta ? 'nascondi' : 'mostra'} il dettaglio">
+           ${icona(verificata ? 'i-spunta' : ICONA_LIVELLO[livello], 'ico ico--14')}${n}</button>`
       : '';
 
     const classi = ['riga',
@@ -1687,10 +1774,13 @@ function disegnaRighe(){
       <td><input class="campo cella testo-riga" data-c="codice_articolo" value="${esc(r.codice_articolo)}"
                  ${r.codice_stampato ? `title="stampato sulla bolla: ${esc(r.codice_stampato)}, corretto a mano"` : ''}
                  ${r.eliminata ? 'disabled' : ''} aria-label="Codice articolo"></td>
-      <td class="cella-tenue testo-riga">
-        <span class="descrizione" title="${esc(descrizione)}">${esc(descrizione) || '—'}</span></td>
-      <td class="testo-riga">${esc(r.taglia) || '—'}${r.taglia_stampata
-        ? ` <s class="cella-tenue" title="stampato sulla bolla, corretto a mano">${esc(r.taglia_stampata)}</s>` : ''}</td>
+      <td><input class="campo cella testo-riga" data-c="descrizione" value="${esc(r.descrizione)}"
+                 title="${esc(descrizione)}" ${r.eliminata ? 'disabled' : ''} aria-label="Descrizione">
+        ${r.colore ? `<span class="colore cella-tenue" title="${esc(r.colore)}">${esc(r.colore)}</span>` : ''}</td>
+      <td><input class="campo cella testo-riga" data-c="taglia" value="${esc(r.taglia)}"
+                 title="${r.taglia_stampata ? `stampato sulla bolla: ${esc(r.taglia_stampata)}, corretto a mano. ` : ''}Cambiandola la variante si ricalcola da config/varianti.csv"
+                 ${r.eliminata ? 'disabled' : ''} aria-label="Taglia">
+        ${r.taglia_stampata ? `<s class="colore cella-tenue" title="stampato sulla bolla, corretto a mano">${esc(r.taglia_stampata)}</s>` : ''}</td>
       <td>${varianteNuova(r)
         ? `<div class="variante-nuova">
              <input class="campo cella testo-riga" data-c="variante" value="${esc(r.variante)}"
@@ -1707,6 +1797,11 @@ function disegnaRighe(){
       <td><select class="campo cella testo-riga" data-c="magazzino" ${r.eliminata ? 'disabled' : ''}
                   aria-label="Magazzino">${opzioniMag(r)}</select></td>
       <td class="azioni-riga">
+        <button type="button" class="disco" data-azione="verifica" aria-pressed="${!!r.verificata}"
+                ${r.eliminata || (!conAvvisiSeri(r) && !r.verificata) ? 'disabled' : ''}
+                title="${r.verificata ? 'Verificata: clicca per rimetterla tra le Da controllare' : 'Ho controllato la scansione: gli avvisi tornano'}"
+                aria-label="${r.verificata ? 'Riga verificata: rimettila tra le da controllare' : 'Segna la riga come verificata'}">
+          ${icona('i-spunta', 'ico ico--14')}</button>
         <button type="button" class="disco" data-azione="dividi"
                 ${r.qta < 2 || r.eliminata ? 'disabled' : ''} aria-label="Dividi fra due magazzini">
           ${icona('i-dividi', 'ico ico--14')}</button>
@@ -1719,7 +1814,8 @@ function disegnaRighe(){
 
     const voci = [
       ...blocchi.map(m => ['blocco', m + ': senza questo la riga non entra nell’Excel']),
-      ...avvisi.map(a => [gravita(a), a]),
+      ...(verificata ? [['info', "Verificata dall'operatore: gli avvisi qui sotto restano nella tracciabilità"]] : []),
+      ...avvisi.map(a => [verificata ? 'info' : gravita(a), a]),
     ];
     return principale + `<tr class="dettaglio" id="dett-${r.id}"><td colspan="11">
       <ul class="avvisi">${voci.map(([liv, testo]) => `<li class="avviso avviso--${liv}">
@@ -1822,6 +1918,12 @@ $('#righe').addEventListener('click', async e => {
     disegnaFiltro(); disegnaRighe();
     toast(riga.eliminata ? 'Riga esclusa — resta nella tracciabilità' : 'Riga ripristinata');
   }
+  if (b.dataset.azione === 'verifica'){
+    const agg = await patch(id, { verificata: !riga.verificata });
+    Object.assign(riga, agg);
+    disegnaFiltro(); disegnaRighe();
+    toast(riga.verificata ? 'Riga verificata' : 'Riga di nuovo da controllare');
+  }
   if (b.dataset.azione === 'dividi') apriDivisione(riga);
   if (b.dataset.azione === 'conferma-variante')
     await confermaVariante(riga, b.closest('td').querySelector('input').value.trim() || riga.variante);
@@ -1909,7 +2011,8 @@ $('#btn-export').onclick = async () => {
   if (!v.problemi.length){
     riquadro.hidden = true;
     toast(`${v.anteprima.length} righe pronte: scarico il file`);
-    window.location = `/api/documenti/${DOC.id}/export`;
+    if (!serveOperatore()) return;
+    window.location = `/api/documenti/${DOC.id}/export?operatore=${encodeURIComponent(OPERATORE)}`;
     return;
   }
 

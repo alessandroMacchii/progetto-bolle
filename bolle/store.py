@@ -28,6 +28,11 @@ CREATE TABLE IF NOT EXISTS documenti (
 """
 
 
+# Le colonne della tabella: il resto del documento (pagine, righe, operatore,
+# storico delle modifiche) sta nel JSON di `stato`.
+COLONNE = ("id", "nome", "creato_il", "aggiornato", "esportato")
+
+
 def _conn() -> sqlite3.Connection:
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -100,6 +105,7 @@ def elenca() -> list[dict[str, Any]]:
                 "pagine": len(stato.get("pagine", [])),
                 "righe": sum(1 for x in stato.get("righe", []) if not x.get("eliminata")),
                 "in_lettura": bool(stato.get("in_lettura")),
+                "operatore": stato.get("operatore", ""),
             }
         )
     return fuori

@@ -158,6 +158,9 @@ class RigaLavoro(BaseModel):
     pacco: str = ""
     magazzino: str = ""
     eliminata: bool = False
+    # l'operatore ha guardato la scansione e gli avvisi della riga gli tornano:
+    # restano nella tracciabilita', ma la riga esce dalle "Da controllare"
+    verificata: bool = False
     origine: str = "estratta"  # estratta | manuale | split
     avvisi: list[str] = Field(default_factory=list)
     annotazioni_manoscritte: str = ""

@@ -192,7 +192,11 @@ _AVVISI_SEGNALATI = ("somma", "totale", "lettura discorde", "non interpretabile"
 def _segnalata(avvisi: list[str]) -> bool:
     for a in avvisi:
         a = a.lower()
-        if a.startswith(("lettura incerta", "dal pacco misto", "variante '")):
+        # il testo del modello dopo "lettura incerta:" non va cercato per parole
+        # chiave, ma l'avviso in se' manda la riga tra le "Da controllare"
+        if a.startswith("lettura incerta"):
+            return True
+        if a.startswith(("dal pacco misto", "variante '")):
             continue
         if a.startswith(("corretto a mano", "correzione a mano non applicata",
                          "magazzino a mano non applicato")):

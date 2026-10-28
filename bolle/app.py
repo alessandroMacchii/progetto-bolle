@@ -14,8 +14,10 @@ import threading
 import time
 import traceback
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 from pathlib import Path
 from typing import Annotated, Any
+from urllib.parse import unquote
 
 from fastapi import FastAPI, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, Response
@@ -38,7 +40,7 @@ from .config import (
 )
 from .extract import crea_estrattore
 from .lavoro import costruisci_righe, riga_vuota, verifica_pagina
-from .sizes import aggiungi_alla_mappa
+from .sizes import aggiungi_alla_mappa, normalizza_variante, uniforma_taglia
 
 STATIC = Path(__file__).parent / "static"
 
@@ -183,6 +185,7 @@ class ModificaRiga(BaseModel):
     qta: Annotated[int, Field(ge=0, le=100_000)] | None = None
     magazzino: str | None = None
     eliminata: bool | None = None
+    verificata: bool | None = None
 
 
 class Divisione(BaseModel):
@@ -215,7 +218,56 @@ def _doc(doc_id: str) -> dict[str, Any]:
 
 
 def _salva(doc: dict[str, Any]) -> None:
-    store.salva(doc["id"], {"pagine": doc["pagine"], "righe": doc["righe"]})
+    store.salva(doc["id"], {k: v for k, v in doc.items() if k not in store.COLONNE})
+
+
+# --- chi fa cosa -------------------------------------------------------------
+# L'operatore lo scrive l'interfaccia prima di caricare una bolla e lo manda con
+# ogni richiesta nell'header X-Operatore (codificato: i nomi possono avere
+# accenti, gli header no). Non e' un'autenticazione: il login resta uno per
+# tutti. Serve a sapere, nell'Excel, chi ha caricato, corretto ed esportato.
+
+MAX_OPERATORE = 60
+
+
+def _operatore(request: Request) -> str:
+    # l'export si scarica con un link, che non porta header: li' arriva in ?operatore=
+    intestazione = request.headers.get("X-Operatore", "")
+    grezzo = unquote(intestazione) if intestazione else request.query_params.get("operatore", "")
+    nome = " ".join(grezzo.split())
+    if not nome:
+        raise HTTPException(400, "indica l'operatore prima di continuare")
+    if len(nome) > MAX_OPERATORE:
+        raise HTTPException(400, f"nome operatore troppo lungo: massimo {MAX_OPERATORE} caratteri")
+    return nome
+
+
+def _registra(
+    doc: dict[str, Any],
+    operatore: str,
+    azione: str,
+    riga: dict[str, Any] | None = None,
+    campo: str = "",
+    prima: Any = "",
+    dopo: Any = "",
+) -> None:
+    """Una voce del registro delle modifiche: finisce nel foglio Modifiche."""
+    riga = riga or {}
+    doc.setdefault("storico", []).append(
+        {
+            "quando": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "operatore": operatore,
+            "azione": azione,
+            "riga_id": riga.get("id", ""),
+            "pagina": riga.get("pagina", ""),
+            "seq": riga.get("seq", ""),
+            "codice_articolo": riga.get("codice_articolo", ""),
+            "taglia": riga.get("taglia", ""),
+            "campo": campo,
+            "prima": "" if prima is None else prima,
+            "dopo": "" if dopo is None else dopo,
+        }
+    )
 
 
 def _trova(doc: dict[str, Any], riga_id: str) -> dict[str, Any]:
@@ -249,13 +301,14 @@ _LUCCHETTO = threading.Lock()
 
 
 @api.post("/api/documenti")
-def carica_documento(file: UploadFile) -> dict[str, Any]:
+def carica_documento(request: Request, file: UploadFile) -> dict[str, Any]:
     """Salva e rende le pagine, poi risponde subito: la lettura va in background.
 
     Una bolla da 14 pagine richiede minuti, e un proxy davanti al server (il
     tunnel della prova online, l'hosting dopo) chiude le richieste ferme da
     100 secondi. L'interfaccia chiede l'avanzamento a `/lettura`.
     """
+    operatore = _operatore(request)
     doc_id = store.nuovo_id()
     nome = Path(file.filename or "bolla").name[:120] or "bolla"
     if Path(nome).suffix.lower() not in ingest.FORMATI:
@@ -281,16 +334,22 @@ def carica_documento(file: UploadFile) -> dict[str, Any]:
     except Exception as exc:  # file illeggibile: va detto, non ingoiato
         raise HTTPException(400, f"impossibile leggere il file: {type(exc).__name__}") from exc
 
-    return _avvia_lettura(doc_id, nome, pagine)
+    return _avvia_lettura(doc_id, nome, pagine, operatore)
 
 
-def _avvia_lettura(doc_id: str, nome: str, pagine: list[ingest.Pagina]) -> dict[str, Any]:
+def _avvia_lettura(
+    doc_id: str, nome: str, pagine: list[ingest.Pagina], operatore: str
+) -> dict[str, Any]:
     try:
         estrattore = crea_estrattore()
     except Exception as exc:  # tipicamente: credenziali mancanti
         raise HTTPException(503, str(exc)) from exc
 
-    store.crea(doc_id, nome, {"pagine": [], "righe": [], "in_lettura": True})
+    stato: dict[str, Any] = {
+        "pagine": [], "righe": [], "in_lettura": True, "operatore": operatore, "storico": [],
+    }
+    _registra(stato, operatore, "caricamento", dopo=nome)
+    store.crea(doc_id, nome, stato)
     with _LUCCHETTO:
         _IN_LETTURA[doc_id] = [0, len(pagine)]
     threading.Thread(
@@ -350,7 +409,17 @@ def _leggi_documento(doc_id: str, pagine: list[ingest.Pagina], estrattore: Any) 
             meta_pagine.append(voce)
             righe.extend(r.model_dump() for r in righe_pagina)
 
-        store.salva(doc_id, {"pagine": meta_pagine, "righe": righe})
+        # chi ha caricato e il registro restano: si sostituiscono pagine e righe
+        doc = store.carica(doc_id) or {}
+        store.salva(
+            doc_id,
+            {
+                "pagine": meta_pagine,
+                "righe": righe,
+                "operatore": doc.get("operatore", ""),
+                "storico": doc.get("storico", []),
+            },
+        )
     except Exception:
         traceback.print_exc()  # resta "in_lettura": stato_lettura la da' per interrotta
     finally:
@@ -384,13 +453,33 @@ def immagine(doc_id: str, numero: int) -> FileResponse:
 
 
 @api.patch("/api/documenti/{doc_id}/righe/{riga_id}")
-def modifica(doc_id: str, riga_id: str, cambio: ModificaRiga) -> dict[str, Any]:
+def modifica(
+    request: Request, doc_id: str, riga_id: str, cambio: ModificaRiga
+) -> dict[str, Any]:
+    operatore = _operatore(request)
     if cambio.magazzino is not None:
         _magazzino_valido(cambio.magazzino)
     doc = _doc(doc_id)
     riga = _trova(doc, riga_id)
     for campo, valore in cambio.model_dump(exclude_none=True).items():
+        if campo == "taglia":
+            valore = uniforma_taglia(valore)
+        if riga.get(campo) != valore:
+            _registra(doc, operatore, "modifica", riga, campo, riga.get(campo), valore)
         riga[campo] = valore
+        if campo == "taglia":
+            # taglia nuova, variante nuova: la decide il CSV, come alla lettura,
+            # e se non la conosce torna da validare
+            variante, confermata = normalizza_variante(valore)
+            riga["variante"], riga["variante_confermata"] = variante, confermata
+            riga["avvisi"] = [
+                a for a in riga.get("avvisi", []) if not a.startswith("variante '")
+            ]
+            if not confermata and valore:
+                riga["avvisi"].append(
+                    f"variante '{variante}' da confermare: la taglia '{valore}' "
+                    "non e' in config/varianti.csv (confermandola ce la si aggiunge)"
+                )
         if campo == "variante":
             riga["variante_confermata"] = True
             riga["avvisi"] = [
@@ -413,17 +502,22 @@ def modifica(doc_id: str, riga_id: str, cambio: ModificaRiga) -> dict[str, Any]:
 
 
 @api.post("/api/documenti/{doc_id}/righe")
-def aggiungi(doc_id: str, pagina: int = 1) -> dict[str, Any]:
+def aggiungi(request: Request, doc_id: str, pagina: int = 1) -> dict[str, Any]:
+    operatore = _operatore(request)
     doc = _doc(doc_id)
     nuova = riga_vuota(pagina).model_dump()
     doc["righe"].append(nuova)
+    _registra(doc, operatore, "riga aggiunta", nuova)
     _salva(doc)
     return nuova
 
 
 @api.post("/api/documenti/{doc_id}/righe/{riga_id}/dividi")
-def dividi(doc_id: str, riga_id: str, divisione: Divisione) -> dict[str, Any]:
+def dividi(
+    request: Request, doc_id: str, riga_id: str, divisione: Divisione
+) -> dict[str, Any]:
     """Stessa taglia su due magazzini: il caso della pagina 3 degli esempi."""
+    operatore = _operatore(request)
     _magazzino_valido(divisione.magazzino)
     doc = _doc(doc_id)
     riga = _trova(doc, riga_id)
@@ -443,8 +537,13 @@ def dividi(doc_id: str, riga_id: str, divisione: Divisione) -> dict[str, Any]:
     nuova["magazzino"] = divisione.magazzino
     nuova["origine"] = "split"
     nuova["avvisi"] = puliti
+    _registra(doc, operatore, "divisione", riga, "qta", riga["qta"], riga["qta"] - divisione.qta)
     riga["qta"] -= divisione.qta
     riga["avvisi"] = puliti
+    _registra(
+        doc, operatore, "divisione", nuova, "magazzino",
+        riga["magazzino"], f"{divisione.magazzino} (pezzi: {divisione.qta})",
+    )
 
     doc["righe"].insert(doc["righe"].index(riga) + 1, nuova)
     _salva(doc)
@@ -452,7 +551,10 @@ def dividi(doc_id: str, riga_id: str, divisione: Divisione) -> dict[str, Any]:
 
 
 @api.post("/api/documenti/{doc_id}/magazzino")
-def assegna_massivo(doc_id: str, richiesta: AssegnazioneMassiva) -> dict[str, int]:
+def assegna_massivo(
+    request: Request, doc_id: str, richiesta: AssegnazioneMassiva
+) -> dict[str, int]:
+    operatore = _operatore(request)
     _magazzino_valido(richiesta.magazzino)
     doc = _doc(doc_id)
     toccate = 0
@@ -461,6 +563,9 @@ def assegna_massivo(doc_id: str, richiesta: AssegnazioneMassiva) -> dict[str, in
             continue
         if richiesta.pagina is not None and r["pagina"] != richiesta.pagina:
             continue
+        if r["magazzino"] != richiesta.magazzino:
+            _registra(doc, operatore, "magazzino a piu' righe", r, "magazzino",
+                      r["magazzino"], richiesta.magazzino)
         r["magazzino"] = richiesta.magazzino
         r["avvisi"] = [a for a in r.get("avvisi", []) if "magazzino proposto" not in a]
         toccate += 1
@@ -469,24 +574,28 @@ def assegna_massivo(doc_id: str, richiesta: AssegnazioneMassiva) -> dict[str, in
 
 
 @api.post("/api/documenti/{doc_id}/varianti")
-def conferma_variante(doc_id: str, richiesta: NuovaVariante) -> dict[str, int]:
+def conferma_variante(
+    request: Request, doc_id: str, richiesta: NuovaVariante
+) -> dict[str, int]:
     """Taglia non in mappa confermata (o corretta) dall'operatore.
 
     Finisce nel CSV, cosi' le prossime bolle la trovano gia' tradotta, e vale
     subito per tutte le righe del documento con la stessa taglia ancora da
     confermare. Le righe gia' confermate a mano restano come sono.
     """
+    operatore = _operatore(request)
     doc = _doc(doc_id)
     taglia = richiesta.taglia.strip().upper()
     variante = richiesta.variante.strip()
     try:
-        aggiungi_alla_mappa(taglia, variante, f"confermata dall'operatore ({doc['nome']})")
+        aggiungi_alla_mappa(taglia, variante, f"confermata da {operatore} ({doc['nome']})")
     except ValueError as e:
         raise HTTPException(409, str(e)) from e
     toccate = 0
     for r in doc["righe"]:
         if r["variante_confermata"] or r["taglia"].strip().upper() != taglia:
             continue
+        _registra(doc, operatore, "variante confermata", r, "variante", r["variante"], variante)
         r["variante"] = variante
         r["variante_confermata"] = True
         r["avvisi"] = [a for a in r.get("avvisi", []) if not a.startswith("variante '")]
@@ -508,11 +617,15 @@ def verifica(doc_id: str) -> dict[str, Any]:
 
 
 @api.get("/api/documenti/{doc_id}/export")
-def export(doc_id: str) -> FileResponse:
+def export(request: Request, doc_id: str) -> FileResponse:
+    operatore = _operatore(request)
     doc = _doc(doc_id)
     problemi = excel.problemi_bloccanti(doc["righe"])
     if problemi:
         raise HTTPException(400, "; ".join(problemi))
+    # registrato prima di scrivere il file, cosi' l'export compare nel suo Excel
+    _registra(doc, operatore, "export")
+    _salva(doc)
     percorso = excel.esporta(doc)
     store.segna_esportato(doc_id)
     return FileResponse(
@@ -583,7 +696,7 @@ def scan_anteprima(
 
 @api.post("/api/scan/documento")
 def scan_documento(
-    foto: list[UploadFile], pagine: Annotated[str, Form()]
+    request: Request, foto: list[UploadFile], pagine: Annotated[str, Form()]
 ) -> dict[str, Any]:
     """Le foto della bolla, una per pagina, con i loro angoli: diventa un
     documento come uno caricato da file e va in lettura.
@@ -592,6 +705,7 @@ def scan_documento(
     In uploads restano le foto originali (per rifare il ritaglio) e il PDF
     delle pagine elaborate, cioe' la scansione vera e propria.
     """
+    operatore = _operatore(request)
     try:
         scelte = _SCANSIONE.validate_json(pagine)
     except ValidationError as exc:
@@ -614,7 +728,7 @@ def scan_documento(
         UPLOAD_DIR / f"{doc_id}_{nome}", "PDF", save_all=True,
         append_images=elaborate[1:], resolution=200, quality=85,
     )
-    return _avvia_lettura(doc_id, nome, ingest.da_immagini(elaborate, doc_id))
+    return _avvia_lettura(doc_id, nome, ingest.da_immagini(elaborate, doc_id), operatore)
 
 
 # --- interfaccia -------------------------------------------------------------

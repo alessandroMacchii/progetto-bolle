@@ -56,14 +56,21 @@ Per l'uso vero serve un hosting: il `Dockerfile` e' pronto (dati nel volume
 
 ## Come si usa
 
-1. Trascina la bolla (PDF multipagina o foto) nella schermata di caricamento,
-   oppure fotografala con `Scansiona con la fotocamera` (vedi sotto).
+1. Scrivi il tuo nome nel campo `Operatore` (il browser lo ricorda; si cambia
+   dal cartellino in alto). Poi trascina la bolla (PDF multipagina o foto)
+   nella schermata di caricamento, oppure fotografala con `Scansiona con la
+   fotocamera` (vedi sotto).
 2. Ogni pagina viene estratta e trasformata in **una riga per taglia**.
 3. A sinistra c'e' la scansione, a destra le righe. Si correggono i campi in
-   linea, si assegna il magazzino, si eliminano le righe barrate, si aggiungono
-   a mano i colli arrivati senza documentazione.
+   linea (codice, descrizione, taglia, variante, quantita'), si assegna il
+   magazzino, si eliminano le righe barrate, si aggiungono a mano i colli
+   arrivati senza documentazione.
 4. `Esporta Excel` blocca l'export se restano righe incomplete, altrimenti
-   scarica il file.
+   scarica il file. Bloccano ogni riga attiva senza codice, senza magazzino (o
+   con un magazzino che non e' fra quelli configurati) e con la taglia da
+   validare: una taglia fuori da `config/varianti.csv` va confermata o
+   corretta prima dell'export. Cambiando a mano la taglia, la variante si
+   ricalcola dal CSV.
 
 Il pallino arancione a inizio riga e' il numero di segnalazioni: passandoci
 sopra si legge il motivo.
@@ -74,6 +81,7 @@ sopra si legge il motivo.
 |---|---|
 | `MAG 1` / `MAG 2` in barra | assegna in blocco la pagina corrente (o tutte, con la spunta) |
 | `Dividi` | stessa taglia su due magazzini — il caso di pagina 3 degli esempi, dove 3 pezzi vanno 2 su MAG 1 e 1 su MAG 2 |
+| `Verificata` (spunta) | ho controllato la scansione e gli avvisi della riga tornano: la riga esce dalle "Da controllare", gli avvisi restano nella tracciabilita'. Non sblocca i dati mancanti (codice, magazzino, taglia da validare) |
 | `Elimina` / `Ripristina` | esclude una riga senza perderla: resta nel foglio di tracciabilita' |
 | `+ Riga manuale` | collo arrivato senza documentazione |
 | `Ruota` | raddrizza una scansione coricata |
@@ -161,10 +169,19 @@ Ogni pagina registra chi l'ha letta (campo `motore`), per misurarlo nella prova.
 **Estrazione a backend intercambiabile.** Il resto dell'applicazione conosce
 solo `estrai(jpg, numero) -> PaginaEstratta`. Vedi "Portare tutto in casa".
 
-**Doppio foglio nell'export.** Il foglio `Carico` ha esattamente le quattro
+**Tre fogli nell'export.** Il foglio `Carico` ha esattamente le quattro
 colonne richieste, niente altro: e' il file da dare all'import. Il foglio
 `Tracciabilita` conserva pagina, seq, descrizione, colore, origine e note, per
-capire a mesi di distanza da dove viene un carico.
+capire a mesi di distanza da dove viene un carico, con chi ha caricato la bolla
+e chi ha modificato ogni riga. Il foglio `Modifiche` e' il registro completo:
+quando, chi, cosa (caricamento, correzioni campo per campo con il valore prima
+e dopo, divisioni, varianti confermate, export).
+
+**L'operatore non e' un login.** L'accesso resta uno per tutti; il nome
+scritto in `Operatore` viaggia con ogni richiesta (header `X-Operatore`) e il
+server rifiuta caricamenti, modifiche ed export senza. Serve alla
+tracciabilita', non alla sicurezza: chiunque abbia l'accesso puo' scrivere
+qualunque nome.
 
 ## Formati riconosciuti
 

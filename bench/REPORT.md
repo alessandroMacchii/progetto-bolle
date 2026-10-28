@@ -6,14 +6,14 @@
 
 | modello | pagine perfette | righe perfette | codice | taglie | magazzino | barrate | correzioni a mano | errori silenziosi | di cui NON segnalati | righe segnalate incerte | costo/pagina | sec/pagina |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| consenso | 15/20 | 95% | 99% | 98% | 25/38 | 0/0 | 0/0 | 4 | 0 | 8 (6 a vuoto) | $0.0380 | 25 |
-| opus-5.5-api | 15/20 | 95% | 99% | 98% | 25/38 | 0/0 | 0/0 | 4 | 0 | 10 (8 a vuoto) | $0.0648 | 18 |
+| consenso | 15/20 | 95% | 99% | 98% | 25/38 | 0/0 | 0/0 | 0 | 0 | 8 (6 a vuoto) | $0.0380 | 25 |
+| opus-5.5-api | 15/20 | 95% | 99% | 98% | 25/38 | 0/0 | 0/0 | 0 | 0 | 10 (8 a vuoto) | $0.0648 | 18 |
 
 ## Caso per caso (righe perfette / righe)
 
 | caso | cosa prova | consenso | opus-5.5-api |
 |---|---|---|---|
-| td-adidas_nuova | ground truth di test_data (Adidas_nuova) | 69/71 ⚠ | 69/71 ⚠ |
+| td-adidas_nuova | ground truth di test_data (Adidas_nuova) | 69/71 | 69/71 |
 | td-esempio-bolle-1 | ground truth di test_data (Esempio bolle-1) | 1/1 | 1/1 |
 | td-esempio-bolle-10 | ground truth di test_data (Esempio bolle-10) | 1/1 | 1/1 |
 | td-esempio-bolle-11 | ground truth di test_data (Esempio bolle-11) | 3/3 | 3/3 |

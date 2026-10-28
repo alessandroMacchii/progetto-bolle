@@ -51,6 +51,11 @@ lettura in background) → `static/index.html` (interfaccia) → `excel.py` (fog
   `bench/prompt_vN.txt` e aggiunta alle scelte `--prompt` di `bench/esegui.py`.
   Versione attuale: **v5** (magazzini per taglia e per pezzo; v4 = correzioni
   strutturate).
+- **Ogni azione dell'operatore va nel registro.** Gli endpoint che modificano
+  un documento leggono `_operatore(request)` (header `X-Operatore`, per
+  l'export `?operatore=`) e chiamano `_registra(...)`: lo storico finisce nel
+  foglio `Modifiche` dell'Excel. Un endpoint nuovo che modifica righe deve fare
+  lo stesso.
 - Se cambia cio' che finisce nel carico, aggiornare anche `_firma` in
   `extract.py`: e' cio' su cui i due modelli del `consenso` devono concordare.
 - **Taglie: le traduce solo `config/varianti.csv`.** Il codice fa soltanto
