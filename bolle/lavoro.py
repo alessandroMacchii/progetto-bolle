@@ -305,13 +305,22 @@ def verifica_pagina(pagina: PaginaEstratta, righe: list[RigaLavoro]) -> list[str
         somma = colli(
             [t for riga in pagina.righe if not riga.barrata for t in _taglie_di_riga(riga)[0]]
         )
-        if somma != pagina.total_pieces_dichiarato:
+        # il Total Pieces e' stampato prima delle cancellazioni a penna: se torna
+        # contando anche le righe barrate la lettura e' giusta, non c'e' niente
+        # da segnalare
+        barrate = colli(
+            [t for riga in pagina.righe if riga.barrata for t in _taglie_di_riga(riga)[0]]
+        )
+        if pagina.total_pieces_dichiarato not in (somma, somma + barrate):
             corretta = colli([TagliaQta(r.taglia, r.qta, r.pacco) for r in attive])
             dopo = f", {corretta} dopo le correzioni a mano" if corretta != somma else ""
+            con_barrate = (
+                f" ({somma + barrate} contando anche le righe barrate)" if barrate else ""
+            )
             avvisi.append(
                 f"totale pagina {somma} != Total Pieces stampato "
-                f"{pagina.total_pieces_dichiarato}{dopo} "
-                "(atteso se hai escluso delle righe barrate)"
+                f"{pagina.total_pieces_dichiarato}{dopo}{con_barrate}: "
+                "manca qualche riga (o una pagina) o e' letta male"
             )
     if not pagina.righe:
         avvisi.append("nessuna riga estratta da questa pagina")
