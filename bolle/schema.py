@@ -38,6 +38,25 @@ class CorrezioneManoscritta(BaseModel):
     )
 
 
+class MagazzinoDiTaglia(BaseModel):
+    """Una taglia (o parte dei suoi pezzi) mandata a mano in un magazzino.
+
+    Serve quando la scritta a penna non vale per tutta la riga: taglie diverse
+    in magazzini diversi, o i pezzi di una stessa taglia divisi fra piu'
+    magazzini. La divisione la fa `lavoro.costruisci_righe`.
+    """
+
+    taglia_stampata: str = Field(
+        description="Taglia STAMPATA a cui si riferisce la scritta, esattamente "
+        "come compare in `taglie`, es. '550' o 'XS'"
+    )
+    magazzino: str = Field(description="'MAG 1', 'MAG 2', oppure 'MAG ?' se la cifra non si legge")
+    qta: int = Field(
+        description="Quanti pezzi di quella taglia vanno in quel magazzino. "
+        "-1 se ci vanno tutti, o tutti quelli non assegnati altrove"
+    )
+
+
 class RigaEstratta(BaseModel):
     seq: str = Field(description="Numero Seq-no / Item No. della riga; '' se assente")
     codice_articolo: str = Field(
@@ -72,6 +91,12 @@ class RigaEstratta(BaseModel):
         default_factory=list,
         description="Taglie o quantita' corrette A MANO su questa riga, una voce "
         "per taglia stampata. [] se non ce ne sono",
+    )
+    magazzini_per_taglia: list[MagazzinoDiTaglia] = Field(
+        default_factory=list,
+        description="Magazzini scritti a mano per singole taglie o singoli pezzi, "
+        "una voce per coppia taglia-magazzino. [] se la scritta vale per tutta la "
+        "riga o non c'e'",
     )
     incertezze: str = Field(
         default="",

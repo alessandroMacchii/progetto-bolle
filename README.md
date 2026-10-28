@@ -127,6 +127,12 @@ modifica:
 I magazzini seguono la stessa logica. Quando l'annotazione nomina un solo
 magazzino il campo viene **precompilato**, con una segnalazione da confermare;
 quando ne nomina piu' di uno (pagina 3) non si indovina: si segnala.
+Se la scritta e' riferita a singole taglie, o divide i pezzi di una stessa
+taglia fra piu' magazzini, il modello la riporta in `magazzini_per_taglia`
+(taglia stampata, magazzino, pezzi) e `lavoro.py` divide la taglia in piu'
+righe, una per magazzino. Se i pezzi non tornano con la quantita' della taglia
+la riga resta intera e senza magazzino; i pezzi senza sigla restano senza
+magazzino. In entrambi i casi decide l'operatore.
 
 **Due checksum gratuiti.** Ogni riga stampa il proprio totale e ogni pagina il
 `Total Pieces`. `somma(quantita') == Total` e' una verifica che non costa nulla

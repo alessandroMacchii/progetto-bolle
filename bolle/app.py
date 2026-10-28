@@ -397,8 +397,12 @@ def modifica(doc_id: str, riga_id: str, cambio: ModificaRiga) -> dict[str, Any]:
                 a for a in riga.get("avvisi", []) if not a.startswith("variante '")
             ]
         if campo == "magazzino":
+            # l'operatore ha deciso: anche i dubbi sul magazzino sono risolti
             riga["avvisi"] = [
-                a for a in riga.get("avvisi", []) if "magazzino proposto" not in a
+                a for a in riga.get("avvisi", [])
+                if "magazzino proposto" not in a
+                and "piu' magazzini" not in a
+                and "magazzino scritto a mano ma illeggibile" not in a
             ]
         if campo == "codice_articolo" and valore:
             riga["avvisi"] = [
