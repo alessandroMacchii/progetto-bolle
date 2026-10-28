@@ -57,8 +57,8 @@ ACCESSO_PASSWORD = os.getenv("BOLLE_PASSWORD", "")
 IP_HEADER = os.getenv("BOLLE_IP_HEADER", "").strip().lower()
 
 # --- magazzini --------------------------------------------------------------
+# Nessun magazzino di default: se la penna non ne indica uno, lo sceglie l'operatore.
 MAGAZZINI = [m.strip() for m in os.getenv("BOLLE_MAGAZZINI", "MAG 1,MAG 2").split(",")]
-MAGAZZINO_DEFAULT = MAGAZZINI[0]
 
 # --- export -----------------------------------------------------------------
 # Intestazioni del file destinato all'import nel gestionale.

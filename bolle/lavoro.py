@@ -10,7 +10,7 @@ from __future__ import annotations
 import re
 import uuid
 
-from .config import MAGAZZINI, MAGAZZINO_DEFAULT
+from .config import MAGAZZINI
 from .schema import PaginaEstratta, RigaEstratta, RigaLavoro
 from .sizes import (
     TagliaQta,
@@ -141,7 +141,9 @@ def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLav
             # la sigla e' una sola e leggibile: si applica senza chiedere
             avvisi_riga.append(f"magazzino proposto dall'annotazione a mano ({magazzino})")
         else:
-            magazzino = MAGAZZINO_DEFAULT
+            # nessuna sigla leggibile: niente scelta d'ufficio, la riga resta
+            # senza magazzino e l'export la blocca finche' l'operatore non decide
+            magazzino = ""
             if _MAG_ILLEGGIBILE.search(
                 f"{riga.annotazioni_manoscritte} {pagina.magazzino_pagina}"
             ):
@@ -231,7 +233,6 @@ def riga_vuota(numero_pagina: int) -> RigaLavoro:
     return RigaLavoro(
         id=uuid.uuid4().hex[:12],
         pagina=numero_pagina,
-        magazzino=MAGAZZINO_DEFAULT,
         origine="manuale",
         avvisi=["riga inserita a mano"],
     )

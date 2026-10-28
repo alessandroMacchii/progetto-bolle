@@ -271,8 +271,9 @@ Tutto da `.env`:
   L'interfaccia lo segnala; l'operatore lo capisce.
 - Un solo utente e password condivisi (`BOLLE_PASSWORD`), nessun ruolo. In
   locale, senza password, nessuna autenticazione.
-- Le righe senza un magazzino scritto a mano vanno su `MAG 1` per default:
-  da confermare con l'azienda (domanda 4).
+- Le righe senza un magazzino scritto a mano restano senza magazzino: l'export
+  si blocca finche' l'operatore non lo assegna (anche in massa, per pagina o
+  documento). Da confermare con l'azienda (domanda 4).
 - Se il server si riavvia mentre legge una bolla, quella bolla risulta
   interrotta e va ricaricata.
 - Le immagini escono verso l'API del modello. Da verificare se e' accettabile

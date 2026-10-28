@@ -1005,8 +1005,11 @@ async function ricarica(){
 /* --- tabella ---------------------------------------------------------------- */
 function disegnaRighe(){
   const righe = righeVisibili();
-  const opzioniMag = r => CONFIG.magazzini
-    .map(m => `<option ${m === r.magazzino ? 'selected' : ''}>${esc(m)}</option>`).join('');
+  // senza magazzino la tendina mostra "—" invece del primo della lista: un
+  // valore che sembra scelto ma non lo e' finirebbe nel carico senza che
+  // nessuno l'abbia deciso
+  const opzioniMag = r => (r.magazzino ? '' : '<option value="" selected disabled>—</option>') +
+    CONFIG.magazzini.map(m => `<option ${m === r.magazzino ? 'selected' : ''}>${esc(m)}</option>`).join('');
 
   $('#righe').innerHTML = righe.length ? righe.map(r => {
     const avvisi = r.avvisi || [];

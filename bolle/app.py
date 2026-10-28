@@ -31,7 +31,6 @@ from .config import (
     EXTRACTOR_BACKEND,
     IP_HEADER,
     MAGAZZINI,
-    MAGAZZINO_DEFAULT,
     MAX_PAGINE,
     MAX_UPLOAD_MB,
     PAGES_DIR,
@@ -232,7 +231,6 @@ def _trova(doc: dict[str, Any], riga_id: str) -> dict[str, Any]:
 def configurazione() -> dict[str, Any]:
     return {
         "magazzini": MAGAZZINI,
-        "magazzino_default": MAGAZZINO_DEFAULT,
         "backend": EXTRACTOR_BACKEND,
         "colonne_export": EXCEL_HEADERS,
     }
