@@ -203,7 +203,11 @@ tbody tr:focus-within { scroll-margin-block: calc(var(--equidistanza) * 8); }
 .campo:disabled { background: var(--carta-bassa); color: var(--nero-medio); cursor: not-allowed; }
 select.campo { cursor: pointer; }
 /* dentro la tabella: stessa forma, bersaglio minimo */
-.campo.cella { min-height: 44px; padding: 0.5rem 0.75rem; font-size: 0.92rem; }
+.campo.cella { min-height: 44px; padding: 0.5rem; font-size: 0.92rem; }
+/* sei campi per riga col bordo pieno fanno un modulo, non una tabella: a
+   riposo il filetto, il bordo pieno sulla riga che si sta toccando */
+tbody .campo.cella:not(:focus) { border-color: var(--reticolo); }
+tbody tr:is(:hover, :focus-within) .campo.cella:not(:focus, :disabled) { border-color: var(--nero-tenue); }
 input[type=checkbox] { width: 22px; height: 22px; margin: 0; accent-color: var(--accento); cursor: pointer; }
 label.campo-etichetta { display: grid; gap: 6px; font-weight: 600; font-size: 0.86rem; color: var(--linea); }
 
@@ -256,6 +260,12 @@ label.campo-etichetta { display: grid; gap: 6px; font-weight: 600; font-size: 0.
   .marchio { margin-right: auto; }
 }
 
+/* export bloccato: il bottone scende a secondario e porta il conteggio delle
+   righe che lo fermano. Resta cliccabile: il clic apre il riepilogo degli errori */
+.blocchi-export { display: inline-flex; align-items: center; gap: 4px; margin-right: -0.4rem;
+                  padding: 0.25rem 0.6rem; border-radius: var(--pillola);
+                  background: var(--segnale-velo); color: var(--segnale-cupo); font-size: 0.8rem; }
+
 /* cartellino: pillola col velo, 0,8rem */
 .cartellino { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
               padding: 0.3rem 0.8rem; border-radius: var(--pillola);
@@ -296,7 +306,9 @@ main { min-height: 0; }
 #dropzone .suggerimento { font-size: 0.86rem; }
 
 /* ------------------------------------------------------------------ lavoro */
-.lavoro { height: 100%; display: grid; grid-template-columns: var(--split, 40%) 16px 1fr;
+/* la scansione prende quello che la tabella delle righe (920px, azioni
+   comprese) lascia libero, fra il 31% e il 40%: da 1440px la tabella ci sta intera */
+.lavoro { height: 100%; display: grid; grid-template-columns: var(--split, clamp(31%, 100% - 960px, 40%)) 16px 1fr;
           padding: 16px clamp(16px, 2vw, 32px); overflow: hidden; }
 
 /* i due pannelli sono schede: fondo chiaro e filetto, niente ombra (non galleggiano) */
@@ -366,7 +378,7 @@ main { min-height: 0; }
 
 /* ----------------------------------------------------------------- tabella */
 .tabella-scorrevole { overflow: auto; min-height: 0; }
-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 960px; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 920px; }
 thead th {
   position: sticky; top: 0; z-index: 2; text-align: left; white-space: nowrap;
   font-weight: 600; font-size: 0.82rem; line-height: 1.3; color: var(--linea);
@@ -375,6 +387,8 @@ thead th {
 tbody td { padding: 6px 8px; border-bottom: 1px solid var(--reticolo); vertical-align: middle; font-size: 0.92rem; }
 tbody tr.riga { transition: background-color 0.2s var(--esce-quart); }
 tbody tr.riga:hover { background: rgba(238, 242, 247, 0.6); }
+/* bloccata: oltre alla banda, un velo appena percettibile su tutta la riga */
+tbody tr.riga--blocco { background: rgba(180, 35, 24, 0.045); }
 tbody tr.riga--scelta { background: var(--accento-velo); }
 /* la banda di stato: box-shadow interna, mai un bordo spesso */
 tbody tr.riga--segnalata td:first-child { box-shadow: inset 4px 0 0 var(--accento); }
@@ -382,6 +396,14 @@ tbody tr.riga--blocco td:first-child { box-shadow: inset 4px 0 0 var(--segnale);
 /* "esclusa" non sbiadisce il testo (scenderebbe sotto 4,5:1): barrato e campi spenti */
 tbody tr.riga--fuori .testo-riga { text-decoration: line-through; color: var(--nero-medio); }
 .col-num { text-align: right; }
+/* la pagina sta sotto il seq-no e solo con "Tutto il documento": con "Pagina N"
+   sarebbe la stessa cifra su ogni riga */
+.pag-riga { display: block; font-size: 0.75rem; white-space: nowrap; }
+/* quantita' senza le frecce: rubavano 16px e coprivano le cifre. Si scrive,
+   e le frecce della tastiera la cambiano ancora */
+.campo.cella[type=number] { appearance: textfield; -moz-appearance: textfield; }
+.campo.cella[type=number]::-webkit-inner-spin-button,
+.campo.cella[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .cella-tenue { color: var(--nero-medio); }
 .descrizione { display: block; max-width: 26ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* il colore non si modifica: resta sotto la descrizione, in piccolo */
@@ -392,8 +414,15 @@ tbody tr.riga--fuori .testo-riga { text-decoration: line-through; color: var(--n
 .azioni-riga > div { display: flex; gap: 6px; justify-content: center; align-items: center; }
 /* descrizione intera: il campo va a capo e cresce col testo invece di tagliarlo */
 /* niente field-sizing: allargherebbe la colonna fino a tutto il testo */
-.descrizione-campo { display: block; width: 100%; min-width: 8rem; resize: none; overflow: hidden;
+.descrizione-campo { display: block; width: 100%; min-width: 7rem; resize: none; overflow: hidden;
                      line-height: 1.35; }
+/* la tabella si stringe sulla descrizione, che va a capo: i codici corti
+   restano interi (KD0985, 13-14A) */
+.campo.cella[data-c=codice_articolo] { min-width: 4.9rem; }
+.campo.cella[data-c=taglia] { min-width: 3.5rem; }
+.campo.cella[data-c=variante] { min-width: 4.6rem; }
+.campo.cella[data-c=qta] { min-width: 3rem; }
+.campo.cella[data-c=magazzino] { min-width: 4.75rem; }
 /* variante di una taglia fuori dal CSV: campo e spunta di conferma affiancati */
 .variante-nuova { display: flex; gap: 6px; align-items: center; }
 td.vuoto { padding: calc(var(--equidistanza) * 6) 24px; text-align: center; color: var(--nero-medio); }
@@ -632,7 +661,8 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
       <svg class="ico ico--14" aria-hidden="true"><use href="#i-piu"/></svg><span class="testo-bottone">Nuova bolla</span></button>
     <!-- solo mentre si rivede una bolla: lo mostra apri() -->
     <button class="bottone compatto" id="btn-export" type="button" hidden>
-      <svg class="ico ico--14" aria-hidden="true"><use href="#i-scarica"/></svg><span class="testo-bottone">Esporta Excel</span></button>
+      <svg class="ico ico--14" aria-hidden="true"><use href="#i-scarica"/></svg><span class="testo-bottone">Esporta Excel</span>
+      <span class="blocchi-export" id="blocchi-export" hidden></span></button>
   </div>
 </header>
 
@@ -787,7 +817,7 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
   </section>
 
   <button class="maniglia" id="maniglia" type="button" aria-label="Sposta il divisorio fra scansione e righe"
-          role="separator" aria-orientation="vertical" aria-valuenow="40" aria-valuemin="20" aria-valuemax="70"></button>
+          role="separator" aria-orientation="vertical" aria-valuenow="31" aria-valuemin="20" aria-valuemax="70"></button>
 
   <!-- le righe -->
   <section class="pannello pannello--righe" aria-labelledby="titolo-righe">
@@ -809,13 +839,12 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
         <thead><tr>
           <th style="width:46px"><input type="checkbox" id="scegli-tutte" aria-label="Seleziona tutte le righe visibili"></th>
           <th style="width:64px"><span class="sr-only">Segnalazioni</span></th>
-          <th style="width:46px">pag</th>
-          <th style="width:46px">seq</th>
+          <th style="width:52px">seq</th>
           <th style="width:128px">codice</th>
           <th>descrizione</th>
           <th style="width:96px">taglia</th>
           <th style="width:168px">variante</th>
-          <th style="width:88px" class="col-num">qtà</th>
+          <th style="width:64px" class="col-num">qtà</th>
           <th style="width:124px">magazzino</th>
           <th style="width:156px"><span class="sr-only">Azioni</span></th>
         </tr></thead>
@@ -1785,7 +1814,8 @@ addEventListener('resize', applicaTrasformazione);
     const passo = {ArrowLeft: -3, ArrowRight: 3}[e.key];
     if (!passo) return;
     e.preventDefault();
-    imposta(+maniglia.getAttribute('aria-valuenow') + passo);
+    // si parte dalla larghezza vera: quella di partenza dipende dallo schermo
+    imposta(maniglia.previousElementSibling.offsetWidth / lavoro.clientWidth * 100 + passo);
   };
 })();
 
@@ -1976,8 +2006,7 @@ function disegnaRighe(){
       <td><input type="checkbox" data-azione="scegli" ${scelta ? 'checked' : ''}
                  aria-label="Seleziona la riga ${esc(r.codice_articolo || 'senza codice')} taglia ${esc(r.taglia)}"></td>
       <td>${pastiglia}</td>
-      <td class="cella-tenue">${r.pagina}</td>
-      <td class="cella-tenue">${esc(r.seq)}</td>
+      <td class="cella-tenue">${esc(r.seq)}${AMBITO === 'tutte' ? `<small class="pag-riga">pag ${r.pagina}</small>` : ''}</td>
       <td><input class="campo cella testo-riga" data-c="codice_articolo" value="${esc(r.codice_articolo)}"
                  ${r.codice_stampato ? `title="stampato sulla bolla: ${esc(r.codice_stampato)}, corretto a mano"` : ''}
                  ${r.eliminata ? 'disabled' : ''} aria-label="Codice articolo"></td>
@@ -2023,7 +2052,7 @@ function disegnaRighe(){
       ...(verificata ? [['info', "Verificata dall'operatore: gli avvisi qui sotto restano nella tracciabilità"]] : []),
       ...avvisi.map(a => [verificata ? 'info' : gravita(a), a]),
     ];
-    return principale + `<tr class="dettaglio" id="dett-${r.id}"><td colspan="11">
+    return principale + `<tr class="dettaglio" id="dett-${r.id}"><td colspan="10">
       <ul class="avvisi">${voci.map(([liv, testo]) => `<li class="avviso avviso--${liv}">
         ${icona(ICONA_LIVELLO[liv], 'ico ico--14')}
         <span>${esc(testo)}</span></li>`).join('')}</ul>
@@ -2032,7 +2061,7 @@ function disegnaRighe(){
         <span class="cella-tenue">Trascritto, mai applicato da solo: decidi tu.</span></span></div>` : ''}
     </td></tr>`;
   }).join('')
-  : `<tr><td colspan="11" class="vuoto">${
+  : `<tr><td colspan="10" class="vuoto">${
       FILTRO === 'controllare' ? 'Niente da controllare: quadra tutto. Puoi esportare.'
       : FILTRO === 'escluse' ? 'Nessuna riga esclusa.'
       : 'Nessuna riga su questa pagina. Se è arrivato un collo senza documento, aggiungi una riga manuale.'}</td></tr>`;
@@ -2082,6 +2111,12 @@ function disegnaRiepilogo(){
   });
   const controllare = attive.filter(daControllare).length;
   const bloccate = attive.filter(r => motiviBloccanti(r).length).length;
+
+  // lo stato dell'export sta anche sul bottone, non solo in fondo alla tabella
+  const blocchi = $('#blocchi-export');
+  $('#btn-export').classList.toggle('secondario', bloccate > 0);
+  blocchi.hidden = !bloccate;
+  blocchi.innerHTML = `${icona('i-blocco', 'ico ico--14')}${bloccate}<span class="sr-only"> righe bloccano l'export</span>`;
 
   $('#riepilogo').innerHTML =
     `<span>righe <b>${attive.length}</b></span>` +
