@@ -79,7 +79,7 @@
 
   /* --- forma: da DESIGN-SYSTEM.md, uguale --- */
   --equidistanza: 8px;
-  --testata: 84px;
+  --testata: 64px;
   --raggio-campo: 0.8rem;
   --raggio-chip: 1.25rem;
   --raggio-scheda: 1.75rem;
@@ -221,17 +221,40 @@ label.campo-etichetta { display: grid; gap: 6px; font-weight: 600; font-size: 0.
   .testata::after { background: rgba(238, 242, 247, 0.7); backdrop-filter: blur(20px) saturate(1.25); }
 }
 .testata-riga { height: 100%; padding: 0 clamp(16px, 2vw, 32px);
-                display: flex; align-items: center; gap: 16px; }
+                display: flex; align-items: center; gap: 12px; }
 .marchio { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--nero);
            text-decoration: none; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em;
            white-space: nowrap; min-height: 44px; }
 /* il logo della scuola, poi il nome dell'app dietro un filetto */
-.marchio img { height: 40px; width: auto; display: block; }
+.marchio img { height: 32px; width: auto; display: block; }
 .marchio > span { padding-left: 0.75rem; border-left: 1px solid var(--reticolo); }
 .marchio small { display: block; font-weight: 500; font-size: 0.78rem; letter-spacing: 0;
                  color: var(--nero-medio); }
-.testata-centro { margin-inline: auto; display: flex; align-items: center; gap: 12px; min-width: 0; }
-.testata-centro .campo { width: min(26rem, 40vw); }
+/* la tendina prende lo spazio che resta: e' quella che ha testo lungo */
+.testata-centro { flex: 1; display: flex; justify-content: center; align-items: center; gap: 12px; min-width: 0; }
+.testata-centro .campo { width: min(40rem, 100%); min-height: 44px; padding-block: 0.45rem; }
+
+/* chi sta lavorando: iniziali in un disco e nome, cliccabile per cambiarlo */
+.operatore { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; max-width: 15rem;
+             padding: 4px 14px 4px 4px; border-radius: var(--pillola); cursor: pointer;
+             border: 1px solid var(--reticolo); background: var(--carta-chiara); color: var(--nero);
+             font: 500 0.9rem/1 var(--corpo); white-space: nowrap;
+             transition: border-color 0.25s var(--esce-quart); }
+.operatore:hover { border-color: var(--nero-tenue); }
+.operatore .iniziali { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 50%;
+                       background: var(--linea-velo); color: var(--linea-cupo); font-weight: 700; font-size: 0.8rem; }
+.operatore .nome { overflow: hidden; text-overflow: ellipsis; }
+/* senza nome non si carica ne' si modifica: si fa notare */
+.operatore.manca { border-color: var(--accento); background: var(--accento-velo); color: var(--accento-cupo); }
+.operatore.manca .iniziali { background: var(--accento); color: #fff; }
+/* telefono: la testata deve stare su due righe, restano iniziali e icone */
+@media (max-width: 600px) {
+  .operatore { padding-right: 4px; }
+  .operatore .nome, .testata .testo-bottone { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .testata .bottone.compatto { padding-inline: 0.9rem; }
+  .testata-riga { gap: 8px; }
+  .marchio { margin-right: auto; }
+}
 
 /* cartellino: pillola col velo, 0,8rem */
 .cartellino { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
@@ -249,8 +272,15 @@ main { min-height: 0; }
 .upload-scatola { max-width: 46rem; margin: 0 auto; display: grid; gap: calc(var(--equidistanza) * 3); }
 .upload h1 { font-weight: 500; font-size: clamp(2.3rem, 5.4vw, 4rem); letter-spacing: -0.032em; line-height: 1.03; }
 .upload .introduzione { max-width: 62ch; color: var(--nero-medio); font-size: 1.05rem; }
-.campo-operatore { max-width: 24rem; }
-.campo-operatore small { font-weight: 400; color: var(--nero-medio); }
+.lavori-come { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; color: var(--nero-medio); }
+.lavori-come b { color: var(--nero); }
+/* operatori gia' usati: un clic e si e' dentro */
+.recenti { display: flex; flex-wrap: wrap; gap: 8px; }
+.recenti:empty { display: none; }
+#errore-operatore { font-size: 0.86rem; color: var(--segnale); min-height: 1.2em; }
+.elenco-doppioni { margin: 6px 0 10px; padding-left: 18px; display: grid; gap: 4px; }
+.avviso-doppione { margin: 12px 12px 0; }
+.avviso-doppione a { color: inherit; font-weight: 600; text-underline-offset: 3px; }
 
 /* lo stato vuoto: tratteggio decorativo, dice cosa fare dopo */
 #dropzone {
@@ -297,7 +327,11 @@ main { min-height: 0; }
 /* ------------------------------------------------------------------ visore */
 #visore { overflow: auto; background: var(--carta-bassa); }
 #tela { position: relative; }
-#scansione { position: absolute; top: 0; left: 0; transform-origin: top left; }
+#scansione { position: absolute; top: 0; left: 0; transform-origin: top left;
+             -webkit-user-drag: none; user-select: none; }
+/* pagina piu' grande del riquadro: si sposta trascinandola col mouse */
+#visore.spostabile { cursor: grab; }
+#visore.trascina { cursor: grabbing; }
 
 /* pagine: pillole di scelta da 44px */
 .strip { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -524,6 +558,7 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
   .app { height: auto; min-height: 100dvh; overflow: visible; grid-template-rows: auto 1fr; }
   .testata-riga { flex-wrap: wrap; padding-block: 12px; }
   .testata-centro { order: 3; flex: 1 0 100%; margin: 0; }
+  .marchio > span { display: none; }
   .testata-centro .campo { width: 100%; }
   .lavoro { grid-template-columns: 1fr; gap: 16px; height: auto; overflow: visible; }
   .maniglia { display: none; }
@@ -572,25 +607,26 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
 <header class="testata">
   <div class="testata-riga">
     <a class="marchio" href="/">
-      <img src="/static/img/its-rizzoli.png" width="120" height="40" alt="ITS Academy Angelo Rizzoli">
-      <span>Carico merci<small>revisione bolle</small></span>
+      <img src="/static/img/its-rizzoli.png" width="96" height="32" alt="ITS Academy Angelo Rizzoli">
+      <span>Carico merci</span>
     </a>
 
     <div class="testata-centro">
       <label class="sr-only" for="scelta-doc">Bolla da rivedere</label>
       <select class="campo" id="scelta-doc"></select>
-      <span class="cartellino" id="pillola-backend">motore: …</span>
-      <button class="cartellino" id="pillola-operatore" type="button"
-              title="Chi sta lavorando: finisce nell'Excel esportato. Clicca per cambiarlo">operatore: —</button>
+      <!-- solo col motore finto: le righe non vengono dalla scansione -->
+      <span class="cartellino attenzione" id="pillola-backend" hidden
+            title="Motore di prova: le righe non arrivano dalla lettura della scansione">dati di prova</span>
     </div>
 
-    <button class="prenota secondario" id="btn-nuovo" type="button">Nuova bolla
-      <span class="chip-freccia" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><use href="#i-freccia"/></svg></span>
-    </button>
+    <button class="operatore" id="btn-operatore" type="button" aria-haspopup="dialog"
+            title="Chi sta lavorando: finisce nel registro e nell'Excel esportato">
+      <span class="iniziali" aria-hidden="true"></span><span class="nome"></span></button>
+    <button class="bottone secondario compatto" id="btn-nuovo" type="button">
+      <svg class="ico ico--14" aria-hidden="true"><use href="#i-piu"/></svg><span class="testo-bottone">Nuova bolla</span></button>
     <!-- solo mentre si rivede una bolla: lo mostra apri() -->
-    <button class="prenota" id="btn-export" type="button" hidden>Esporta Excel
-      <span class="chip-freccia" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><use href="#i-scarica"/></svg></span>
-    </button>
+    <button class="bottone compatto" id="btn-export" type="button" hidden>
+      <svg class="ico ico--14" aria-hidden="true"><use href="#i-scarica"/></svg><span class="testo-bottone">Esporta Excel</span></button>
   </div>
 </header>
 
@@ -602,11 +638,7 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
     <h1 id="titolo-upload">Carica una bolla</h1>
     <p class="introduzione">Ogni pagina viene letta e divisa in una riga per taglia. Poi la
       rivedi accanto alla scansione, assegni i magazzini ed esporti l'Excel per il gestionale.</p>
-    <label class="campo-etichetta campo-operatore">Operatore
-      <input class="campo" type="text" id="operatore" maxlength="60" autocomplete="name"
-             placeholder="Nome e cognome" aria-describedby="nota-operatore">
-      <small id="nota-operatore">Chi carica e corregge la bolla: compare nell'Excel esportato.</small>
-    </label>
+    <p class="lavori-come" id="lavori-come"></p>
     <div id="dropzone">
       <svg class="ico ico--28" aria-hidden="true"><use href="#i-file"/></svg>
       <h2>Trascina qui il PDF o la foto</h2>
@@ -764,6 +796,8 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
     <div class="pannello-testa" id="barra-azioni"></div>
 
     <div class="tabella-scorrevole" id="zona-tabella">
+      <!-- dentro l'area che scorre: il pannello e' una griglia a righe fisse -->
+      <div class="avviso avviso--conferma avviso-doppione" id="avviso-doppione" hidden></div>
       <div id="riquadro-errori" tabindex="-1" hidden></div>
       <table>
         <thead><tr>
@@ -811,6 +845,27 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
   </form>
 </dialog>
 
+<dialog id="dlg-operatore" aria-labelledby="titolo-operatore">
+  <form method="dialog">
+    <h2 id="titolo-operatore">Chi sta lavorando?</h2>
+    <div class="corpo">
+      <p class="cella-tenue">Il nome finisce nel registro delle modifiche e nell'Excel esportato.</p>
+      <div class="recenti" id="operatori-recenti" role="group" aria-label="Operatori già usati"></div>
+      <label class="campo-etichetta">nome e cognome
+        <input class="campo" type="text" id="nome-operatore" list="elenco-operatori" maxlength="60"
+               autocomplete="off" aria-describedby="errore-operatore">
+      </label>
+      <datalist id="elenco-operatori"></datalist>
+      <p id="errore-operatore" role="alert"></p>
+    </div>
+    <div class="piede">
+      <!-- type=button: Invio nel campo deve confermare, non annullare -->
+      <button class="bottone secondario" id="btn-annulla-operatore" type="button">Annulla</button>
+      <button class="bottone" value="ok" type="submit">Conferma</button>
+    </div>
+  </form>
+</dialog>
+
 <div id="toast" role="status" hidden></div>
 <div class="sr-only" id="annuncio" role="status" aria-live="polite"></div>
 
@@ -835,9 +890,20 @@ const pulisciNome = nome => String(nome || '').split(/\s+/).filter(Boolean).join
 const api = async (url, opzioni = {}) => {
   const headers = { ...(opzioni.headers || {}), 'X-Operatore': encodeURIComponent(OPERATORE) };
   const r = await fetch(url, { ...opzioni, headers });
-  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+  if (!r.ok){
+    const dettaglio = (await r.json().catch(() => ({}))).detail;
+    const err = new Error((typeof dettaglio === 'string' ? dettaglio : dettaglio?.messaggio) || r.statusText);
+    err.stato = r.status; err.dettaglio = dettaglio;
+    throw err;
+  }
   return r.json();
 };
+
+// "28/10 16:07": creato_il ed esportato arrivano in UTC dal server
+const quando = iso => iso ? new Date(iso).toLocaleString('it-IT',
+  { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' }) : '';
+// "n. 9034818592" o "n. 9034818592 +13" per un PDF con piu' bolle
+const numeriDoc = numeri => numeri?.length ? `n. ${numeri[0]}${numeri.length > 1 ? ` +${numeri.length - 1}` : ''}` : '';
 
 /* --- riscontri all'operatore ---------------------------------------------- */
 let timerToast;
@@ -903,64 +969,129 @@ function motiviBloccanti(r){
   return motivi;
 }
 
+/* --- operatore -------------------------------------------------------------- */
+/* Un solo posto dove lo si sceglie: la finestra "Chi sta lavorando?", con i
+   nomi gia' usati da scegliere con un clic. Si apre da sola quando serve
+   (prima di caricare, scansionare o esportare) e poi l'azione riparte. */
+let OPERATORI = [];                 // gia' usati, dal piu' recente (dal server)
+let risolviOperatore = null;
+
+const iniziali = nome => nome.split(' ').filter(Boolean).slice(0, 2).map(p => p[0]).join('').toUpperCase();
+// "anna  bianchi" e' "Anna Bianchi" se c'e' gia': nel registro un nome solo
+const comeGiaUsato = nome => OPERATORI.find(o => o.toLowerCase() === nome.toLowerCase()) || nome;
+
 function impostaOperatore(nome){
-  OPERATORE = pulisciNome(nome);
+  OPERATORE = comeGiaUsato(pulisciNome(nome));
   try { localStorage.setItem('operatore', OPERATORE); } catch {}
+  if (OPERATORE && !OPERATORI.includes(OPERATORE)) OPERATORI.unshift(OPERATORE);
   mostraOperatore();
 }
 function mostraOperatore(){
-  const pillola = $('#pillola-operatore');
-  pillola.textContent = 'operatore: ' + (OPERATORE || '—');
-  pillola.classList.toggle('attenzione', !OPERATORE);
-  if (document.activeElement !== $('#operatore')) $('#operatore').value = OPERATORE;
+  const b = $('#btn-operatore');
+  b.classList.toggle('manca', !OPERATORE);
+  b.querySelector('.iniziali').textContent = OPERATORE ? iniziali(OPERATORE) : '?';
+  b.querySelector('.nome').textContent = OPERATORE || 'Chi sei?';
+  b.setAttribute('aria-label', OPERATORE ? `Operatore: ${OPERATORE}. Cambia` : 'Indica chi sta lavorando');
+  $('#lavori-come').innerHTML = OPERATORE
+    ? `<span>Lavori come <b>${esc(OPERATORE)}</b></span>
+       <button class="bottone nudo compatto" type="button" data-cambia>Non sei tu? Cambia</button>`
+    : `<button class="bottone secondario compatto" type="button" data-cambia>Indica chi sei</button>
+       <span>prima di caricare: il nome finisce nell'Excel esportato.</span>`;
 }
-// senza operatore non si carica: il campo lo dice e prende il fuoco
-function serveOperatore(){
-  if (OPERATORE) return true;
-  const campo = $('#operatore');
-  if (!$('#schermata-upload').hidden){
-    $('#stato-upload').innerHTML = `<div class="avviso avviso--blocco">${icona('i-blocco', 'ico ico--14')}
-      <span><b>Prima scrivi chi sei</b> nel campo Operatore: finisce nell'Excel esportato.</span></div>`;
-    campo.focus();
-    return false;
-  }
-  return chiediOperatore();
-}
+
+// Promise: true se alla chiusura c'e' un operatore (anche quello di prima)
 function chiediOperatore(){
-  const nome = pulisciNome(window.prompt("Chi sta lavorando? Il nome finisce nell'Excel esportato.", OPERATORE));
-  if (nome) impostaOperatore(nome);
-  return !!OPERATORE;
+  const dlg = $('#dlg-operatore');
+  if (dlg.open) return new Promise(r => { const prima = risolviOperatore; risolviOperatore = v => { prima?.(v); r(v); }; });
+  $('#nome-operatore').value = OPERATORE;
+  $('#errore-operatore').textContent = '';
+  disegnaRecenti();
+  dlg.showModal();
+  $('#nome-operatore').focus();
+  $('#nome-operatore').select();
+  api('/api/operatori').then(nomi => {
+    OPERATORI = [...new Set([...nomi, ...OPERATORI])];
+    disegnaRecenti();
+  }).catch(() => {});
+  return new Promise(r => { risolviOperatore = r; });
 }
-$('#operatore').oninput = e => {
-  OPERATORE = pulisciNome(e.target.value);
-  try { localStorage.setItem('operatore', OPERATORE); } catch {}
-  mostraOperatore();
-  if (OPERATORE) $('#stato-upload').innerHTML = '';
+function disegnaRecenti(){
+  const altri = OPERATORI.filter(o => o !== OPERATORE).slice(0, 6);
+  $('#operatori-recenti').innerHTML = altri.map(o =>
+    `<button type="button" class="bottone secondario compatto" data-nome="${esc(o)}">${esc(o)}</button>`).join('');
+  $('#elenco-operatori').innerHTML = OPERATORI.map(o => `<option value="${esc(o)}"></option>`).join('');
+}
+async function serveOperatore(){
+  return !!OPERATORE || await chiediOperatore();
+}
+
+$('#operatori-recenti').onclick = e => {
+  const b = e.target.closest('[data-nome]'); if (!b) return;
+  impostaOperatore(b.dataset.nome);
+  $('#dlg-operatore').close('ok');
 };
-$('#operatore').onchange = mostraOperatore;
-$('#pillola-operatore').onclick = chiediOperatore;
+$('#btn-annulla-operatore').onclick = () => $('#dlg-operatore').close('annulla');
+$('#dlg-operatore form').addEventListener('submit', e => {
+  const nome = pulisciNome($('#nome-operatore').value);
+  if (!nome){
+    e.preventDefault();
+    $('#errore-operatore').textContent = 'Scrivi il tuo nome, o scegline uno qui sopra.';
+    $('#nome-operatore').focus();
+    return;
+  }
+  impostaOperatore(nome);
+});
+$('#dlg-operatore').addEventListener('close', () => {
+  const r = risolviOperatore; risolviOperatore = null;
+  r?.(!!OPERATORE);
+  if (OPERATORE && !$('#schermata-upload').hidden) $('#stato-upload').innerHTML = '';
+});
+$('#btn-operatore').onclick = () => chiediOperatore();
+$('#lavori-come').onclick = e => { if (e.target.closest('[data-cambia]')) chiediOperatore(); };
 mostraOperatore();
 
 /* --- avvio ---------------------------------------------------------------- */
 (async function avvio(){
   CONFIG = await api('/api/config');
-  const finto = CONFIG.backend === 'mock';
-  const pillola = $('#pillola-backend');
-  pillola.textContent = 'motore: ' + CONFIG.backend;
-  pillola.classList.toggle('attenzione', finto);
-  if (finto) pillola.title = 'Backend di prova: le righe non arrivano dalla lettura della scansione.';
+  $('#pillola-backend').hidden = CONFIG.backend !== 'mock';
+  api('/api/operatori').then(nomi => { OPERATORI = nomi; }).catch(() => {});
   await ricaricaElenco();
+  // primo avvio su questo browser: si chiede subito chi lavora
+  if (!OPERATORE) chiediOperatore();
 })();
 
 async function ricaricaElenco(selezionato){
   const elenco = await api('/api/documenti');
   $('#scelta-doc').innerHTML = '<option value="">Scegli una bolla già caricata</option>' +
-    elenco.map(d => `<option value="${esc(d.id)}">${esc(d.nome)} · ${d.pagine} pag · ${d.in_lettura ? 'in lettura…' : d.righe + ' righe'}${d.esportato ? ' · esportata' : ''}</option>`).join('');
+    elenco.map(d => `<option value="${esc(d.id)}">${[
+      d.nome, numeriDoc(d.numeri), quando(d.creato_il), d.operatore,
+      `${d.pagine} pag`, d.in_lettura ? 'in lettura…' : d.righe + ' righe',
+      d.esportato ? 'esportata il ' + quando(d.esportato) : '',
+    ].filter(Boolean).map(esc).join(' · ')}</option>`).join('');
   if (selezionato){ $('#scelta-doc').value = selezionato; await apri(selezionato); }
 }
 
 $('#scelta-doc').onchange = e => e.target.value ? apri(e.target.value) : mostraUpload();
 $('#btn-nuovo').onclick = () => { $('#scelta-doc').value = ''; mostraUpload(); };
+
+/* Stesso numero di documento in un'altra bolla: di solito la stessa bolla
+   caricata due volte (una foto e un PDF). Esportarle entrambe conterebbe la
+   merce due volte nel gestionale. */
+function mostraDoppioneNumero(){
+  const box = $('#avviso-doppione');
+  const doppioni = DOC.doppioni || [];
+  box.hidden = !doppioni.length;
+  if (!doppioni.length) return;
+  box.innerHTML = `${icona('i-avviso', 'ico ico--14')}<span><b>Documento già presente in un'altra bolla.</b>
+    ${doppioni.map(d => `n. ${d.in_comune.map(esc).join(', ')} è anche in
+      <a href="#" data-apri="${esc(d.id)}">${esc(d.nome)}</a>, caricata il ${esc(quando(d.creato_il))}${d.operatore ? ' da ' + esc(d.operatore) : ''}${d.esportato ? `, <b>esportata il ${esc(quando(d.esportato))}</b>` : ''}.`).join(' ')}
+    Controlla di non caricarla due volte nel gestionale.</span>`;
+}
+$('#avviso-doppione').onclick = e => {
+  const a = e.target.closest('[data-apri]'); if (!a) return;
+  e.preventDefault();
+  ricaricaElenco(a.dataset.apri);
+};
 
 function mostraUpload(){
   chiudiScan();
@@ -986,15 +1117,34 @@ dz.ondrop = e => {
    mancano e si dice di non chiudere. */
 const pausa = ms => new Promise(r => setTimeout(r, ms));
 
-function invia(file){
-  if (!serveOperatore()) { $('#file').value = ''; return; }
+async function invia(file, forza = false){
+  if (!await serveOperatore()) { $('#file').value = ''; return; }
   const fd = new FormData(); fd.append('file', file);
-  return leggiBolla(file.name, () => api('/api/documenti', { method: 'POST', body: fd }));
+  return leggiBolla(file.name,
+    () => api('/api/documenti' + (forza ? '?forza=true' : ''), { method: 'POST', body: fd }),
+    () => invia(file, true));
+}
+
+/* File identico a uno gia' caricato: il server si ferma prima di leggerlo
+   (la lettura costa). Si sceglie se aprire quello esistente o rileggerlo. */
+function mostraDoppioneFile(doppioni, rileggi){
+  const stato = $('#stato-upload');
+  stato.innerHTML = `<div class="avviso avviso--conferma">${icona('i-avviso', 'ico ico--14')}
+    <span><b>Questo file è già stato caricato.</b>
+      <ul class="elenco-doppioni">${doppioni.map(d => `<li>${esc(d.nome)}${d.numeri?.length ? ' · ' + esc(numeriDoc(d.numeri)) : ''}
+        · caricato il ${esc(quando(d.creato_il))}${d.operatore ? ' da ' + esc(d.operatore) : ''}
+        ${d.esportato ? `· <b>esportato il ${esc(quando(d.esportato))}</b>` : '· non ancora esportato'}</li>`).join('')}</ul>
+      <span class="comandi-carica" style="justify-content:flex-start">
+        <button class="bottone" type="button" data-apri="${esc(doppioni[0].id)}">Apri quello già caricato</button>
+        <button class="bottone secondario" type="button" data-rileggi>Caricalo di nuovo</button>
+      </span></span></div>`;
+  stato.querySelector('[data-apri]').onclick = e => ricaricaElenco(e.target.dataset.apri);
+  stato.querySelector('[data-rileggi]').onclick = rileggi;
 }
 
 /* `carica` manda la bolla al server (file o scansione) e ne restituisce l'id;
    da li' in poi l'attesa e' la stessa */
-async function leggiBolla(nome, carica){
+async function leggiBolla(nome, carica, rileggi){
   const stato = $('#stato-upload');
   const inizio = Date.now();
   let lette = 0, totali = 0;
@@ -1026,6 +1176,8 @@ async function leggiBolla(nome, carica){
     toast(`${totali} pagine lette`);
   } catch (err) {
     clearInterval(battito);
+    if (err.stato === 409 && err.dettaglio?.doppioni?.length && rileggi)
+      return mostraDoppioneFile(err.dettaglio.doppioni, rileggi);
     stato.innerHTML = `<div class="avviso avviso--blocco">${icona('i-blocco', 'ico ico--14')}
       <span><b>Non sono riuscito a leggere la bolla.</b><br>${esc(err.message)}</span></div>`;
   } finally {
@@ -1083,8 +1235,8 @@ function adatta(){
 addEventListener('resize', adatta);
 
 /* --- entrare e uscire --- */
-function apriScan(){
-  if (!serveOperatore()) return;
+async function apriScan(){
+  if (!await serveOperatore()) return;
   $('#schermata-upload').hidden = true;
   $('#schermata-lavoro').hidden = true;
   $('#btn-export').hidden = true;
@@ -1478,7 +1630,7 @@ $('#scan-leggi').onclick = () => {
 
 /* --- apertura documento ---------------------------------------------------- */
 async function apri(id){
-  if (!OPERATORE) chiediOperatore();
+  if (!OPERATORE) chiediOperatore();   // per vedere non serve, per correggere si'
   DOC = await api('/api/documenti/' + id);
   PAGINA = DOC.pagine.length ? DOC.pagine[0].numero : 1;
   ROTAZIONE = paginaCorrente().rotazione || 0;
@@ -1490,6 +1642,7 @@ async function apri(id){
   $('#schermata-upload').hidden = true;
   $('#schermata-lavoro').hidden = false;
   $('#btn-export').hidden = false;
+  mostraDoppioneNumero();
   $('#riquadro-errori').hidden = true;
   disegna();
 }
@@ -1569,6 +1722,41 @@ $('#btn-zoom-piu').onclick  = () => { ZOOM = Math.min(ZOOM * 1.3, 6); applicaTra
 $('#btn-zoom-meno').onclick = () => { ZOOM = Math.max(ZOOM / 1.3, .4); applicaTrasformazione(); };
 $('#btn-adatta').onclick    = () => { ZOOM = 1; applicaTrasformazione(); };
 $('#scansione').onload = applicaTrasformazione;
+
+/* Pagina ingrandita: col tasto sinistro premuto la si trascina, come una
+   mappa. Il tocco resta allo scorrimento nativo; il trascinamento sposta le
+   barre di scorrimento del visore, quindi rotella e tastiera continuano a
+   funzionare come prima. */
+(function trascinaVisore(){
+  const visore = $('#visore');
+  let presa = null;
+  const eccede = () => visore.scrollWidth > visore.clientWidth + 1 || visore.scrollHeight > visore.clientHeight + 1;
+  const aggiorna = () => visore.classList.toggle('spostabile', eccede());
+  visore.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0 || !eccede()) return;
+    presa = { x: e.clientX, y: e.clientY, sx: visore.scrollLeft, sy: visore.scrollTop };
+    visore.setPointerCapture(e.pointerId);
+    visore.classList.add('trascina');
+    e.preventDefault();
+  });
+  visore.addEventListener('pointermove', e => {
+    if (!presa) return;
+    visore.scrollLeft = presa.sx - (e.clientX - presa.x);
+    visore.scrollTop = presa.sy - (e.clientY - presa.y);
+  });
+  const molla = e => {
+    if (!presa) return;
+    presa = null;
+    visore.classList.remove('trascina');
+    if (visore.hasPointerCapture(e.pointerId)) visore.releasePointerCapture(e.pointerId);
+  };
+  visore.addEventListener('pointerup', molla);
+  visore.addEventListener('pointercancel', molla);
+  $('#scansione').addEventListener('dragstart', e => e.preventDefault());
+  // il cursore a mano aperta solo quando c'e' davvero qualcosa da spostare
+  new ResizeObserver(aggiorna).observe($('#tela'));
+  new ResizeObserver(aggiorna).observe(visore);
+})();
 addEventListener('resize', applicaTrasformazione);
 
 /* --- divisorio fra i due pannelli ------------------------------------------ */
@@ -2011,7 +2199,7 @@ $('#btn-export').onclick = async () => {
   if (!v.problemi.length){
     riquadro.hidden = true;
     toast(`${v.anteprima.length} righe pronte: scarico il file`);
-    if (!serveOperatore()) return;
+    if (!await serveOperatore()) return;
     window.location = `/api/documenti/${DOC.id}/export?operatore=${encodeURIComponent(OPERATORE)}`;
     return;
   }

@@ -6,6 +6,7 @@ Orchestra ingest -> extract -> lavoro -> store -> excel.
 from __future__ import annotations
 
 import base64
+import hashlib
 import os
 import re
 import secrets
@@ -293,6 +294,11 @@ def lista_documenti() -> list[dict[str, Any]]:
     return store.elenca()
 
 
+@api.get("/api/operatori")
+def lista_operatori() -> list[str]:
+    return store.operatori()
+
+
 # Avanzamento delle letture in corso, {doc_id: [pagine lette, pagine totali]}.
 # Vive in memoria: se il server si riavvia a meta' lettura, la bolla risulta
 # interrotta e va ricaricata (vedi `stato_lettura`).
@@ -301,12 +307,16 @@ _LUCCHETTO = threading.Lock()
 
 
 @api.post("/api/documenti")
-def carica_documento(request: Request, file: UploadFile) -> dict[str, Any]:
+def carica_documento(request: Request, file: UploadFile, forza: bool = False) -> dict[str, Any]:
     """Salva e rende le pagine, poi risponde subito: la lettura va in background.
 
     Una bolla da 14 pagine richiede minuti, e un proxy davanti al server (il
     tunnel della prova online, l'hosting dopo) chiude le richieste ferme da
     100 secondi. L'interfaccia chiede l'avanzamento a `/lettura`.
+
+    Un file identico a uno gia' caricato si ferma con un 409 prima della
+    lettura (che costa): l'interfaccia chiede se aprire quello esistente o
+    rileggerlo, e in quel caso ripete la richiesta con `forza`.
     """
     operatore = _operatore(request)
     doc_id = store.nuovo_id()
@@ -317,6 +327,7 @@ def carica_documento(request: Request, file: UploadFile) -> dict[str, Any]:
 
     # copia a blocchi con un tetto: un file enorme riempirebbe il disco
     scritti = 0
+    impronta = hashlib.sha256()
     with destinazione.open("wb") as fh:
         while blocco := file.file.read(1 << 20):
             scritti += len(blocco)
@@ -324,7 +335,18 @@ def carica_documento(request: Request, file: UploadFile) -> dict[str, Any]:
                 fh.close()
                 destinazione.unlink(missing_ok=True)
                 raise HTTPException(413, f"file troppo grande: massimo {MAX_UPLOAD_MB} MB")
+            impronta.update(blocco)
             fh.write(blocco)
+
+    if not forza and (uguali := _stesso_file(impronta.hexdigest())):
+        destinazione.unlink(missing_ok=True)
+        raise HTTPException(
+            409,
+            {
+                "messaggio": "questo file e' gia' stato caricato",
+                "doppioni": [_in_breve(d) for d in uguali],
+            },
+        )
 
     try:
         pagine = ingest.carica(destinazione, doc_id, max_pagine=MAX_PAGINE)
@@ -334,11 +356,35 @@ def carica_documento(request: Request, file: UploadFile) -> dict[str, Any]:
     except Exception as exc:  # file illeggibile: va detto, non ingoiato
         raise HTTPException(400, f"impossibile leggere il file: {type(exc).__name__}") from exc
 
-    return _avvia_lettura(doc_id, nome, pagine, operatore)
+    return _avvia_lettura(doc_id, nome, pagine, operatore, impronta.hexdigest())
+
+
+def _impronta_di(doc: dict[str, Any]) -> str:
+    """L'impronta salvata, o quella del file in uploads per le bolle caricate
+    prima che la si salvasse."""
+    if doc.get("impronta"):
+        return doc["impronta"]
+    for f in UPLOAD_DIR.glob(f"{doc['id']}_*"):
+        if "_foto_p" not in f.name:
+            return hashlib.sha256(f.read_bytes()).hexdigest()
+    return ""
+
+
+def _stesso_file(impronta: str) -> list[dict[str, Any]]:
+    return [d for d in store.elenca() if _impronta_di(d) == impronta]
+
+
+def _in_breve(doc: dict[str, Any]) -> dict[str, Any]:
+    """Quanto basta per riconoscere una bolla gia' caricata."""
+    return {k: doc.get(k, "") for k in ("id", "nome", "creato_il", "operatore", "esportato", "numeri")}
 
 
 def _avvia_lettura(
-    doc_id: str, nome: str, pagine: list[ingest.Pagina], operatore: str
+    doc_id: str,
+    nome: str,
+    pagine: list[ingest.Pagina],
+    operatore: str,
+    impronta: str = "",
 ) -> dict[str, Any]:
     try:
         estrattore = crea_estrattore()
@@ -347,6 +393,7 @@ def _avvia_lettura(
 
     stato: dict[str, Any] = {
         "pagine": [], "righe": [], "in_lettura": True, "operatore": operatore, "storico": [],
+        "impronta": impronta,
     }
     _registra(stato, operatore, "caricamento", dopo=nome)
     store.crea(doc_id, nome, stato)
@@ -418,6 +465,7 @@ def _leggi_documento(doc_id: str, pagine: list[ingest.Pagina], estrattore: Any) 
                 "righe": righe,
                 "operatore": doc.get("operatore", ""),
                 "storico": doc.get("storico", []),
+                "impronta": doc.get("impronta", ""),
             },
         )
     except Exception:
@@ -441,7 +489,17 @@ def stato_lettura(doc_id: str) -> dict[str, Any]:
 
 @api.get("/api/documenti/{doc_id}")
 def dettaglio(doc_id: str) -> dict[str, Any]:
-    return _doc(doc_id)
+    doc = _doc(doc_id)
+    # stessa bolla caricata due volte (una foto e un PDF, o due scansioni):
+    # il file e' diverso, il numero di documento no. Caricarla due volte nel
+    # gestionale vorrebbe dire merce contata doppia.
+    numeri = {p["numero_documento"] for p in doc.get("pagine", []) if p.get("numero_documento")}
+    doc["doppioni"] = [
+        {**_in_breve(d), "in_comune": sorted(numeri & set(d["numeri"]))}
+        for d in store.elenca()
+        if d["id"] != doc_id and numeri & set(d["numeri"])
+    ]
+    return doc
 
 
 @api.get("/api/documenti/{doc_id}/pagine/{numero}.png")

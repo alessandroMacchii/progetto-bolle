@@ -56,8 +56,9 @@ Per l'uso vero serve un hosting: il `Dockerfile` e' pronto (dati nel volume
 
 ## Come si usa
 
-1. Scrivi il tuo nome nel campo `Operatore` (il browser lo ricorda; si cambia
-   dal cartellino in alto). Poi trascina la bolla (PDF multipagina o foto)
+1. Alla prima apertura l'app chiede "Chi sta lavorando?" (con i nomi gia'
+   usati da scegliere con un clic; il browser lo ricorda, si cambia dal
+   pulsante con le iniziali in alto). Poi trascina la bolla (PDF multipagina o foto)
    nella schermata di caricamento, oppure fotografala con `Scansiona con la
    fotocamera` (vedi sotto).
 2. Ogni pagina viene estratta e trasformata in **una riga per taglia**.
@@ -74,6 +75,14 @@ Per l'uso vero serve un hosting: il `Dockerfile` e' pronto (dati nel volume
 
 Il pallino arancione a inizio riga e' il numero di segnalazioni: passandoci
 sopra si legge il motivo.
+
+**Bolle caricate due volte.** Un file identico a uno gia' caricato si ferma
+prima della lettura (che costa): si sceglie se aprire quello esistente o
+rileggerlo. Se invece il file e' diverso ma il numero di documento e' gia' in
+un'altra bolla (una foto e un PDF della stessa), la revisione lo segnala con
+data, operatore ed eventuale export dell'altra: esportarle entrambe conterebbe
+la merce due volte. Nella tendina ogni bolla mostra numero di documento, data
+di caricamento, operatore e data dell'export.
 
 ### Le azioni che contano
 
@@ -178,7 +187,7 @@ quando, chi, cosa (caricamento, correzioni campo per campo con il valore prima
 e dopo, divisioni, varianti confermate, export).
 
 **L'operatore non e' un login.** L'accesso resta uno per tutti; il nome
-scritto in `Operatore` viaggia con ogni richiesta (header `X-Operatore`) e il
+scelto in "Chi sta lavorando?" viaggia con ogni richiesta (header `X-Operatore`) e il
 server rifiuta caricamenti, modifiche ed export senza. Serve alla
 tracciabilita', non alla sicurezza: chiunque abbia l'accesso puo' scrivere
 qualunque nome.

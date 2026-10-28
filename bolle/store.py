@@ -106,6 +106,30 @@ def elenca() -> list[dict[str, Any]]:
                 "righe": sum(1 for x in stato.get("righe", []) if not x.get("eliminata")),
                 "in_lettura": bool(stato.get("in_lettura")),
                 "operatore": stato.get("operatore", ""),
+                # numeri di documento letti, nell'ordine delle pagine: un PDF
+                # puo' contenere piu' bolle
+                "numeri": list(dict.fromkeys(
+                    p["numero_documento"] for p in stato.get("pagine", [])
+                    if p.get("numero_documento")
+                )),
+                "impronta": stato.get("impronta", ""),
             }
         )
     return fuori
+
+
+def operatori() -> list[str]:
+    """I nomi gia' usati, dal piu' recente: l'interfaccia li suggerisce, cosi'
+    "Anna Bianchi" non diventa anche "anna" e "A. Bianchi" nel registro."""
+    ultimo: dict[str, str] = {}
+    with _conn() as conn:
+        for r in conn.execute("SELECT stato FROM documenti").fetchall():
+            stato = json.loads(r["stato"])
+            voci = stato.get("storico") or []
+            if stato.get("operatore") and not voci:
+                voci = [{"operatore": stato["operatore"], "quando": ""}]
+            for v in voci:
+                nome = v.get("operatore", "")
+                if nome and v.get("quando", "") >= ultimo.get(nome, ""):
+                    ultimo[nome] = v.get("quando", "")
+    return sorted(ultimo, key=lambda n: ultimo[n], reverse=True)
