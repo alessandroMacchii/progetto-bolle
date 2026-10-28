@@ -387,7 +387,9 @@ tbody tr.riga--fuori .testo-riga { text-decoration: line-through; color: var(--n
 /* il colore non si modifica: resta sotto la descrizione, in piccolo */
 .colore { display: block; margin-top: 2px; font-size: 0.78rem; max-width: 30ch;
           overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.azioni-riga { display: flex; gap: 6px; justify-content: flex-end; }
+/* il flex sta in un div interno: su un <td> lo toglierebbe dalla tabella e
+   il vertical-align: middle della riga non varrebbe piu' */
+.azioni-riga > div { display: flex; gap: 6px; justify-content: center; align-items: center; }
 /* descrizione intera: il campo va a capo e cresce col testo invece di tagliarlo */
 /* niente field-sizing: allargherebbe la colonna fino a tutto il testo */
 .descrizione-campo { display: block; width: 100%; min-width: 8rem; resize: none; overflow: hidden;
@@ -1987,7 +1989,7 @@ function disegnaRighe(){
                  ${r.eliminata ? 'disabled' : ''} aria-label="Quantità"></td>
       <td><select class="campo cella testo-riga" data-c="magazzino" ${r.eliminata ? 'disabled' : ''}
                   aria-label="Magazzino">${opzioniMag(r)}</select></td>
-      <td class="azioni-riga">
+      <td class="azioni-riga"><div>
         <button type="button" class="disco" data-azione="verifica" aria-pressed="${!!r.verificata}"
                 ${r.eliminata || (!conAvvisiSeri(r) && !r.verificata) ? 'disabled' : ''}
                 title="${r.verificata ? 'Verificata: clicca per rimetterla tra le Da controllare' : 'Ho controllato la scansione: gli avvisi tornano'}"
@@ -1999,7 +2001,7 @@ function disegnaRighe(){
         <button type="button" class="disco ${r.eliminata ? '' : 'pericolo'}" data-azione="escludi"
                 aria-label="${r.eliminata ? 'Ripristina la riga' : 'Escludi la riga dal carico'}">
           ${icona(r.eliminata ? 'i-ripristina' : 'i-cestino', 'ico ico--14')}</button>
-      </td></tr>`;
+      </div></td></tr>`;
 
     if (!aperta) return principale;
 
