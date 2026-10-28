@@ -38,9 +38,9 @@ Il fornitore e' sempre adidas, il destinatario sempre Jute Sport SRL.
 
 Estrai SOLO quello che e' STAMPATO. Le scritte a mano non vanno mai usate per
 correggere i dati stampati: vanno trascritte a parte (`annotazioni_manoscritte`,
-`codice_manoscritto`, `correzioni`, `magazzino_pagina`, `note_pagina`) e sara' il
-programma ad applicarle, mostrando all'operatore il valore stampato e quello
-corretto. Questa separazione e' la regola piu' importante: se sovrascrivi un dato
+`codice_manoscritto`, `correzioni`, `magazzini_per_taglia`, `magazzino_pagina`,
+`note_pagina`) e sara' il programma ad applicarle, mostrando all'operatore il
+valore stampato e quello corretto. Questa separazione e' la regola piu' importante: se sovrascrivi un dato
 stampato con la tua lettura di una calligrafia, nessuno puo' piu' controllarla.
 
 LAYOUT CHE PUOI INCONTRARE (ne esistono altri: adattati)
@@ -100,8 +100,21 @@ scrivili sempre nella forma normalizzata "MAG 1" / "MAG 2".
   delle righe abbracciate.
 - Una sola scritta per tutta la pagina ("TUTTO MAG 2", un MAG grande in testa
   al foglio): mettila in `magazzino_pagina`, non sulle righe.
-- Riferito a singole taglie: scrivi a quali, es.
-  "9-: 1 pezzo MAG 2, 2 pezzi MAG 1".
+- Un magazzino non vale per forza per tutta la riga. Taglie diverse della
+  stessa riga possono andare in magazzini diversi, e anche i pezzi di UNA
+  STESSA taglia possono essere divisi fra piu' magazzini. Quando la scritta e'
+  riferita a singole taglie o a singoli pezzi, trascrivila nelle annotazioni
+  (es. "S: MAG 1; M, L: MAG 2" oppure "9-: 1 pezzo MAG 2, 2 pezzi MAG 1") e
+  riportala in `magazzini_per_taglia`, una voce per ogni coppia taglia-magazzino,
+  con la taglia STAMPATA come compare in `taglie`:
+  {taglia_stampata: "M", magazzino: "MAG 2", qta: -1} se tutti i pezzi di quella
+  taglia vanno li', qta: 2 se ce ne vanno solo 2. Esempio: sulla taglia stampata
+  550 c'e' scritto "9-: 1 pezzo MAG 2, 2 pezzi MAG 1" -> due voci
+  {taglia_stampata: "550", magazzino: "MAG 2", qta: 1} e
+  {taglia_stampata: "550", magazzino: "MAG 1", qta: 2}.
+  Non riassumere con un solo MAG per la riga e non inventare un magazzino per le
+  taglie senza sigla: lasciale fuori. Se invece un solo MAG vale per tutta la
+  riga, `magazzini_per_taglia` resta [].
 - Su una riga barrata, o a cavallo fra una riga barrata e una attiva: un MAG
   NON barrato appartiene alla riga ATTIVA piu' vicina (di solito quella subito
   sotto), perche' a una riga cancellata non si assegna un magazzino. Resta sulla
@@ -318,7 +331,8 @@ _MAG = re.compile(r"(?<![A-Za-z0-9])M(?:AG)?\.?\s*(\d)(?![0-9])", re.IGNORECASE)
 
 def _firma(pagina: PaginaEstratta) -> list[tuple]:
     """Quello che finisce nel carico, riga per riga: codice, taglie, barrata,
-    magazzino e le correzioni a mano (codice e taglie) che il programma applica.
+    magazzino (anche per taglia) e le correzioni a mano (codice e taglie) che il
+    programma applica.
 
     Descrizioni, colori e note possono differire fra due modelli senza che il
     carico cambi; questi campi no.
@@ -341,6 +355,11 @@ def _firma(pagina: PaginaEstratta) -> list[tuple]:
             (c.taglia_stampata.strip().upper(), c.taglia_corretta.strip().upper(), c.qta_corretta)
             for c in riga.correzioni
         )
+        # cosi' come le taglie divise fra magazzini
+        per_taglia = sorted(
+            (m.taglia_stampata.strip().upper(), tuple(_MAG.findall(m.magazzino)), m.qta)
+            for m in riga.magazzini_per_taglia
+        )
         firma.append(
             (
                 riga.codice_articolo.strip().upper(),
@@ -349,6 +368,7 @@ def _firma(pagina: PaginaEstratta) -> list[tuple]:
                 tuple(sorted(magazzini)),
                 riga.codice_manoscritto.strip().upper(),
                 tuple(correzioni),
+                tuple(per_taglia),
             )
         )
     return firma

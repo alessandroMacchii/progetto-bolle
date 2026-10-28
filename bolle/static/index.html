@@ -654,8 +654,8 @@ function gravita(avviso){
       || a.includes('nessuna coppia') || a.includes("quantita' non valida")) return 'blocco';
   if (a.startsWith('corretto a mano') || a.startsWith('correzione a mano non applicata'))
     return 'conferma';
-  if (a.includes("piu' magazzini") || a.includes('magazzino scritto a mano ma illeggibile'))
-    return 'conferma';
+  if (a.includes("piu' magazzini") || a.includes('magazzino scritto a mano ma illeggibile')
+      || a.startsWith('magazzino a mano non applicato')) return 'conferma';
   return 'info';
 }
 function gravitaRiga(riga){

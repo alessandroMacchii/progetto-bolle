@@ -11,7 +11,7 @@ import re
 import uuid
 
 from .config import MAGAZZINI
-from .schema import PaginaEstratta, RigaEstratta, RigaLavoro
+from .schema import MagazzinoDiTaglia, PaginaEstratta, RigaEstratta, RigaLavoro
 from .sizes import (
     TagliaQta,
     carica_mappa,
@@ -103,6 +103,89 @@ def _applica_correzioni(
     return risultato, orfane
 
 
+def _magazzino_della_riga(riga: RigaEstratta, pagina: PaginaEstratta) -> tuple[str, list[str]]:
+    """Il magazzino scritto a mano per tutta la riga (o la pagina), se e' uno solo."""
+    citati = _magazzini_citati(riga.annotazioni_manoscritte)
+    if not citati and not riga.barrata:
+        # nessuna sigla sulla riga: vale quella scritta per tutta la pagina
+        citati = _magazzini_citati(pagina.magazzino_pagina)
+    if len(citati) == 1:
+        # la sigla e' una sola e leggibile: si applica senza chiedere
+        return citati[0], [f"magazzino proposto dall'annotazione a mano ({citati[0]})"]
+    # nessuna sigla leggibile: niente scelta d'ufficio, la riga resta senza
+    # magazzino e l'export la blocca finche' l'operatore non decide
+    if _MAG_ILLEGGIBILE.search(f"{riga.annotazioni_manoscritte} {pagina.magazzino_pagina}"):
+        return "", ["magazzino scritto a mano ma illeggibile: indicare dove va"]
+    if len(citati) > 1:
+        return "", [
+            "l'annotazione a mano cita piu' magazzini "
+            f"({', '.join(citati)}): assegnare riga per riga o usare Dividi"
+        ]
+    return "", []
+
+
+def _pezzi_per_magazzino(
+    qta: int, voci: list[MagazzinoDiTaglia], di_pagina: str
+) -> list[tuple[str, int, list[str]]]:
+    """Come si dividono i pezzi di una taglia fra i magazzini scritti a mano.
+
+    Ritorna (magazzino, pezzi, avvisi) per ogni parte. Quando la divisione non
+    torna con la quantita' della taglia non si aggiusta niente: la taglia resta
+    intera e senza magazzino, e decide l'operatore.
+    """
+    if not voci:
+        # la scritta riguarda altre taglie della riga: questa ha solo quella di pagina
+        if di_pagina:
+            return [(di_pagina, qta, [f"magazzino proposto dall'annotazione a mano ({di_pagina})"])]
+        return [("", qta, [])]
+
+    letti = [(_magazzini_citati(v.magazzino), v.qta) for v in voci]
+    if any(len(m) != 1 for m, _ in letti):
+        return [("", qta, ["magazzino scritto a mano ma illeggibile: indicare dove va"])]
+
+    pezzi: dict[str, int] = {}
+    resto: list[str] = []
+    for (mag,), q in letti:
+        if q < 0:
+            if mag not in resto:
+                resto.append(mag)
+        else:
+            pezzi[mag] = pezzi.get(mag, 0) + q
+    tutti = list(dict.fromkeys([*pezzi, *resto]))
+    descrizione = ", ".join(
+        f"{m}: {pezzi[m] if m in pezzi else 'il resto'}" for m in tutti
+    )
+    assegnati = sum(pezzi.values())
+
+    # "tutti i pezzi" in due magazzini, o piu' pezzi di quanti ce ne sono
+    if len(resto) > 1 or assegnati > qta:
+        return [(
+            "",
+            qta,
+            [f"l'annotazione a mano divide la taglia fra piu' magazzini ({descrizione}) "
+             f"ma non torna con i {qta} pezzi: assegnare riga per riga o usare Dividi"],
+        )]
+
+    mancanti = qta - assegnati
+    if mancanti and resto:
+        pezzi[resto[0]] = pezzi.get(resto[0], 0) + mancanti
+        mancanti = 0
+    parti = [(m, q) for m, q in pezzi.items() if q > 0] or [(tutti[0], qta)]
+    risultato = []
+    for mag, q in parti:
+        dettaglio = f", {q} su {qta} pezzi" if q != qta else ""
+        risultato.append((mag, q, [f"magazzino proposto dall'annotazione a mano ({mag}{dettaglio})"]))
+    if mancanti:
+        # pezzi rimasti senza sigla: niente scelta d'ufficio, come per la riga
+        risultato.append((
+            "",
+            mancanti,
+            [f"l'annotazione a mano divide la taglia fra piu' magazzini ({descrizione}): "
+             f"{mancanti} su {qta} pezzi restano senza magazzino, indicare dove vanno"],
+        ))
+    return risultato
+
+
 def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLavoro]:
     mappa = carica_mappa()
     righe: list[RigaLavoro] = []
@@ -132,69 +215,82 @@ def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLav
         if riga.incertezze:
             avvisi_riga.append(f"lettura incerta: {riga.incertezze}")
 
-        citati = _magazzini_citati(riga.annotazioni_manoscritte)
-        if not citati and not riga.barrata:
-            # nessuna sigla sulla riga: vale quella scritta per tutta la pagina
-            citati = _magazzini_citati(pagina.magazzino_pagina)
-        if len(citati) == 1:
-            magazzino = citati[0]
-            # la sigla e' una sola e leggibile: si applica senza chiedere
-            avvisi_riga.append(f"magazzino proposto dall'annotazione a mano ({magazzino})")
+        # magazzini scritti per singole taglie (o pezzi): valgono loro, non la
+        # sigla della riga. Su una riga barrata non si assegna niente.
+        per_taglia: dict[str, list[MagazzinoDiTaglia]] = {}
+        for voce in [] if riga.barrata else riga.magazzini_per_taglia:
+            per_taglia.setdefault(voce.taglia_stampata.strip().upper(), []).append(voce)
+        if per_taglia:
+            di_pagina = _magazzini_citati(pagina.magazzino_pagina)
+            di_pagina = di_pagina[0] if len(di_pagina) == 1 else ""
         else:
-            # nessuna sigla leggibile: niente scelta d'ufficio, la riga resta
-            # senza magazzino e l'export la blocca finche' l'operatore non decide
-            magazzino = ""
-            if _MAG_ILLEGGIBILE.search(
-                f"{riga.annotazioni_manoscritte} {pagina.magazzino_pagina}"
-            ):
-                avvisi_riga.append(
-                    "magazzino scritto a mano ma illeggibile: indicare dove va"
-                )
-            elif len(citati) > 1:
-                avvisi_riga.append(
-                    "l'annotazione a mano cita piu' magazzini "
-                    f"({', '.join(citati)}): assegnare riga per riga o usare Dividi"
-                )
+            magazzino, avvisi_mag = _magazzino_della_riga(riga, pagina)
+            avvisi_riga += avvisi_mag
+        usate: set[str] = set()
+        inizio = len(righe)
 
         for t, stampata, avviso_correzione in taglie_corrette:
             taglia, qta = t.taglia, t.qta
+            if per_taglia:
+                # le voci nominano la taglia stampata, come le correzioni
+                nome = (stampata or t).taglia
+                chiave = nome if nome in per_taglia else t.pacco
+                voci = per_taglia.get(chiave, []) if chiave else []
+                if voci:
+                    usate.add(chiave)
+                parti = _pezzi_per_magazzino(qta, voci, di_pagina)
+            else:
+                parti = [(magazzino, qta, [])]
             variante, confermata = normalizza_variante(taglia, mappa)
-            avvisi = list(avvisi_riga)
-            if avviso_correzione:
-                avvisi.append(avviso_correzione)
-            if t.pacco:
-                avvisi.append(
-                    f"dal pacco misto '{t.pacco}': ogni pacco contiene una "
-                    f"{' + una '.join(t.pacco.split('/'))}"
+            for n, (mag, pezzi, avvisi_mag) in enumerate(parti):
+                avvisi = list(avvisi_riga) + avvisi_mag
+                if avviso_correzione:
+                    avvisi.append(avviso_correzione)
+                if t.pacco:
+                    avvisi.append(
+                        f"dal pacco misto '{t.pacco}': ogni pacco contiene una "
+                        f"{' + una '.join(t.pacco.split('/'))}"
+                    )
+                if not confermata:
+                    avvisi.append(
+                        f"variante '{variante}' da confermare: la taglia '{taglia}' "
+                        "non e' in config/varianti.csv (confermandola ce la si aggiunge)"
+                    )
+                righe.append(
+                    RigaLavoro(
+                        id=uuid.uuid4().hex[:12],
+                        pagina=numero_pagina,
+                        seq=riga.seq,
+                        codice_articolo=codice,
+                        codice_stampato=codice_stampato,
+                        taglia_stampata=stampata.taglia if stampata and stampata.taglia != taglia else "",
+                        # la qta stampata e' di tutta la taglia: la porta solo la
+                        # prima parte, cosi' la Tracciabilita' non la conta due volte
+                        qta_stampata=stampata.qta if stampata and stampata.qta != qta and n == 0 else -1,
+                        descrizione=riga.descrizione,
+                        colore=riga.colore,
+                        taglia=taglia,
+                        variante=variante,
+                        variante_confermata=confermata,
+                        qta=pezzi,
+                        pacco=t.pacco,
+                        magazzino=mag,
+                        eliminata=riga.barrata,
+                        origine="estratta",
+                        avvisi=avvisi,
+                        annotazioni_manoscritte=riga.annotazioni_manoscritte,
+                    )
                 )
-            if not confermata:
-                avvisi.append(
-                    f"variante '{variante}' da confermare: la taglia '{taglia}' "
-                    "non e' in config/varianti.csv (confermandola ce la si aggiunge)"
+
+        # come per le correzioni: un magazzino a mano non sparisce in silenzio
+        for chiave in per_taglia:
+            if chiave not in usate:
+                avviso = (
+                    f"magazzino a mano non applicato: taglia {chiave} non presente "
+                    "nello stampato"
                 )
-            righe.append(
-                RigaLavoro(
-                    id=uuid.uuid4().hex[:12],
-                    pagina=numero_pagina,
-                    seq=riga.seq,
-                    codice_articolo=codice,
-                    codice_stampato=codice_stampato,
-                    taglia_stampata=stampata.taglia if stampata and stampata.taglia != taglia else "",
-                    qta_stampata=stampata.qta if stampata and stampata.qta != qta else -1,
-                    descrizione=riga.descrizione,
-                    colore=riga.colore,
-                    taglia=taglia,
-                    variante=variante,
-                    variante_confermata=confermata,
-                    qta=qta,
-                    pacco=t.pacco,
-                    magazzino=magazzino,
-                    eliminata=riga.barrata,
-                    origine="estratta",
-                    avvisi=avvisi,
-                    annotazioni_manoscritte=riga.annotazioni_manoscritte,
-                )
-            )
+                for r in righe[inizio:]:
+                    r.avvisi.append(avviso)
 
     return righe
 
@@ -204,10 +300,10 @@ def verifica_pagina(pagina: PaginaEstratta, righe: list[RigaLavoro]) -> list[str
     avvisi: list[str] = []
     if pagina.total_pieces_dichiarato > 0:
         attive = [r for r in righe if not r.eliminata]
-        # il Total Pieces stampato si confronta con le quantita' stampate
+        # il Total Pieces stampato si confronta con le quantita' stampate, prese
+        # dalla pagina: una taglia divisa fra due magazzini e' su piu' righe
         somma = colli(
-            [TagliaQta(r.taglia, r.qta if r.qta_stampata < 0 else r.qta_stampata, r.pacco)
-             for r in attive]
+            [t for riga in pagina.righe if not riga.barrata for t in _taglie_di_riga(riga)[0]]
         )
         if somma != pagina.total_pieces_dichiarato:
             corretta = colli([TagliaQta(r.taglia, r.qta, r.pacco) for r in attive])

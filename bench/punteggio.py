@@ -194,7 +194,8 @@ def _segnalata(avvisi: list[str]) -> bool:
         a = a.lower()
         if a.startswith(("lettura incerta", "dal pacco misto", "variante '")):
             continue
-        if a.startswith(("corretto a mano", "correzione a mano non applicata")):
+        if a.startswith(("corretto a mano", "correzione a mano non applicata",
+                         "magazzino a mano non applicato")):
             return True
         if any(k in a for k in _AVVISI_SEGNALATI):
             return True

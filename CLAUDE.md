@@ -31,7 +31,9 @@ lettura in background) → `static/index.html` (interfaccia) → `excel.py` (fog
 
 - **Il modello legge solo lo stampato.** Le scritte a mano vanno in campi a parte
   (`annotazioni_manoscritte`, `codice_manoscritto`, `correzioni`,
-  `magazzino_pagina`, `note_pagina`) e non sovrascrivono mai i campi stampati.
+  `magazzini_per_taglia`, `magazzino_pagina`, `note_pagina`) e non sovrascrivono
+  mai i campi stampati. `magazzini_per_taglia` vince sulla sigla della riga:
+  `lavoro.py` divide la taglia in una riga per magazzino.
 - **Le correzioni a mano le applica `lavoro.py`**, non il modello: quantita',
   taglie riscritte e codice a mano entrano nel carico con l'avviso
   `corretto a mano sulla bolla: ...`. Lo stampato resta in `codice_stampato`,
@@ -47,7 +49,8 @@ lettura in background) → `static/index.html` (interfaccia) → `excel.py` (fog
 - **Il prompt si misura, non si ritocca a occhio.** Ogni modifica a `ISTRUZIONI`
   (`bolle/extract.py`) e' una nuova versione: la precedente va salvata in
   `bench/prompt_vN.txt` e aggiunta alle scelte `--prompt` di `bench/esegui.py`.
-  Versione attuale: **v4** (correzioni strutturate).
+  Versione attuale: **v5** (magazzini per taglia e per pezzo; v4 = correzioni
+  strutturate).
 - Se cambia cio' che finisce nel carico, aggiornare anche `_firma` in
   `extract.py`: e' cio' su cui i due modelli del `consenso` devono concordare.
 

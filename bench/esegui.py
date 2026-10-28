@@ -229,10 +229,10 @@ def main() -> int:
     ap.add_argument("--modello", required=True)
     ap.add_argument("--casi", default="", help="filtro sull'id del caso, es. 'reale' o 'sint-P2'")
     ap.add_argument("--limite", type=int, default=0)
-    ap.add_argument("--prompt", default="", choices=["", "v1", "v2", "v3", "v4"],
+    ap.add_argument("--prompt", default="", choices=["", "v1", "v2", "v3", "v4", "v5"],
                     help="v1 = prompt e schema della prima prova (bench/prompt_v1.txt); "
-                    "v2, v3 = bench/prompt_v2.txt, bench/prompt_v3.txt, schema attuale; "
-                    "v4 = quelli dell'applicazione. Finisce nel nome del risultato")
+                    "v2, v3, v4 = bench/prompt_vN.txt, schema attuale; "
+                    "v5 = quelli dell'applicazione. Finisce nel nome del risultato")
     ap.add_argument("--importa", default="", help="cartella di JSON gia' pronti")
     ap.add_argument("--mappa", default="", help="con --importa: JSON {nome file: id caso}")
     ap.add_argument("--nota", default="")
@@ -258,7 +258,7 @@ def main() -> int:
         ISTRUZIONI = (BENCH / "prompt_v1.txt").read_text(encoding="utf-8")
         schema_v1 = json.loads((BENCH / "schema_v1.json").read_text(encoding="utf-8"))
         _schema_stretto = lambda: schema_v1  # noqa: E731
-    elif args.prompt in ("v2", "v3"):
+    elif args.prompt in ("v2", "v3", "v4"):
         ISTRUZIONI = (BENCH / f"prompt_{args.prompt}.txt").read_text(encoding="utf-8")
 
     casi = [c for c in carica_casi() if args.casi in c["id"]]
