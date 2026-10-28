@@ -39,6 +39,7 @@ from .config import (
 )
 from .extract import crea_estrattore
 from .lavoro import costruisci_righe, riga_vuota, verifica_pagina
+from .sizes import aggiungi_alla_mappa
 
 STATIC = Path(__file__).parent / "static"
 
@@ -188,6 +189,11 @@ class ModificaRiga(BaseModel):
 class Divisione(BaseModel):
     qta: int
     magazzino: str
+
+
+class NuovaVariante(BaseModel):
+    taglia: Testo
+    variante: Testo
 
 
 class AssegnazioneMassiva(BaseModel):
@@ -451,6 +457,33 @@ def assegna_massivo(doc_id: str, richiesta: AssegnazioneMassiva) -> dict[str, in
             continue
         r["magazzino"] = richiesta.magazzino
         r["avvisi"] = [a for a in r.get("avvisi", []) if "magazzino proposto" not in a]
+        toccate += 1
+    _salva(doc)
+    return {"righe_aggiornate": toccate}
+
+
+@api.post("/api/documenti/{doc_id}/varianti")
+def conferma_variante(doc_id: str, richiesta: NuovaVariante) -> dict[str, int]:
+    """Taglia non in mappa confermata (o corretta) dall'operatore.
+
+    Finisce nel CSV, cosi' le prossime bolle la trovano gia' tradotta, e vale
+    subito per tutte le righe del documento con la stessa taglia ancora da
+    confermare. Le righe gia' confermate a mano restano come sono.
+    """
+    doc = _doc(doc_id)
+    taglia = richiesta.taglia.strip().upper()
+    variante = richiesta.variante.strip()
+    try:
+        aggiungi_alla_mappa(taglia, variante, f"confermata dall'operatore ({doc['nome']})")
+    except ValueError as e:
+        raise HTTPException(409, str(e)) from e
+    toccate = 0
+    for r in doc["righe"]:
+        if r["variante_confermata"] or r["taglia"].strip().upper() != taglia:
+            continue
+        r["variante"] = variante
+        r["variante_confermata"] = True
+        r["avvisi"] = [a for a in r.get("avvisi", []) if not a.startswith("variante '")]
         toccate += 1
     _salva(doc)
     return {"righe_aggiornate": toccate}

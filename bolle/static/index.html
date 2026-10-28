@@ -341,6 +341,8 @@ tbody tr.riga--fuori .testo-riga { text-decoration: line-through; color: var(--n
 .cella-tenue { color: var(--nero-medio); }
 .descrizione { display: block; max-width: 26ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .azioni-riga { display: flex; gap: 6px; justify-content: flex-end; }
+/* variante di una taglia fuori dal CSV: campo e spunta di conferma affiancati */
+.variante-nuova { display: flex; gap: 6px; align-items: center; }
 td.vuoto { padding: calc(var(--equidistanza) * 6) 24px; text-align: center; color: var(--nero-medio); }
 
 /* contatore delle segnalazioni: un bottone, cosi' si raggiunge da tastiera e su touch */
@@ -566,7 +568,7 @@ dialog .piede { display: flex; gap: 8px; justify-content: flex-end; padding: 16p
           <th style="width:128px">codice</th>
           <th>descrizione</th>
           <th style="width:72px">taglia</th>
-          <th style="width:112px">variante</th>
+          <th style="width:168px">variante</th>
           <th style="width:88px" class="col-num">qtà</th>
           <th style="width:124px">magazzino</th>
           <th style="width:104px"><span class="sr-only">Azioni</span></th>
@@ -637,12 +639,15 @@ const annuncia = testo => { $('#annuncio').textContent = testo; };
 /* Tre livelli di gravita', dedotti dal testo che produce bolle/lavoro.py.
    L'operatore va disturbato solo quando il programma non sa davvero cosa
    fare: dati che non quadrano (blocco) o che non dicono dove va la merce
-   (conferma). Tutto il resto (magazzino preso dalla penna, variante dedotta,
-   lettura incerta ma con i totali che tornano) e' solo informazione. */
+   (conferma), o con una taglia che config/varianti.csv non sa tradurre
+   (conferma). Tutto il resto (magazzino preso dalla penna, lettura incerta ma
+   con i totali che tornano) e' solo informazione. */
 function gravita(avviso){
   const a = avviso.toLowerCase();
   // il testo dopo i due punti e' del modello: non va cercato per parole chiave
   if (a.startsWith('lettura incerta') || a.startsWith('dal pacco misto')) return 'info';
+  // taglia fuori da config/varianti.csv: la variante e' solo la taglia ricopiata
+  if (a.startsWith("variante '")) return 'conferma';
   if (a.includes('codice articolo non letto')) return 'blocco';
   if (a.includes('lettura discorde') || a.includes('somma') || a.includes('totale')
       || a.includes('non interpretabile') || a.includes('size/qty vuota')
@@ -963,6 +968,31 @@ async function assegna(magazzino){
   toast(`${esito.righe_aggiornate} righe su ${magazzino}`);
 }
 
+/* Taglia letta dalla bolla ma assente da config/varianti.csv: la sua variante
+   e' solo la taglia ricopiata, e l'operatore la conferma o la corregge. */
+const varianteNuova = r => !r.variante_confermata && !!r.taglia && !r.eliminata;
+
+/* La variante confermata entra nel CSV e il server la applica a tutte le
+   righe del documento con la stessa taglia ancora da confermare. */
+const IN_CONFERMA = new Set();
+async function confermaVariante(riga, variante){
+  // il blur del campo e il clic sulla spunta arrivano insieme: una conferma sola
+  if (IN_CONFERMA.has(riga.taglia)) return;
+  IN_CONFERMA.add(riga.taglia);
+  try {
+    const esito = await api(`/api/documenti/${DOC.id}/varianti`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ taglia: riga.taglia, variante })
+    });
+    await ricarica();
+    toast(`Taglia ${riga.taglia} → ${variante} aggiunta al CSV · ${esito.righe_aggiornate} righe aggiornate`);
+  } catch (err) {
+    toast('Non salvato: ' + err.message, 'errore');
+  } finally {
+    IN_CONFERMA.delete(riga.taglia);
+  }
+}
+
 const patch = (id, corpo) => api(`/api/documenti/${DOC.id}/righe/${id}`, {
   method: 'PATCH', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(corpo)
 });
@@ -1013,8 +1043,16 @@ function disegnaRighe(){
         <span class="descrizione" title="${esc(descrizione)}">${esc(descrizione) || '—'}</span></td>
       <td class="testo-riga">${esc(r.taglia) || '—'}${r.taglia_stampata
         ? ` <s class="cella-tenue" title="stampato sulla bolla, corretto a mano">${esc(r.taglia_stampata)}</s>` : ''}</td>
-      <td><input class="campo cella testo-riga" data-c="variante" value="${esc(r.variante)}"
-                 ${r.eliminata ? 'disabled' : ''} aria-label="Variante"></td>
+      <td>${varianteNuova(r)
+        ? `<div class="variante-nuova">
+             <input class="campo cella testo-riga" data-c="variante" value="${esc(r.variante)}"
+                    title="taglia non in config/varianti.csv: confermando la variante ce la si aggiunge"
+                    aria-label="Variante da confermare">
+             <button type="button" class="disco" data-azione="conferma-variante"
+                     aria-label="Conferma la variante ${esc(r.variante)} per la taglia ${esc(r.taglia)} e aggiungila al CSV">
+               ${icona('i-spunta', 'ico ico--14')}</button></div>`
+        : `<input class="campo cella testo-riga" data-c="variante" value="${esc(r.variante)}"
+                  ${r.eliminata ? 'disabled' : ''} aria-label="Variante">`}</td>
       <td><input class="campo cella testo-riga col-num" data-c="qta" type="number" min="0" value="${r.qta}"
                  ${r.qta_stampata >= 0 ? `title="stampato sulla bolla: ${r.qta_stampata}, corretto a mano"` : ''}
                  ${r.eliminata ? 'disabled' : ''} aria-label="Quantità"></td>
@@ -1103,6 +1141,11 @@ $('#righe').addEventListener('change', async e => {
   const campo = e.target.dataset.c; if (!campo) return;
 
   const valore = campo === 'qta' ? +e.target.value : e.target.value;
+  const riga = DOC.righe.find(r => r.id === tr.dataset.id);
+  if (campo === 'variante' && varianteNuova(riga) && valore.trim()){
+    await confermaVariante(riga, valore.trim());
+    return;
+  }
   try {
     const aggiornata = await patch(tr.dataset.id, { [campo]: valore });
     Object.assign(DOC.righe.find(r => r.id === tr.dataset.id), aggiornata);
@@ -1132,6 +1175,8 @@ $('#righe').addEventListener('click', async e => {
     toast(riga.eliminata ? 'Riga esclusa — resta nella tracciabilità' : 'Riga ripristinata');
   }
   if (b.dataset.azione === 'dividi') apriDivisione(riga);
+  if (b.dataset.azione === 'conferma-variante')
+    await confermaVariante(riga, b.closest('td').querySelector('input').value.trim() || riga.variante);
 });
 
 /* Le frecce su/giu' spostano il fuoco nella stessa colonna: una bolla da 33

@@ -35,11 +35,6 @@ from .config import CONFIG_DIR
 # la quantita' e' l'ultimo gruppo di cifre dopo l'ultimo '/'.
 _TOKEN = re.compile(r"^(?P<taglia>[A-Za-z0-9][A-Za-z0-9\-\+\./]*)/(?P<qta>\d+)$")
 
-# Taglia bambino espressa in anni: 910A = 9-10 anni, 1112 = 11-12, 7-8A = 7-8.
-_ANNI_COMPATTO = re.compile(r"^(?P<a>\d{1,2})(?P<b>\d{2})A?$")
-# Mezza taglia calzatura: "8-" = 8 e mezzo (DA CONFERMARE con il gestionale).
-_MEZZA_TAGLIA = re.compile(r"^(?P<n>\d{1,2})-$")
-
 
 @dataclass(frozen=True)
 class TagliaQta:
@@ -138,24 +133,37 @@ def carica_mappa() -> dict[str, str]:
     return mappa
 
 
+def aggiungi_alla_mappa(taglia: str, variante: str, nota: str = "") -> None:
+    """Scrive in coda al CSV una taglia confermata dall'operatore.
+
+    Solo taglie nuove: quelle gia' mappate le decide il CSV, e una correzione
+    su una riga sola non deve riscriverlo.
+    """
+    t, v = taglia.strip().upper(), variante.strip()
+    if not t or t.startswith("#") or not v:
+        raise ValueError("taglia e variante non possono essere vuote")
+    if t in carica_mappa():
+        raise ValueError(f"la taglia {t} e' gia' in {MAPPA_PATH.name}")
+    # il file e' modificato anche a mano: si rispetta il suo fine riga e si
+    # chiude l'ultima riga se e' rimasta aperta
+    grezzo = MAPPA_PATH.read_bytes()
+    fine_riga = "\r\n" if b"\r\n" in grezzo else "\n"
+    with MAPPA_PATH.open("a", newline="", encoding="utf-8") as fh:
+        if grezzo and not grezzo.endswith(b"\n"):
+            fh.write(fine_riga)
+        csv.writer(fh, delimiter=";", lineterminator=fine_riga).writerow([t, v, nota])
+
+
 def normalizza_variante(taglia: str, mappa: dict[str, str] | None = None) -> tuple[str, bool]:
     """Traduce la taglia stampata in variante gestionale.
 
-    Ritorna (variante, confermata). `confermata=False` significa che il valore
-    e' una supposizione: l'interfaccia lo evidenzia e l'operatore decide.
+    Ritorna (variante, confermata). L'unica traduzione e' quella del CSV: una
+    taglia non mappata passa invariata con `confermata=False`, e l'interfaccia
+    la evidenzia perche' l'operatore decida.
     """
     t = taglia.strip().upper()
     mappa = carica_mappa() if mappa is None else mappa
 
     if t in mappa:
         return mappa[t], True
-
-    if m := _MEZZA_TAGLIA.match(t):
-        return f"{m.group('n')}.5", False
-
-    if m := _ANNI_COMPATTO.match(t):
-        a, b = int(m.group("a")), int(m.group("b"))
-        if b == a + 1:  # 910A -> 9-10A, 1112 -> 11-12A
-            return f"{a}-{b}A", False
-
     return t, False

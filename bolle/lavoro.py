@@ -167,8 +167,8 @@ def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLav
                 )
             if not confermata:
                 avvisi.append(
-                    f"variante '{variante}' dedotta dalla taglia '{taglia}' "
-                    "(non presente in config/varianti.csv)"
+                    f"variante '{variante}' da confermare: la taglia '{taglia}' "
+                    "non e' in config/varianti.csv (confermandola ce la si aggiunge)"
                 )
             righe.append(
                 RigaLavoro(
