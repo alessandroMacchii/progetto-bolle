@@ -11,7 +11,7 @@ delle bolle, configurazione `.env`, domande aperte con l'azienda.
 ```bash
 BOLLE_EXTRACTOR=mock python -m bolle.app      # app senza rete ne' costi (rilegge gold/gold.json)
 python -m bolle.app                           # app vera, http://127.0.0.1:8000
-python bench/esegui.py --modello opus-5.5-api --casi reale   # banco di prova (costa: ~0,07 $/pagina con Opus)
+python bench/esegui.py --modello opus-5.5-api   # banco di prova su test_data (costa: ~0,07 $/pagina con Opus)
 python bench/report.py --errori               # rigenera bench/REPORT.md
 ```
 
@@ -53,17 +53,19 @@ lettura in background) → `static/index.html` (interfaccia) → `excel.py` (fog
 
 ## Banco di prova (`bench/`)
 
-- Casi in `bench/casi/casi.json` (37: 14 reali da `gold/gold.json`, pulite,
-  sintetiche generate da `genera.py`). Le metriche (`punteggio.py`) guardano solo
-  i dati del carico: codice, taglie, barrata, magazzino, correzioni.
-- Non rilanciare `genera.py` per piccoli ritocchi: riscrive tutte le immagini.
-  Le modifiche all'atteso si possono applicare a `casi.json` direttamente, in
-  modo coerente con quello che produrrebbe `genera.py`.
-- `test_data/`: ground truth dell'utente in un altro formato
-  (`schema_bolla.json`, una riga per taglia, valori gia' corretti a mano), ogni
-  `X.json` accanto al suo `X.pdf`. Il campo `note_estrazione` va ignorato.
-  Non e' ancora collegato al banco di prova: il confronto previsto e' a livello
-  di export (dopo `costruisci_righe`).
+- Il banco si costruisce dal ground truth dell'utente in `test_data/`
+  (`schema_bolla.json`: una riga per taglia, valori gia' corretti a mano, ogni
+  `X.json` accanto al suo `X.pdf`). `python bench/importa_test_data.py` ne fa i
+  casi `td-*` in `bench/casi/casi_test_data.json` (campo `atteso_carico`) e le
+  immagini `td-*.jpg`. Il campo `note_estrazione` va ignorato; le righe barrate
+  sulla bolla nel ground truth non si mettono (`riga_barrata` non si usa).
+- `punteggio.valuta_carico` passa l'estrazione da `costruisci_righe` e confronta
+  il carico come lo esporta l'app: righe barrate escluse, quantita' sommate per
+  (codice, taglia, magazzino), Seq-no ignorato. Il magazzino conta come letto
+  solo se viene dalla penna (avviso "magazzino proposto").
+- Il vecchio banco (`casi.json` di `genera.py`: reali dal gold, pulite,
+  sintetiche) e i suoi risultati sono stati cancellati il 2026-10-28; restano
+  nella storia git. `genera.py` e `valuta` per quel formato ci sono ancora.
 
 ## Convenzioni
 
@@ -82,4 +84,6 @@ lettura in background) → `static/index.html` (interfaccia) → `excel.py` (fog
   confermato con l'azienda.
 - Pagina 14 degli esempi: taglie `S/M/L` (gold) o `46/50/54` (test_data)?
   Va deciso quale colonna della Size Table leggere.
-- Il prompt v4 non e' ancora stato misurato sul banco con il modello vero.
+- Prompt v4 misurato con `opus-5.5-api` sul banco di test_data (2026-10-28):
+  15/20 pagine perfette. Gli errori residui sono quasi tutti discordanze del
+  ground truth da chiarire con l'utente (vedi `bench/REPORT.md`).

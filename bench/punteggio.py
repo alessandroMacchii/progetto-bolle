@@ -8,10 +8,24 @@ Le metriche che contano per il carico merci, dalla piu' alla meno grave:
   riga perfetta       codice, taglie, barratura e magazzino tutti giusti:
                       l'operatore non deve toccarla
   pagina perfetta     tutte le righe perfette e nessuna in piu' o in meno
+
+I casi di `test_data` (famiglia `test_data`, campo `atteso_carico`) hanno come
+atteso il carico, non lo stampato: si valutano con `valuta_carico`, che passa
+l'estrazione da `costruisci_righe` come fa l'app. Li' una "riga" e' una taglia.
 """
 from __future__ import annotations
 
+import json
 import re
+import sys
+from pathlib import Path
+
+BENCH = Path(__file__).resolve().parent
+sys.path.insert(0, str(BENCH.parent))
+
+from bolle.lavoro import costruisci_righe  # noqa: E402
+from bolle.schema import PaginaEstratta  # noqa: E402
+from bolle.sizes import espandi  # noqa: E402
 
 # "MAG 1", "mag2", ma anche le abbreviazioni "M1" / "M. 2" che si usano a margine
 _MAG = re.compile(r"(?<![A-Za-z0-9])M(?:AG)?\.?\s*(\d)(?![0-9])", re.IGNORECASE)
@@ -46,12 +60,31 @@ def correzioni_di(riga: dict) -> set[tuple[str, str, int]]:
     }
 
 
+def carica_casi() -> list[dict]:
+    """I casi di `importa_test_data.py`, piu' quelli di `genera.py` se ci sono."""
+    casi = []
+    for nome in ("casi.json", "casi_test_data.json"):
+        f = BENCH / "casi" / nome
+        if f.exists():
+            casi += json.loads(f.read_text(encoding="utf-8"))
+    return casi
+
+
+def righe_attese(caso: dict) -> int:
+    """Righe di bolla, o taglie di carico per i casi di test_data."""
+    if "atteso_carico" in caso:
+        return len(caso["atteso_carico"])
+    return len(caso["atteso"]["righe"])
+
+
 def magazzini_di(annotazione: str) -> list[str]:
     return sorted({f"MAG {n}" for n in _MAG.findall(annotazione or "")})
 
 
 def valuta(caso: dict, ottenuto: dict | None) -> dict:
     """Esito di un caso. `ottenuto=None` significa estrazione fallita."""
+    if "atteso_carico" in caso:
+        return valuta_carico(caso, ottenuto)
     atteso = caso["atteso"]
     extra = caso["righe_extra"]
     righe_att = atteso["righe"]
@@ -143,4 +176,149 @@ def valuta(caso: dict, ottenuto: dict | None) -> dict:
     e["pagina_perfetta"] = int(
         not e["fallita"] and e["perfette"] == e["righe"] and len(righe_ott) == len(righe_att)
     )
+    return e
+
+
+# Avvisi di lavoro.py che mandano la riga tra le "Da controllare": un errore
+# su una riga cosi' l'operatore lo vede, quindi non e' silenzioso. Stesse regole
+# di gravita() in index.html, tranne la variante da confermare: dipende dal CSV,
+# non dalla lettura, e la avrebbero quasi tutte le righe.
+_AVVISI_SEGNALATI = ("somma", "totale", "lettura discorde", "non interpretabile",
+                     "size/qty vuota", "nessuna coppia", "quantita' non valida",
+                     "codice articolo non letto", "piu' magazzini",
+                     "magazzino scritto a mano ma illeggibile")
+
+
+def _segnalata(avvisi: list[str]) -> bool:
+    for a in avvisi:
+        a = a.lower()
+        if a.startswith(("lettura incerta", "dal pacco misto", "variante '")):
+            continue
+        if a.startswith(("corretto a mano", "correzione a mano non applicata")):
+            return True
+        if any(k in a for k in _AVVISI_SEGNALATI):
+            return True
+    return False
+
+
+def _carico_letto(righe) -> dict[tuple, dict]:
+    """Il carico come lo esporterebbe l'app: senza righe escluse, quantita'
+    sommate per (codice, taglia, magazzino letto dalla penna)."""
+    carico: dict[tuple, dict] = {}
+    for r in righe:
+        if r.eliminata:
+            continue
+        mag = r.magazzino if any(a.startswith("magazzino proposto") for a in r.avvisi) else ""
+        chiave = (r.codice_articolo.strip().upper(), r.taglia, mag)
+        voce = carico.setdefault(chiave, {"qta": 0, "avvisi": []})
+        voce["qta"] += r.qta
+        voce["avvisi"] += [a for a in r.avvisi if a not in voce["avvisi"]]
+    return carico
+
+
+def _carico_atteso(caso: dict) -> dict[tuple, int]:
+    carico: dict[tuple, int] = {}
+    for a in caso["atteso_carico"]:
+        if a["barrata"]:  # per convenzione non ci sono; se ci fossero, non entrano nel carico
+            continue
+        # un pacco misto "XS/L" diventa XS + L, come in costruisci_righe
+        for t in espandi(a["taglia"], a["qta"]):
+            chiave = (a["codice_articolo"], t.taglia, a["magazzino"])
+            carico[chiave] = carico.get(chiave, 0) + t.qta
+    return carico
+
+
+def valuta_carico(caso: dict, ottenuto: dict | None) -> dict:
+    """Confronto a livello di carico, come lo vede il gestionale.
+
+    Da entrambe le parti: una voce per (codice, taglia, magazzino), righe
+    barrate escluse (il ground truth non le elenca), quantita' sommate come
+    nell'export. Il Seq-no non conta. Il magazzino vale come letto solo se viene
+    dalla penna (avviso "magazzino proposto"): il default dell'app non e' una
+    lettura. Una "riga" qui e' una voce di carico.
+    """
+    atteso = _carico_atteso(caso)
+
+    e = {k: 0 for k in (
+        "codice", "taglie", "totale", "perfette", "silenziosi", "silenziosi_segnalati",
+        "incerte", "incerte_a_vuoto", "mag_att", "mag_ok", "mag_inventati",
+        "barr_att", "barr_ok", "barr_inventate", "corr_att", "corr_ok", "corr_inventate",
+        "parole_att", "parole_ok", "righe_in_piu", "numero_documento", "rotazione",
+    )}
+    e.update(righe=len(atteso), fallita=ottenuto is None, errori=[])
+
+    letto: dict[tuple, dict] = {}
+    if ottenuto is not None:
+        try:
+            letto = _carico_letto(costruisci_righe(PaginaEstratta.model_validate(ottenuto), 1))
+        except Exception as exc:  # fuori schema: per il carico e' come non averla letta
+            e["fallita"] = True
+            e["errori"].append(f"estrazione non valida: {type(exc).__name__}: {str(exc)[:120]}")
+        e["numero_documento"] = int(
+            str(ottenuto.get("numero_documento", "")).strip().upper()
+            == caso["numero_documento"].strip().upper()
+        )
+
+    # abbinamento per (codice, taglia): prima con lo stesso magazzino, poi con
+    # uno qualsiasi, cosi' un magazzino sbagliato e' un errore di magazzino e
+    # non una voce mancante piu' una in piu'
+    liberi = dict(letto)
+    abbinati: dict[tuple, tuple | None] = {}
+    for chiave in atteso:
+        abbinati[chiave] = chiave if chiave in liberi else None
+        if abbinati[chiave]:
+            del liberi[chiave]
+    for (codice, taglia, mag), trovato in abbinati.items():
+        if trovato is None:
+            altro = next((k for k in liberi if k[:2] == (codice, taglia)), None)
+            if altro:
+                abbinati[(codice, taglia, mag)] = altro
+                del liberi[altro]
+
+    for (codice, taglia, mag), trovato in abbinati.items():
+        qta = atteso[(codice, taglia, mag)]
+        dove = f"{codice} taglia {taglia}" + (f" {mag}" if mag else "")
+        e["mag_att"] += bool(mag)
+        if trovato is None:
+            e["errori"].append(f"{dove} (qta {qta}) mancante nel carico")
+            continue
+        voce = letto[trovato]
+        ok_qta = voce["qta"] == qta
+        ok_mag = trovato[2] == mag
+
+        e["codice"] += 1
+        e["taglie"] += ok_qta
+        e["totale"] += ok_qta
+        e["perfette"] += ok_qta and ok_mag
+        if mag:
+            e["mag_ok"] += ok_mag
+        elif trovato[2]:
+            e["mag_inventati"] += 1
+
+        dubbio = any(a.startswith("lettura incerta") for a in voce["avvisi"])
+        e["incerte"] += dubbio
+        if not ok_qta:
+            if not _segnalata(voce["avvisi"]):
+                e["silenziosi"] += 1
+                e["silenziosi_segnalati"] += dubbio
+        elif dubbio:
+            e["incerte_a_vuoto"] += 1
+
+        if not ok_qta:
+            e["errori"].append(f"{dove} qta: attesa {qta}, letta {voce['qta']}")
+        if not ok_mag:
+            e["errori"].append(f"{dove} magazzino: atteso {mag or '-'}, letto {trovato[2] or '-'}")
+
+    # una voce in piu' nel carico e' merce che non c'e' (o un codice letto
+    # male): errore silenzioso se nessun controllo la segnala
+    e["righe_in_piu"] = len(liberi)
+    for (codice, taglia, mag), voce in liberi.items():
+        e["errori"].append(f"in piu' nel carico: {codice} taglia {taglia} qta {voce['qta']}"
+                           + (f" {mag}" if mag else ""))
+        segnalata = _segnalata(voce["avvisi"])
+        e["silenziosi"] += not segnalata
+        e["silenziosi_segnalati"] += not segnalata and any(
+            a.startswith("lettura incerta") for a in voce["avvisi"])
+
+    e["pagina_perfetta"] = int(not e["fallita"] and e["perfette"] == e["righe"] and not liberi)
     return e

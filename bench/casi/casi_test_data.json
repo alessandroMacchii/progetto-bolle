@@ -1,0 +1,2902 @@
+[
+ {
+  "id": "td-adidas_nuova",
+  "famiglia": "test_data",
+  "base": "test_data/Adidas_nuova.pdf",
+  "descrizione": "ground truth di test_data (Adidas_nuova)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-adidas_nuova.jpg",
+  "numero_documento": "3000314092",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "IF1661",
+    "taglia": "12",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IF1661",
+    "taglia": "11",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IF1661",
+    "taglia": "9-",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IF1661",
+    "taglia": "9",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IF1661",
+    "taglia": "8",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IF1661",
+    "taglia": "7",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "IF4076",
+    "taglia": "8-",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "IF4076",
+    "taglia": "10-",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "IF4076",
+    "taglia": "12-",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "IF4076",
+    "taglia": "13-",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "8",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "7-",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "7",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "6-",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "6",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "8-",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "9",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "9-",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "10",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "10-",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "IF4076",
+    "taglia": "11",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "IH1401",
+    "taglia": "33",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "IH1401",
+    "taglia": "3-",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "6",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "6-",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "7",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "7-",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "8",
+    "qta": 9,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "8-",
+    "qta": 7,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "9",
+    "qta": 9,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "9-",
+    "qta": 8,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "10",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "10-",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "11",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "11-",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "12",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "12-",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "IH9812",
+    "taglia": "13",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "6",
+    "codice_articolo": "IH9812",
+    "taglia": "6",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "7",
+    "codice_articolo": "JD2684",
+    "taglia": "230",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "7",
+    "codice_articolo": "JD2684",
+    "taglia": "250",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "7",
+    "codice_articolo": "JD2684",
+    "taglia": "270",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "8",
+    "codice_articolo": "JD2684",
+    "taglia": "230",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "8",
+    "codice_articolo": "JD2684",
+    "taglia": "250",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "8",
+    "codice_articolo": "JD2684",
+    "taglia": "270",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "9",
+    "codice_articolo": "JD5435",
+    "taglia": "230",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "9",
+    "codice_articolo": "JD5435",
+    "taglia": "250",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "9",
+    "codice_articolo": "JD5435",
+    "taglia": "270",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JD5435",
+    "taglia": "210",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JD5435",
+    "taglia": "270",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JD5435",
+    "taglia": "250",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JD5435",
+    "taglia": "230",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "3",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "3-",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "4",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "4-",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "5",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "5-",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "6",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "6-",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "35",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "34",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "33-",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "33",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JS2082",
+    "taglia": "32",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "13",
+    "codice_articolo": "KB8162",
+    "taglia": "270",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "13",
+    "codice_articolo": "KB8162",
+    "taglia": "250",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "13",
+    "codice_articolo": "KB8162",
+    "taglia": "230",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "14",
+    "codice_articolo": "KH5610",
+    "taglia": "5-",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "14",
+    "codice_articolo": "KH5610",
+    "taglia": "6",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "14",
+    "codice_articolo": "KH5610",
+    "taglia": "7-",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "15",
+    "codice_articolo": "KJ1761",
+    "taglia": "6-",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "15",
+    "codice_articolo": "KJ1761",
+    "taglia": "6",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "15",
+    "codice_articolo": "KJ1761",
+    "taglia": "5-",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "15",
+    "codice_articolo": "KJ1761",
+    "taglia": "5",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "15",
+    "codice_articolo": "KJ1761",
+    "taglia": "4-",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "16",
+    "codice_articolo": "KQ7578",
+    "taglia": "230",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "16",
+    "codice_articolo": "KQ7578",
+    "taglia": "210",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "16",
+    "codice_articolo": "KQ7578",
+    "taglia": "270",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "16",
+    "codice_articolo": "KQ7578",
+    "taglia": "250",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-1",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-1.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-1)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-1.jpg",
+  "numero_documento": "8075054491",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "IF4092",
+    "taglia": "8-",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-10",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-10.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-10)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-10.jpg",
+  "numero_documento": "8755506800",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "JP6203",
+    "taglia": "10-",
+    "qta": 1,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-11",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-11.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-11)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-11.jpg",
+  "numero_documento": "",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "IA0408",
+    "taglia": "XS",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IA0408",
+    "taglia": "S",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IA0408",
+    "taglia": "M",
+    "qta": 3,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-12",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-12.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-12)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-12.jpg",
+  "numero_documento": "8755525470",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "JY9675",
+    "taglia": "7-8A",
+    "qta": 6,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "JY9675",
+    "taglia": "910A",
+    "qta": 5,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "JY9675",
+    "taglia": "1112",
+    "qta": 5,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "JY9675",
+    "taglia": "1314",
+    "qta": 5,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "JG5835",
+    "taglia": "3XL",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "JN5469",
+    "taglia": "M",
+    "qta": 3,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "JN5469",
+    "taglia": "L",
+    "qta": 6,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "JN5469",
+    "taglia": "3XL",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-13",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-13.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-13)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-13.jpg",
+  "numero_documento": "8075218505",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "JE1204",
+    "taglia": "XS",
+    "qta": 1,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-14",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-14.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-14)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-14.jpg",
+  "numero_documento": "mi0902827111",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "JM9191",
+    "taglia": "46",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "JM9191",
+    "taglia": "50",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "JM9191",
+    "taglia": "54",
+    "qta": 1,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-2",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-2.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-2)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-2.jpg",
+  "numero_documento": "3691922993",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "ID8765",
+    "taglia": "4-",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "ID8765",
+    "taglia": "5",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "IF4076",
+    "taglia": "6",
+    "qta": 1,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "IF4076",
+    "taglia": "8",
+    "qta": 1,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "IF4076",
+    "taglia": "9",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-3",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-3.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-3)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-3.jpg",
+  "numero_documento": "9034951047",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "IH4278",
+    "taglia": "8",
+    "qta": 1,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IH4278",
+    "taglia": "11-",
+    "qta": 1,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IH4278",
+    "taglia": "9-",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IH4278",
+    "taglia": "9-",
+    "qta": 1,
+    "magazzino": "MAG 2",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-4",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-4.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-4)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-4.jpg",
+  "numero_documento": "8075090235",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "IH9028",
+    "taglia": "4",
+    "qta": 2,
+    "magazzino": "MAG 2",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IH9028",
+    "taglia": "5",
+    "qta": 1,
+    "magazzino": "MAG 2",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IH9028",
+    "taglia": "6",
+    "qta": 1,
+    "magazzino": "MAG 2",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "IH9028",
+    "taglia": "7",
+    "qta": 2,
+    "magazzino": "MAG 2",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-5",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-5.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-5)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-5.jpg",
+  "numero_documento": "3691900271",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "F35542",
+    "taglia": "7",
+    "qta": 15,
+    "magazzino": "MAG 2",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "F35542",
+    "taglia": "9",
+    "qta": 37,
+    "magazzino": "MAG 2",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "F35542",
+    "taglia": "10",
+    "qta": 26,
+    "magazzino": "MAG 2",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-6",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-6.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-6)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-6.jpg",
+  "numero_documento": "3691891869",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "F35543",
+    "taglia": "4",
+    "qta": 3,
+    "magazzino": "MAG 2",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "F35543",
+    "taglia": "5",
+    "qta": 6,
+    "magazzino": "MAG 2",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-7",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-7.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-7)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-7.jpg",
+  "numero_documento": "9034818592",
+  "atteso_carico": [
+   {
+    "seq": "2",
+    "codice_articolo": "JZ2505",
+    "taglia": "XS",
+    "qta": 183,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "JZ2505",
+    "taglia": "XL",
+    "qta": 50,
+    "magazzino": "",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-8",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-8.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-8)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-8.jpg",
+  "numero_documento": "8755509288",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "IT1457",
+    "taglia": "XS",
+    "qta": 5,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-esempio-bolle-9",
+  "famiglia": "test_data",
+  "base": "test_data/Esempio bolle-9.pdf",
+  "descrizione": "ground truth di test_data (Esempio bolle-9)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-esempio-bolle-9.jpg",
+  "numero_documento": "9035032167",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "H44527",
+    "taglia": "L",
+    "qta": 4,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "H44527",
+    "taglia": "L",
+    "qta": 10,
+    "magazzino": "MAG 1",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "JN5459",
+    "taglia": "1314",
+    "qta": 2,
+    "magazzino": "MAG 1",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-pulita1",
+  "famiglia": "test_data",
+  "base": "test_data/pulita1.pdf",
+  "descrizione": "ground truth di test_data (pulita1)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-pulita1.jpg",
+  "numero_documento": "3000314090",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "KB8172",
+    "taglia": "XS",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "KB8172",
+    "taglia": "S",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "KB8172",
+    "taglia": "M",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "KB8172",
+    "taglia": "L",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "KI1676",
+    "taglia": "530",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "KI1676",
+    "taglia": "540",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "KI1676",
+    "taglia": "550",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "KI1676",
+    "taglia": "560",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "KI1676",
+    "taglia": "570",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "KI1676",
+    "taglia": "580",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "KI1676",
+    "taglia": "590",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "KI1676",
+    "taglia": "520",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "KI1690",
+    "taglia": "3XLT",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "KI1690",
+    "taglia": "ST2",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "KI1690",
+    "taglia": "LT2",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "KI1690",
+    "taglia": "2XT2",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "KI1690",
+    "taglia": "XS/L",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "KI1690",
+    "taglia": "M/L",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "KI1690",
+    "taglia": "XL/L",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "KI1690",
+    "taglia": "510",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "KI1690",
+    "taglia": "3XLT",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "KI1690",
+    "taglia": "ST2",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "KI1690",
+    "taglia": "LT2",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "KI1690",
+    "taglia": "2XT2",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "KI1690",
+    "taglia": "XS/L",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "KI1690",
+    "taglia": "M/L",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "KI1690",
+    "taglia": "XL/L",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "KI1690",
+    "taglia": "510",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-pulita2_1",
+  "famiglia": "test_data",
+  "base": "test_data/pulita2_1.pdf",
+  "descrizione": "ground truth di test_data (pulita2_1)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-pulita2_1.jpg",
+  "numero_documento": "3000342857",
+  "atteso_carico": [
+   {
+    "seq": "1",
+    "codice_articolo": "HS9760",
+    "taglia": "S",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "HS9760",
+    "taglia": "M",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "1",
+    "codice_articolo": "HS9760",
+    "taglia": "L",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "JZ9136",
+    "taglia": "5-6A",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "JZ9136",
+    "taglia": "7-8A",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "JZ9136",
+    "taglia": "910A",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "JZ9136",
+    "taglia": "1112",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "2",
+    "codice_articolo": "JZ9136",
+    "taglia": "1314",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "JZ2508",
+    "taglia": "XS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "JZ2508",
+    "taglia": "XL",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "JZ2508",
+    "taglia": "L",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "JZ2508",
+    "taglia": "M",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "3",
+    "codice_articolo": "JZ2508",
+    "taglia": "S",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "JZ2513",
+    "taglia": "L",
+    "qta": 50,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "JZ2513",
+    "taglia": "XL",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "JZ2513",
+    "taglia": "M",
+    "qta": 50,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "JZ2513",
+    "taglia": "S",
+    "qta": 50,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "4",
+    "codice_articolo": "JZ2513",
+    "taglia": "XS",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "JZ2521",
+    "taglia": "XS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "JZ2521",
+    "taglia": "S",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "JZ2521",
+    "taglia": "M",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "JZ2521",
+    "taglia": "L",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "5",
+    "codice_articolo": "JZ2521",
+    "taglia": "XL",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "6",
+    "codice_articolo": "JZ2524",
+    "taglia": "1314",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "6",
+    "codice_articolo": "JZ2524",
+    "taglia": "1112",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "6",
+    "codice_articolo": "JZ2524",
+    "taglia": "910A",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "7",
+    "codice_articolo": "JZ6549",
+    "taglia": "910A",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "7",
+    "codice_articolo": "JZ6549",
+    "taglia": "1314",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "7",
+    "codice_articolo": "JZ6549",
+    "taglia": "1112",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "8",
+    "codice_articolo": "JZ6550",
+    "taglia": "1314",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "8",
+    "codice_articolo": "JZ6550",
+    "taglia": "1112",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "8",
+    "codice_articolo": "JZ6550",
+    "taglia": "910A",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "9",
+    "codice_articolo": "JZ6557",
+    "taglia": "XS",
+    "qta": 13,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "9",
+    "codice_articolo": "JZ6557",
+    "taglia": "XL",
+    "qta": 12,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "9",
+    "codice_articolo": "JZ6557",
+    "taglia": "S",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "9",
+    "codice_articolo": "JZ6557",
+    "taglia": "L",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "9",
+    "codice_articolo": "JZ6557",
+    "taglia": "M",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JZ6577",
+    "taglia": "XL",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JZ6577",
+    "taglia": "L",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JZ6577",
+    "taglia": "M",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JZ6577",
+    "taglia": "S",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "10",
+    "codice_articolo": "JZ6577",
+    "taglia": "XS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "11",
+    "codice_articolo": "JZ6579",
+    "taglia": "XL",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "11",
+    "codice_articolo": "JZ6579",
+    "taglia": "XS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "11",
+    "codice_articolo": "JZ6579",
+    "taglia": "S",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "11",
+    "codice_articolo": "JZ6579",
+    "taglia": "M",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "11",
+    "codice_articolo": "JZ6579",
+    "taglia": "L",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-pulita2_2",
+  "famiglia": "test_data",
+  "base": "test_data/pulita2_2.pdf",
+  "descrizione": "ground truth di test_data (pulita2_2)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-pulita2_2.jpg",
+  "numero_documento": "3000342857",
+  "atteso_carico": [
+   {
+    "seq": "12",
+    "codice_articolo": "JZ9138",
+    "taglia": "S",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JZ9138",
+    "taglia": "M",
+    "qta": 7,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JZ9138",
+    "taglia": "L",
+    "qta": 7,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JZ9138",
+    "taglia": "XL",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "12",
+    "codice_articolo": "JZ9138",
+    "taglia": "2XL",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "13",
+    "codice_articolo": "JZ6586",
+    "taglia": "XL",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "13",
+    "codice_articolo": "JZ6586",
+    "taglia": "L",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "13",
+    "codice_articolo": "JZ6586",
+    "taglia": "M",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "13",
+    "codice_articolo": "JZ6586",
+    "taglia": "S",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "13",
+    "codice_articolo": "JZ6586",
+    "taglia": "XS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "14",
+    "codice_articolo": "JZ6593",
+    "taglia": "XL",
+    "qta": 8,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "14",
+    "codice_articolo": "JZ6593",
+    "taglia": "L",
+    "qta": 35,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "14",
+    "codice_articolo": "JZ6593",
+    "taglia": "M",
+    "qta": 35,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "14",
+    "codice_articolo": "JZ6593",
+    "taglia": "S",
+    "qta": 35,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "14",
+    "codice_articolo": "JZ6593",
+    "taglia": "XS",
+    "qta": 8,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "15",
+    "codice_articolo": "JZ6607",
+    "taglia": "910A",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "15",
+    "codice_articolo": "JZ6607",
+    "taglia": "1314",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "15",
+    "codice_articolo": "JZ6607",
+    "taglia": "1112",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "16",
+    "codice_articolo": "JZ6608",
+    "taglia": "1112",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "16",
+    "codice_articolo": "JZ6608",
+    "taglia": "1314",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "16",
+    "codice_articolo": "JZ6608",
+    "taglia": "910A",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "17",
+    "codice_articolo": "JZ6611",
+    "taglia": "910A",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "17",
+    "codice_articolo": "JZ6611",
+    "taglia": "1112",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "17",
+    "codice_articolo": "JZ6611",
+    "taglia": "1314",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "18",
+    "codice_articolo": "JZ6673",
+    "taglia": "910A",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "18",
+    "codice_articolo": "JZ6673",
+    "taglia": "1112",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "18",
+    "codice_articolo": "JZ6673",
+    "taglia": "1314",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "19",
+    "codice_articolo": "JZ6675",
+    "taglia": "XL",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "19",
+    "codice_articolo": "JZ6675",
+    "taglia": "L",
+    "qta": 60,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "19",
+    "codice_articolo": "JZ6675",
+    "taglia": "M",
+    "qta": 60,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "19",
+    "codice_articolo": "JZ6675",
+    "taglia": "S",
+    "qta": 60,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "19",
+    "codice_articolo": "JZ6675",
+    "taglia": "XS",
+    "qta": 25,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "20",
+    "codice_articolo": "JZ9139",
+    "taglia": "S",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "20",
+    "codice_articolo": "JZ9139",
+    "taglia": "M",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "20",
+    "codice_articolo": "JZ9139",
+    "taglia": "L",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "20",
+    "codice_articolo": "JZ9139",
+    "taglia": "XL",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "20",
+    "codice_articolo": "JZ9139",
+    "taglia": "2XL",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "21",
+    "codice_articolo": "JZ6676",
+    "taglia": "XS",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "21",
+    "codice_articolo": "JZ6676",
+    "taglia": "XL",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "21",
+    "codice_articolo": "JZ6676",
+    "taglia": "L",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "21",
+    "codice_articolo": "JZ6676",
+    "taglia": "M",
+    "qta": 25,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "21",
+    "codice_articolo": "JZ6676",
+    "taglia": "S",
+    "qta": 25,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "22",
+    "codice_articolo": "JZ6678",
+    "taglia": "XL",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "22",
+    "codice_articolo": "JZ6678",
+    "taglia": "L",
+    "qta": 60,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "22",
+    "codice_articolo": "JZ6678",
+    "taglia": "M",
+    "qta": 60,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "22",
+    "codice_articolo": "JZ6678",
+    "taglia": "S",
+    "qta": 60,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "22",
+    "codice_articolo": "JZ6678",
+    "taglia": "XS",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "23",
+    "codice_articolo": "JZ9138",
+    "taglia": "M",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "23",
+    "codice_articolo": "JZ9138",
+    "taglia": "L",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "23",
+    "codice_articolo": "JZ9138",
+    "taglia": "XL",
+    "qta": 8,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "23",
+    "codice_articolo": "JZ9138",
+    "taglia": "S",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "23",
+    "codice_articolo": "JZ9138",
+    "taglia": "XS",
+    "qta": 8,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "24",
+    "codice_articolo": "KA5262",
+    "taglia": "5",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "25",
+    "codice_articolo": "KB0786",
+    "taglia": "NS",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "26",
+    "codice_articolo": "KD0985",
+    "taglia": "XS",
+    "qta": 13,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "26",
+    "codice_articolo": "KD0985",
+    "taglia": "XL",
+    "qta": 12,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "26",
+    "codice_articolo": "KD0985",
+    "taglia": "S",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "26",
+    "codice_articolo": "KD0985",
+    "taglia": "L",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "26",
+    "codice_articolo": "KD0985",
+    "taglia": "M",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-pulita2_3",
+  "famiglia": "test_data",
+  "base": "test_data/pulita2_3.pdf",
+  "descrizione": "ground truth di test_data (pulita2_3)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-pulita2_3.jpg",
+  "numero_documento": "3000342857",
+  "atteso_carico": [
+   {
+    "seq": "27",
+    "codice_articolo": "KD4242",
+    "taglia": "NS",
+    "qta": 40,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "28",
+    "codice_articolo": "KQ9071",
+    "taglia": "XL",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "28",
+    "codice_articolo": "KQ9071",
+    "taglia": "L",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "28",
+    "codice_articolo": "KQ9071",
+    "taglia": "M",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "28",
+    "codice_articolo": "KQ9071",
+    "taglia": "S",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "28",
+    "codice_articolo": "KQ9071",
+    "taglia": "XS",
+    "qta": 7,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "29",
+    "codice_articolo": "JZ9141",
+    "taglia": "M",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "29",
+    "codice_articolo": "JZ9141",
+    "taglia": "L",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "29",
+    "codice_articolo": "JZ9141",
+    "taglia": "XL",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "30",
+    "codice_articolo": "KV5397",
+    "taglia": "XS",
+    "qta": 7,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "30",
+    "codice_articolo": "KV5397",
+    "taglia": "XL",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "30",
+    "codice_articolo": "KV5397",
+    "taglia": "S",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "30",
+    "codice_articolo": "KV5397",
+    "taglia": "L",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "30",
+    "codice_articolo": "KV5397",
+    "taglia": "M",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "31",
+    "codice_articolo": "KD4245",
+    "taglia": "NS",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "32",
+    "codice_articolo": "KD4245",
+    "taglia": "NS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "33",
+    "codice_articolo": "KA5261",
+    "taglia": "5",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "34",
+    "codice_articolo": "KA5263",
+    "taglia": "5",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "35",
+    "codice_articolo": "KB0786",
+    "taglia": "NS",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "36",
+    "codice_articolo": "KD4245",
+    "taglia": "NS",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "37",
+    "codice_articolo": "KF5945",
+    "taglia": "XS",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "37",
+    "codice_articolo": "KF5945",
+    "taglia": "S",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "37",
+    "codice_articolo": "KF5945",
+    "taglia": "M",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "37",
+    "codice_articolo": "KF5945",
+    "taglia": "L",
+    "qta": 6,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "37",
+    "codice_articolo": "KF5945",
+    "taglia": "XL",
+    "qta": 4,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "37",
+    "codice_articolo": "KF5945",
+    "taglia": "2XL",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "38",
+    "codice_articolo": "KF5947",
+    "taglia": "S",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "38",
+    "codice_articolo": "KF5947",
+    "taglia": "M",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "38",
+    "codice_articolo": "KF5947",
+    "taglia": "L",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "38",
+    "codice_articolo": "KF5947",
+    "taglia": "XL",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "39",
+    "codice_articolo": "JY7971",
+    "taglia": "NS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "40",
+    "codice_articolo": "KH1782",
+    "taglia": "5-6A",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "40",
+    "codice_articolo": "KH1782",
+    "taglia": "7-8A",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "40",
+    "codice_articolo": "KH1782",
+    "taglia": "910A",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "40",
+    "codice_articolo": "KH1782",
+    "taglia": "1112",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "40",
+    "codice_articolo": "KH1782",
+    "taglia": "1314",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "41",
+    "codice_articolo": "JZ4109",
+    "taglia": "M",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "41",
+    "codice_articolo": "JZ4109",
+    "taglia": "L",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "41",
+    "codice_articolo": "JZ4109",
+    "taglia": "XL",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "42",
+    "codice_articolo": "JY7992",
+    "taglia": "NS",
+    "qta": 3,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "43",
+    "codice_articolo": "HS9765",
+    "taglia": "OSFM",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   }
+  ]
+ },
+ {
+  "id": "td-pulita2_4",
+  "famiglia": "test_data",
+  "base": "test_data/pulita2_4.pdf",
+  "descrizione": "ground truth di test_data (pulita2_4)",
+  "etichette": [
+   "carico"
+  ],
+  "immagine": "td-pulita2_4.jpg",
+  "numero_documento": "3000342857",
+  "atteso_carico": [
+   {
+    "seq": "44",
+    "codice_articolo": "JG5832",
+    "taglia": "XL",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "44",
+    "codice_articolo": "JG5832",
+    "taglia": "L",
+    "qta": 80,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "44",
+    "codice_articolo": "JG5832",
+    "taglia": "M",
+    "qta": 100,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "44",
+    "codice_articolo": "JG5832",
+    "taglia": "S",
+    "qta": 100,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "44",
+    "codice_articolo": "JG5832",
+    "taglia": "XS",
+    "qta": 50,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "45",
+    "codice_articolo": "JH3406",
+    "taglia": "XL",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "45",
+    "codice_articolo": "JH3406",
+    "taglia": "L",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "45",
+    "codice_articolo": "JH3406",
+    "taglia": "M",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "45",
+    "codice_articolo": "JH3406",
+    "taglia": "S",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "45",
+    "codice_articolo": "JH3406",
+    "taglia": "XS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "46",
+    "codice_articolo": "JZ6581",
+    "taglia": "S",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "46",
+    "codice_articolo": "JZ6581",
+    "taglia": "M",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "46",
+    "codice_articolo": "JZ6581",
+    "taglia": "L",
+    "qta": 2,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "46",
+    "codice_articolo": "JZ6581",
+    "taglia": "XL",
+    "qta": 1,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "47",
+    "codice_articolo": "JN5465",
+    "taglia": "XL",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "47",
+    "codice_articolo": "JN5465",
+    "taglia": "L",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "47",
+    "codice_articolo": "JN5465",
+    "taglia": "M",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "47",
+    "codice_articolo": "JN5465",
+    "taglia": "S",
+    "qta": 10,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "47",
+    "codice_articolo": "JN5465",
+    "taglia": "XS",
+    "qta": 5,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "48",
+    "codice_articolo": "JW1526",
+    "taglia": "FUTS",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "49",
+    "codice_articolo": "JW1530",
+    "taglia": "5",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "50",
+    "codice_articolo": "JW1531",
+    "taglia": "5",
+    "qta": 20,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "51",
+    "codice_articolo": "JY7937",
+    "taglia": "NS",
+    "qta": 40,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "52",
+    "codice_articolo": "JY7971",
+    "taglia": "NS",
+    "qta": 60,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "53",
+    "codice_articolo": "JZ2505",
+    "taglia": "XS",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "53",
+    "codice_articolo": "JZ2505",
+    "taglia": "S",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "53",
+    "codice_articolo": "JZ2505",
+    "taglia": "M",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "53",
+    "codice_articolo": "JZ2505",
+    "taglia": "L",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "53",
+    "codice_articolo": "JZ2505",
+    "taglia": "XL",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "54",
+    "codice_articolo": "JZ2506",
+    "taglia": "XS",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "54",
+    "codice_articolo": "JZ2506",
+    "taglia": "S",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "54",
+    "codice_articolo": "JZ2506",
+    "taglia": "M",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "54",
+    "codice_articolo": "JZ2506",
+    "taglia": "XL",
+    "qta": 15,
+    "magazzino": "",
+    "barrata": false
+   },
+   {
+    "seq": "54",
+    "codice_articolo": "JZ2506",
+    "taglia": "L",
+    "qta": 30,
+    "magazzino": "",
+    "barrata": false
+   }
+  ]
+ }
+]

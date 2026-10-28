@@ -1,0 +1,3389 @@
+{
+ "modello": "opus-5.5-api",
+ "nota": "Prompt v4 sul ground truth di test_data, via OpenRouter.",
+ "casi": {
+  "td-adidas_nuova": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3000314092",
+    "data_documento": "11.09.26",
+    "warehouse": "",
+    "total_pieces_dichiarato": 0,
+    "rotazione_gradi": 90,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "IF1661",
+      "descrizione": "ADVANTAGE 2.0",
+      "colore": "FTWWHT/CBLACK/LEGINK",
+      "totale_dichiarato": 9,
+      "size_qty_raw": "12/1 11/1 9-/1 9/2 8/2 7/2",
+      "taglie": [
+       {
+        "taglia": "12",
+        "qta": 1
+       },
+       {
+        "taglia": "11",
+        "qta": 1
+       },
+       {
+        "taglia": "9-",
+        "qta": 1
+       },
+       {
+        "taglia": "9",
+        "qta": 2
+       },
+       {
+        "taglia": "8",
+        "qta": 2
+       },
+       {
+        "taglia": "7",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "IF4076",
+      "descrizione": "URBAN COURT",
+      "colore": "FTWWHT/FTWWHT/CGREEN",
+      "totale_dichiarato": 12,
+      "size_qty_raw": "8-/4 10-/4 12-/2 13-/2",
+      "taglie": [
+       {
+        "taglia": "8-",
+        "qta": 4
+       },
+       {
+        "taglia": "10-",
+        "qta": 4
+       },
+       {
+        "taglia": "12-",
+        "qta": 2
+       },
+       {
+        "taglia": "13-",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "3",
+      "codice_articolo": "IF4076",
+      "descrizione": "URBAN COURT",
+      "colore": "FTWWHT/FTWWHT/CGREEN",
+      "totale_dichiarato": 20,
+      "size_qty_raw": "8/2 7-/3 7/1 6-/1 6/1 8-/2 9/4 9-/2 10/1 10-/2 11/1",
+      "taglie": [
+       {
+        "taglia": "8",
+        "qta": 2
+       },
+       {
+        "taglia": "7-",
+        "qta": 3
+       },
+       {
+        "taglia": "7",
+        "qta": 1
+       },
+       {
+        "taglia": "6-",
+        "qta": 1
+       },
+       {
+        "taglia": "6",
+        "qta": 1
+       },
+       {
+        "taglia": "8-",
+        "qta": 2
+       },
+       {
+        "taglia": "9",
+        "qta": 4
+       },
+       {
+        "taglia": "9-",
+        "qta": 2
+       },
+       {
+        "taglia": "10",
+        "qta": 1
+       },
+       {
+        "taglia": "10-",
+        "qta": 2
+       },
+       {
+        "taglia": "11",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "4",
+      "codice_articolo": "IH1401",
+      "descrizione": "HVC PLUS K",
+      "colore": "CBLACK/FTWWHT/CARBON",
+      "totale_dichiarato": 6,
+      "size_qty_raw": "33/1 3-/5",
+      "taglie": [
+       {
+        "taglia": "33",
+        "qta": 1
+       },
+       {
+        "taglia": "3-",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "5",
+      "codice_articolo": "IH9812",
+      "descrizione": "GALAXY 8 M",
+      "colore": "CBLACK/FTWWHT/CARBON",
+      "totale_dichiarato": 75,
+      "size_qty_raw": "6/3 6-/4 7/4 7-/6 8/9 8-/7 9/9 9-/8 10/4 10-/5 11/5 11-/5 12/3 12-/2 13/1",
+      "taglie": [
+       {
+        "taglia": "6",
+        "qta": 3
+       },
+       {
+        "taglia": "6-",
+        "qta": 4
+       },
+       {
+        "taglia": "7",
+        "qta": 4
+       },
+       {
+        "taglia": "7-",
+        "qta": 6
+       },
+       {
+        "taglia": "8",
+        "qta": 9
+       },
+       {
+        "taglia": "8-",
+        "qta": 7
+       },
+       {
+        "taglia": "9",
+        "qta": 9
+       },
+       {
+        "taglia": "9-",
+        "qta": 8
+       },
+       {
+        "taglia": "10",
+        "qta": 4
+       },
+       {
+        "taglia": "10-",
+        "qta": 5
+       },
+       {
+        "taglia": "11",
+        "qta": 5
+       },
+       {
+        "taglia": "11-",
+        "qta": 5
+       },
+       {
+        "taglia": "12",
+        "qta": 3
+       },
+       {
+        "taglia": "12-",
+        "qta": 2
+       },
+       {
+        "taglia": "13",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "6",
+      "codice_articolo": "IH9812",
+      "descrizione": "GALAXY 8 M",
+      "colore": "CBLACK/FTWWHT/CARBON",
+      "totale_dichiarato": 1,
+      "size_qty_raw": "6/1",
+      "taglie": [
+       {
+        "taglia": "6",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "7",
+      "codice_articolo": "JD2684",
+      "descrizione": "W ESS 3S TS",
+      "colore": "PURRUB/WHITE",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "230/1 250/2 270/2",
+      "taglie": [
+       {
+        "taglia": "230",
+        "qta": 1
+       },
+       {
+        "taglia": "250",
+        "qta": 2
+       },
+       {
+        "taglia": "270",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "8",
+      "codice_articolo": "JD2684",
+      "descrizione": "W ESS 3S TS",
+      "colore": "PURRUB/WHITE",
+      "totale_dichiarato": 12,
+      "size_qty_raw": "230/4 250/5 270/3",
+      "taglie": [
+       {
+        "taglia": "230",
+        "qta": 4
+       },
+       {
+        "taglia": "250",
+        "qta": 5
+       },
+       {
+        "taglia": "270",
+        "qta": 3
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "9",
+      "codice_articolo": "JD5435",
+      "descrizione": "W ESS 3S TS",
+      "colore": "DKBLUE",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "230/1 250/2 270/2",
+      "taglie": [
+       {
+        "taglia": "230",
+        "qta": 1
+       },
+       {
+        "taglia": "250",
+        "qta": 2
+       },
+       {
+        "taglia": "270",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "10",
+      "codice_articolo": "JD5435",
+      "descrizione": "W ESS 3S TS",
+      "colore": "DKBLUE",
+      "totale_dichiarato": 20,
+      "size_qty_raw": "210/5 270/5 250/5 230/5",
+      "taglie": [
+       {
+        "taglia": "210",
+        "qta": 5
+       },
+       {
+        "taglia": "270",
+        "qta": 5
+       },
+       {
+        "taglia": "250",
+        "qta": 5
+       },
+       {
+        "taglia": "230",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "11",
+      "codice_articolo": "JP6400",
+      "descrizione": "Pureboost 5",
+      "colore": "CBLACK/CBLACK/CARBON",
+      "totale_dichiarato": 112,
+      "size_qty_raw": "3-/2 4/2 4-/2 5/2 5-/2 6/2 6-/5 7/5 7-/5 8/10 8-/10 9/10 9-/10 10/10 10-/10 11/10 11-/10 12/5",
+      "taglie": [
+       {
+        "taglia": "3-",
+        "qta": 2
+       },
+       {
+        "taglia": "4",
+        "qta": 2
+       },
+       {
+        "taglia": "4-",
+        "qta": 2
+       },
+       {
+        "taglia": "5",
+        "qta": 2
+       },
+       {
+        "taglia": "5-",
+        "qta": 2
+       },
+       {
+        "taglia": "6",
+        "qta": 2
+       },
+       {
+        "taglia": "6-",
+        "qta": 5
+       },
+       {
+        "taglia": "7",
+        "qta": 5
+       },
+       {
+        "taglia": "7-",
+        "qta": 5
+       },
+       {
+        "taglia": "8",
+        "qta": 10
+       },
+       {
+        "taglia": "8-",
+        "qta": 10
+       },
+       {
+        "taglia": "9",
+        "qta": 10
+       },
+       {
+        "taglia": "9-",
+        "qta": 10
+       },
+       {
+        "taglia": "10",
+        "qta": 10
+       },
+       {
+        "taglia": "10-",
+        "qta": 10
+       },
+       {
+        "taglia": "11",
+        "qta": 10
+       },
+       {
+        "taglia": "11-",
+        "qta": 10
+       },
+       {
+        "taglia": "12",
+        "qta": 5
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "riga interamente barrata a penna",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "codice articolo coperto dal tratto di penna: JP6400 lettura piu' probabile; taglie lette a fatica sotto la barratura"
+     },
+     {
+      "seq": "12",
+      "codice_articolo": "JS2082",
+      "descrizione": "BOX HOG CLASSIC K",
+      "colore": "CBLACK/FTWWHT/CBLACK",
+      "totale_dichiarato": 196,
+      "size_qty_raw": "3/20 3-/20 4/20 4-/20 5/20 5-/6 6/20 6-/20 35/10 34/10 33-/10 33/10 32/10",
+      "taglie": [
+       {
+        "taglia": "3",
+        "qta": 20
+       },
+       {
+        "taglia": "3-",
+        "qta": 20
+       },
+       {
+        "taglia": "4",
+        "qta": 20
+       },
+       {
+        "taglia": "4-",
+        "qta": 20
+       },
+       {
+        "taglia": "5",
+        "qta": 20
+       },
+       {
+        "taglia": "5-",
+        "qta": 6
+       },
+       {
+        "taglia": "6",
+        "qta": 20
+       },
+       {
+        "taglia": "6-",
+        "qta": 20
+       },
+       {
+        "taglia": "35",
+        "qta": 10
+       },
+       {
+        "taglia": "34",
+        "qta": 10
+       },
+       {
+        "taglia": "33-",
+        "qta": 10
+       },
+       {
+        "taglia": "33",
+        "qta": 10
+       },
+       {
+        "taglia": "32",
+        "qta": 10
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "13",
+      "codice_articolo": "KB8162",
+      "descrizione": "W ESS 3S TS",
+      "colore": "CRLI",
+      "totale_dichiarato": 8,
+      "size_qty_raw": "270/2 250/3 230/3",
+      "taglie": [
+       {
+        "taglia": "270",
+        "qta": 2
+       },
+       {
+        "taglia": "250",
+        "qta": 3
+       },
+       {
+        "taglia": "230",
+        "qta": 3
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "14",
+      "codice_articolo": "KH5610",
+      "descrizione": "GALAXY 8 W",
+      "colore": "CBLACK/CLOWHI/GRESIX",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "5-/1 6/1 7-/1 6-/1 7/1",
+      "taglie": [
+       {
+        "taglia": "5-",
+        "qta": 1
+       },
+       {
+        "taglia": "6",
+        "qta": 1
+       },
+       {
+        "taglia": "7-",
+        "qta": 1
+       },
+       {
+        "taglia": "6-",
+        "qta": 1
+       },
+       {
+        "taglia": "7",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "taglie quarto e quinto token lette a fatica: 6-/7 oppure 6/7- (stampa piccola)"
+     },
+     {
+      "seq": "15",
+      "codice_articolo": "KJ1761",
+      "descrizione": "RESPONSE 2 W",
+      "colore": "CBLACK/CBLACK/SILVMT",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "6-/1 6/1 5-/1 5/1 4-/1",
+      "taglie": [
+       {
+        "taglia": "6-",
+        "qta": 1
+       },
+       {
+        "taglia": "6",
+        "qta": 1
+       },
+       {
+        "taglia": "5-",
+        "qta": 1
+       },
+       {
+        "taglia": "5",
+        "qta": 1
+       },
+       {
+        "taglia": "4-",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "16",
+      "codice_articolo": "KQ7578",
+      "descrizione": "W ESS 3S TS",
+      "colore": "BLACK/CLPINK",
+      "totale_dichiarato": 6,
+      "size_qty_raw": "230/2 210/1 270/1 250/2",
+      "taglie": [
+       {
+        "taglia": "230",
+        "qta": 2
+       },
+       {
+        "taglia": "210",
+        "qta": 1
+       },
+       {
+        "taglia": "270",
+        "qta": 1
+       },
+       {
+        "taglia": "250",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 5916,
+   "costo_usd": 0.153976,
+   "secondi": 64.6
+  },
+  "td-esempio-bolle-1": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8075054491",
+    "data_documento": "29.04.26",
+    "warehouse": "Germany-49597 CDC",
+    "total_pieces_dichiarato": 102,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "IF4092",
+      "descrizione": "URBAN COURT",
+      "colore": "FTWWHT/FTWWHT/CLPINK",
+      "totale_dichiarato": 2,
+      "size_qty_raw": "8-/2",
+      "taglie": [
+       {
+        "taglia": "8-",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "JD9573",
+      "descrizione": "ESS CC LOW 3P",
+      "colore": "WHITE/GRETWO",
+      "totale_dichiarato": 100,
+      "size_qty_raw": "L/100",
+      "taglie": [
+       {
+        "taglia": "L",
+        "qta": 100
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "codice: prima lettera coperta dallo scarabocchio a penna, J oppure U (JD9573 / UD9573)"
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 716,
+   "costo_usd": 0.049976,
+   "secondi": 10.7
+  },
+  "td-esempio-bolle-10": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8755506800",
+    "data_documento": "27.05.26",
+    "warehouse": "46100 adidas Campus South",
+    "total_pieces_dichiarato": 4,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "JP6203",
+      "descrizione": "adipower Weightlift",
+      "colore": "CBLACK/CBLACK/CARBON",
+      "totale_dichiarato": 1,
+      "size_qty_raw": "10-/1",
+      "taglie": [
+       {
+        "taglia": "10-",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "KB9419",
+      "descrizione": "W ANML G T",
+      "colore": "ICEPUR",
+      "totale_dichiarato": 1,
+      "size_qty_raw": "XS/1",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 1
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "codice: parzialmente coperto dallo scarabocchio a penna, letto KB9419"
+     },
+     {
+      "seq": "3",
+      "codice_articolo": "KS9653",
+      "descrizione": "MT BO 0.6 GFX1",
+      "colore": "NGTCAR/NGTCAR",
+      "totale_dichiarato": 1,
+      "size_qty_raw": "NS/1",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 1
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "codice: parzialmente coperto dallo scarabocchio a penna, letto KS9653"
+     },
+     {
+      "seq": "4",
+      "codice_articolo": "LB2681",
+      "descrizione": "DURAMO RC2 M",
+      "colore": "OWHITE/CROYAL/COLRED",
+      "totale_dichiarato": 1,
+      "size_qty_raw": "7/1",
+      "taglie": [
+       {
+        "taglia": "7",
+        "qta": 1
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "codice: parzialmente coperto dallo scarabocchio a penna, letto LB2681"
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 1114,
+   "costo_usd": 0.057936,
+   "secondi": 13.8
+  },
+  "td-esempio-bolle-11": {
+   "output": {
+    "tipo_documento": "PRODUCT SPECIFICATION",
+    "numero_documento": "MIAD2IT597491-653844",
+    "data_documento": "22.04.26",
+    "warehouse": "",
+    "total_pieces_dichiarato": 7,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "MAG 1",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "",
+      "codice_articolo": "IA0408",
+      "descrizione": "Entrada 22 Hoody Men",
+      "colore": "",
+      "totale_dichiarato": 7,
+      "size_qty_raw": "XS/2 S/2 M/3",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 2
+       },
+       {
+        "taglia": "S",
+        "qta": 2
+       },
+       {
+        "taglia": "M",
+        "qta": 3
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 550,
+   "costo_usd": 0.046656,
+   "secondi": 8.2
+  },
+  "td-esempio-bolle-12": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8755525470",
+    "data_documento": "01.06.26",
+    "warehouse": "46100 adidas Campus South",
+    "total_pieces_dichiarato": 41,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "JY9675",
+      "descrizione": "TIRO26L PNTY",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 21,
+      "size_qty_raw": "7-8A/6 910A/5 1112/5 1314/5",
+      "taglie": [
+       {
+        "taglia": "7-8A",
+        "qta": 6
+       },
+       {
+        "taglia": "910A",
+        "qta": 5
+       },
+       {
+        "taglia": "1112",
+        "qta": 5
+       },
+       {
+        "taglia": "1314",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "JG5832",
+      "descrizione": "SQUA25 JSY M",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 7,
+      "size_qty_raw": "S/7",
+      "taglie": [
+       {
+        "taglia": "S",
+        "qta": 7
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "X sul Seq-no",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "3",
+      "codice_articolo": "JG5835",
+      "descrizione": "SQUA25 JSY M",
+      "colore": "WHITE/BLACK",
+      "totale_dichiarato": 2,
+      "size_qty_raw": "3XL/2",
+      "taglie": [
+       {
+        "taglia": "3XL",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "4",
+      "codice_articolo": "JN5469",
+      "descrizione": "SQUA25 SHO M",
+      "colore": "BLACK/BLACK/WHITE",
+      "totale_dichiarato": 11,
+      "size_qty_raw": "M/3 L/6 3XL/2",
+      "taglie": [
+       {
+        "taglia": "M",
+        "qta": 3
+       },
+       {
+        "taglia": "L",
+        "qta": 6
+       },
+       {
+        "taglia": "3XL",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 1116,
+   "costo_usd": 0.057976,
+   "secondi": 14.5
+  },
+  "td-esempio-bolle-13": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8075218505",
+    "data_documento": "27.05.26",
+    "warehouse": "Germany-49597 CDC",
+    "total_pieces_dichiarato": 1,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "JE1204",
+      "descrizione": "W 3S SJ TLR T",
+      "colore": "WONALU/WHITE",
+      "totale_dichiarato": 1,
+      "size_qty_raw": "XS/1",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 285,
+   "costo_usd": 0.041356,
+   "secondi": 4.9
+  },
+  "td-esempio-bolle-14": {
+   "output": {
+    "tipo_documento": "PRODUCT SPECIFICATION",
+    "numero_documento": "TTB-MI2604-F-01093",
+    "data_documento": "07.04.26",
+    "warehouse": "",
+    "total_pieces_dichiarato": 5,
+    "rotazione_gradi": 270,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "",
+      "codice_articolo": "JM9191",
+      "descrizione": "Handball 25 GK Jersey Men",
+      "colore": "",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "S/2 M/2 L/1",
+      "taglie": [
+       {
+        "taglia": "S",
+        "qta": 2
+       },
+       {
+        "taglia": "M",
+        "qta": 2
+       },
+       {
+        "taglia": "L",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1; scritto a mano 'JN9131 FIJLKAM' (preceduto da una scritta cancellata)",
+      "codice_manoscritto": "JN9131",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 748,
+   "costo_usd": 0.050616,
+   "secondi": 11.0
+  },
+  "td-esempio-bolle-2": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3691922993",
+    "data_documento": "14.05.26",
+    "warehouse": "England-M17 1QD-TDC",
+    "total_pieces_dichiarato": 8,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "ID8765",
+      "descrizione": "GALAXY 7 W",
+      "colore": "",
+      "totale_dichiarato": 4,
+      "size_qty_raw": "550/2 560/2",
+      "taglie": [
+       {
+        "taglia": "550",
+        "qta": 2
+       },
+       {
+        "taglia": "560",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1; taglie scritte a mano: 4- sopra 550, 5 sopra 560",
+      "codice_manoscritto": "",
+      "correzioni": [
+       {
+        "taglia_stampata": "550",
+        "taglia_corretta": "4-",
+        "qta_corretta": -1
+       },
+       {
+        "taglia_stampata": "560",
+        "taglia_corretta": "5",
+        "qta_corretta": -1
+       }
+      ],
+      "incertezze": "taglia 1: 550 oppure 580, cifra centrale coperta dalla penna (il 4- a mano indica 550); taglia 2: 560 oppure 580, cifra centrale coperta (il 5 a mano indica 560)"
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "IF4076",
+      "descrizione": "URBAN COURT",
+      "colore": "",
+      "totale_dichiarato": 4,
+      "size_qty_raw": "580/1 620/1 640/2",
+      "taglie": [
+       {
+        "taglia": "580",
+        "qta": 1
+       },
+       {
+        "taglia": "620",
+        "qta": 1
+       },
+       {
+        "taglia": "640",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "taglie scritte a mano: 6 sotto 580, 8 sotto 620, 9 sotto 640",
+      "codice_manoscritto": "",
+      "correzioni": [
+       {
+        "taglia_stampata": "580",
+        "taglia_corretta": "6",
+        "qta_corretta": -1
+       },
+       {
+        "taglia_stampata": "620",
+        "taglia_corretta": "8",
+        "qta_corretta": -1
+       },
+       {
+        "taglia_stampata": "640",
+        "taglia_corretta": "9",
+        "qta_corretta": -1
+       }
+      ],
+      "incertezze": "taglia 1: 580 oppure 560/590, cifra centrale coperta dalla penna (il 6 a mano indica 580); taglia 2: 620 oppure 600, prima cifra coperta (l'8 a mano indica 620)"
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 1190,
+   "costo_usd": 0.059456,
+   "secondi": 16.9
+  },
+  "td-esempio-bolle-3": {
+   "output": {
+    "tipo_documento": "CONSOLIDATED ORDER NUMBER",
+    "numero_documento": "17224088",
+    "data_documento": "20.05.26",
+    "warehouse": "D - 97215 Uffenheim",
+    "total_pieces_dichiarato": 5,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "IH4278",
+      "descrizione": "STREETTALK",
+      "colore": "",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "8/1 9-/3 11-/1",
+      "taglie": [
+       {
+        "taglia": "8",
+        "qta": 1
+       },
+       {
+        "taglia": "9-",
+        "qta": 3
+       },
+       {
+        "taglia": "11-",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "8: MAG 1; 11-: MAG 1; 9-: 1 pezzo MAG 2, 2 pezzi MAG 1",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 360,
+   "costo_usd": 0.042856,
+   "secondi": 6.4
+  },
+  "td-esempio-bolle-4": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8075090235",
+    "data_documento": "29.04.26",
+    "warehouse": "Germany-49597 CDC",
+    "total_pieces_dichiarato": 6,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "IH9028",
+      "descrizione": "ADILETTE SHOWER",
+      "colore": "FTWWHT/ROYBLU/PURRUB",
+      "totale_dichiarato": 6,
+      "size_qty_raw": "4/2 5/1 6/1 7/2",
+      "taglie": [
+       {
+        "taglia": "4",
+        "qta": 2
+       },
+       {
+        "taglia": "5",
+        "qta": 1
+       },
+       {
+        "taglia": "6",
+        "qta": 1
+       },
+       {
+        "taglia": "7",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 2",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 347,
+   "costo_usd": 0.042596,
+   "secondi": 5.7
+  },
+  "td-esempio-bolle-5": {
+   "output": {
+    "tipo_documento": "VALUE ADDED SERVICE",
+    "numero_documento": "3691900271",
+    "data_documento": "26.05.26",
+    "warehouse": "",
+    "total_pieces_dichiarato": 78,
+    "rotazione_gradi": 270,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "F35542",
+      "descrizione": "ADILETTE AQUA",
+      "colore": "DKBLUE/FTWWHT/DKBLUE",
+      "totale_dichiarato": 78,
+      "size_qty_raw": "7/15 9/37 10/26",
+      "taglie": [
+       {
+        "taglia": "7",
+        "qta": 15
+       },
+       {
+        "taglia": "9",
+        "qta": 37
+       },
+       {
+        "taglia": "10",
+        "qta": 26
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 2",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 562,
+   "costo_usd": 0.046896,
+   "secondi": 8.3
+  },
+  "td-esempio-bolle-6": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3691891869",
+    "data_documento": "08.04.26",
+    "warehouse": "England-M17 1QD-TDC",
+    "total_pieces_dichiarato": 9,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "F35543",
+      "descrizione": "ADILETTE AQUA",
+      "colore": "",
+      "totale_dichiarato": 9,
+      "size_qty_raw": "540/3 560/6",
+      "taglie": [
+       {
+        "taglia": "540",
+        "qta": 3
+       },
+       {
+        "taglia": "560",
+        "qta": 6
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 2; taglie scritte a mano: '4' sopra 540, '5' sopra 560",
+      "codice_manoscritto": "",
+      "correzioni": [
+       {
+        "taglia_stampata": "540",
+        "taglia_corretta": "4",
+        "qta_corretta": -1
+       },
+       {
+        "taglia_stampata": "560",
+        "taglia_corretta": "5",
+        "qta_corretta": -1
+       }
+      ],
+      "incertezze": "taglia seconda: 560 oppure 550, cifre coperte dal tratto di penna; il '5' scritto a mano sopra fa propendere per 560"
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 722,
+   "costo_usd": 0.050096,
+   "secondi": 10.6
+  },
+  "td-esempio-bolle-7": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "9034818592",
+    "data_documento": "29.04.26",
+    "warehouse": "D-91443 Scheinfeld 2",
+    "total_pieces_dichiarato": 291,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "JY7946",
+      "descrizione": "TIRO DU L BC",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "NS/5",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 5
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "codice: parzialmente coperto dallo scarabocchio a penna, letto JY7946"
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "JZ2505",
+      "descrizione": "ENT26 JSY",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 233,
+      "size_qty_raw": "XS/183 XL/50",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 183
+       },
+       {
+        "taglia": "XL",
+        "qta": 50
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "3",
+      "codice_articolo": "JZ6549",
+      "descrizione": "ENT26 TR PNT Y",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 2,
+      "size_qty_raw": "910A/1 1112/1",
+      "taglie": [
+       {
+        "taglia": "910A",
+        "qta": 1
+       },
+       {
+        "taglia": "1112",
+        "qta": 1
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "MAG 1 (barrato insieme alla riga)",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "codice: coperto dallo scarabocchio a penna, letto JZ6549"
+     },
+     {
+      "seq": "4",
+      "codice_articolo": "JZ6678",
+      "descrizione": "ENT26 TEE",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 27,
+      "size_qty_raw": "XS/2 S/7 M/10 L/8",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 2
+       },
+       {
+        "taglia": "S",
+        "qta": 7
+       },
+       {
+        "taglia": "M",
+        "qta": 10
+       },
+       {
+        "taglia": "L",
+        "qta": 8
+       }
+      ],
+      "barrata": true,
+      "annotazioni_manoscritte": "scritta a mano sul codice, illeggibile (forse 'TENCK')",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": "codice: ultime cifre coperte dalla scritta a mano, JZ6678 oppure JZ6978"
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 1362,
+   "costo_usd": 0.062896,
+   "secondi": 17.2
+  },
+  "td-esempio-bolle-8": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "8755509288",
+    "data_documento": "27.05.26",
+    "warehouse": "46100 adidas Campus South",
+    "total_pieces_dichiarato": 6,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "IT1457",
+      "descrizione": "ADIZERO E TANK",
+      "colore": "ROYBLU",
+      "totale_dichiarato": 6,
+      "size_qty_raw": "XS/6",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 6
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1; qta XS corretta a mano da 6 a 5",
+      "codice_manoscritto": "",
+      "correzioni": [
+       {
+        "taglia_stampata": "XS",
+        "taglia_corretta": "",
+        "qta_corretta": 5
+       }
+      ],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 421,
+   "costo_usd": 0.044076,
+   "secondi": 6.6
+  },
+  "td-esempio-bolle-9": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "9035032167",
+    "data_documento": "30.05.26",
+    "warehouse": "D-91443 Scheinfeld 2",
+    "total_pieces_dichiarato": 16,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "H44527",
+      "descrizione": "TABELA 23 JSY",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 4,
+      "size_qty_raw": "L/4",
+      "taglie": [
+       {
+        "taglia": "L",
+        "qta": 4
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1 (cerchiato); VERONELLI",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "",
+      "codice_articolo": "H44527",
+      "descrizione": "TABELA 23 JSY",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 10,
+      "size_qty_raw": "L/10",
+      "taglie": [
+       {
+        "taglia": "L",
+        "qta": 10
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1; VERONELLI (scritta sbiadita)",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "JN5459",
+      "descrizione": "SQUA25 SHO Y",
+      "colore": "BLACK/BLACK/WHITE",
+      "totale_dichiarato": 2,
+      "size_qty_raw": "1314/2",
+      "taglie": [
+       {
+        "taglia": "1314",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "MAG 1 (cerchiato); BRENTASPORT",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 779,
+   "costo_usd": 0.051236,
+   "secondi": 10.6
+  },
+  "td-pulita1": {
+   "output": {
+    "tipo_documento": "CONSOLIDATED ORDER NUMBER",
+    "numero_documento": "26BN262785",
+    "data_documento": "11.09.26",
+    "warehouse": "Spain-50700 CAS",
+    "total_pieces_dichiarato": 101,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "7-664",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "KB8172",
+      "descrizione": "W ENERGIZE TS",
+      "colore": "CRLI",
+      "totale_dichiarato": 16,
+      "size_qty_raw": "XS/3 S/5 M/5 L/3",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 3
+       },
+       {
+        "taglia": "S",
+        "qta": 5
+       },
+       {
+        "taglia": "M",
+        "qta": 5
+       },
+       {
+        "taglia": "L",
+        "qta": 3
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "KI1676",
+      "descrizione": "GALAXY 8 J",
+      "colore": "NTGREY/TEGRME/SCRGRN",
+      "totale_dichiarato": 11,
+      "size_qty_raw": "530/1 540/2 550/1 560/2 570/1 580/2 590/1 520/1",
+      "taglie": [
+       {
+        "taglia": "530",
+        "qta": 1
+       },
+       {
+        "taglia": "540",
+        "qta": 2
+       },
+       {
+        "taglia": "550",
+        "qta": 1
+       },
+       {
+        "taglia": "560",
+        "qta": 2
+       },
+       {
+        "taglia": "570",
+        "qta": 1
+       },
+       {
+        "taglia": "580",
+        "qta": 2
+       },
+       {
+        "taglia": "590",
+        "qta": 1
+       },
+       {
+        "taglia": "520",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "3",
+      "codice_articolo": "KI1690",
+      "descrizione": "GALAXY 8 EL C",
+      "colore": "NTGREY/TEGRME/SCRGRN",
+      "totale_dichiarato": 8,
+      "size_qty_raw": "3XLT/1 ST2/1 LT2/1 2XT2/1 XS/L/1 M/L/1 XL/L/1 510/1",
+      "taglie": [
+       {
+        "taglia": "3XLT",
+        "qta": 1
+       },
+       {
+        "taglia": "ST2",
+        "qta": 1
+       },
+       {
+        "taglia": "LT2",
+        "qta": 1
+       },
+       {
+        "taglia": "2XT2",
+        "qta": 1
+       },
+       {
+        "taglia": "XS/L",
+        "qta": 1
+       },
+       {
+        "taglia": "M/L",
+        "qta": 1
+       },
+       {
+        "taglia": "XL/L",
+        "qta": 1
+       },
+       {
+        "taglia": "510",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "4",
+      "codice_articolo": "KI1690",
+      "descrizione": "GALAXY 8 EL C",
+      "colore": "NTGREY/TEGRME/SCRGRN",
+      "totale_dichiarato": 8,
+      "size_qty_raw": "3XLT/1 ST2/1 LT2/1 2XT2/1 XS/L/1 M/L/1 XL/L/1 510/1",
+      "taglie": [
+       {
+        "taglia": "3XLT",
+        "qta": 1
+       },
+       {
+        "taglia": "ST2",
+        "qta": 1
+       },
+       {
+        "taglia": "LT2",
+        "qta": 1
+       },
+       {
+        "taglia": "2XT2",
+        "qta": 1
+       },
+       {
+        "taglia": "XS/L",
+        "qta": 1
+       },
+       {
+        "taglia": "M/L",
+        "qta": 1
+       },
+       {
+        "taglia": "XL/L",
+        "qta": 1
+       },
+       {
+        "taglia": "510",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 1531,
+   "costo_usd": 0.066276,
+   "secondi": 18.0
+  },
+  "td-pulita2_1": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3000342857",
+    "data_documento": "22.09.26",
+    "warehouse": "46100 adidas Campus South",
+    "total_pieces_dichiarato": 0,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": false,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "1",
+      "codice_articolo": "HS9760",
+      "descrizione": "TIRO L GLOVES",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 10,
+      "size_qty_raw": "S/3 M/4 L/3",
+      "taglie": [
+       {
+        "taglia": "S",
+        "qta": 3
+       },
+       {
+        "taglia": "M",
+        "qta": 4
+       },
+       {
+        "taglia": "L",
+        "qta": 3
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "2",
+      "codice_articolo": "JZ9136",
+      "descrizione": "ENT26 SW PNTY",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "5-6A/1 7-8A/1 910A/1 1112/1 1314/1",
+      "taglie": [
+       {
+        "taglia": "5-6A",
+        "qta": 1
+       },
+       {
+        "taglia": "7-8A",
+        "qta": 1
+       },
+       {
+        "taglia": "910A",
+        "qta": 1
+       },
+       {
+        "taglia": "1112",
+        "qta": 1
+       },
+       {
+        "taglia": "1314",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "3",
+      "codice_articolo": "JZ2508",
+      "descrizione": "ENT26 JSY",
+      "colore": "WHITE/BLACK",
+      "totale_dichiarato": 40,
+      "size_qty_raw": "XS/5 XL/5 L/10 M/10 S/10",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 5
+       },
+       {
+        "taglia": "XL",
+        "qta": 5
+       },
+       {
+        "taglia": "L",
+        "qta": 10
+       },
+       {
+        "taglia": "M",
+        "qta": 10
+       },
+       {
+        "taglia": "S",
+        "qta": 10
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "4",
+      "codice_articolo": "JZ2513",
+      "descrizione": "ENT26 SHO",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 200,
+      "size_qty_raw": "L/50 XL/20 M/50 S/50 XS/30",
+      "taglie": [
+       {
+        "taglia": "L",
+        "qta": 50
+       },
+       {
+        "taglia": "XL",
+        "qta": 20
+       },
+       {
+        "taglia": "M",
+        "qta": 50
+       },
+       {
+        "taglia": "S",
+        "qta": 50
+       },
+       {
+        "taglia": "XS",
+        "qta": 30
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "5",
+      "codice_articolo": "JZ2521",
+      "descrizione": "ENT26 SHO",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 40,
+      "size_qty_raw": "XS/5 S/10 M/10 L/10 XL/5",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 5
+       },
+       {
+        "taglia": "S",
+        "qta": 10
+       },
+       {
+        "taglia": "M",
+        "qta": 10
+       },
+       {
+        "taglia": "L",
+        "qta": 10
+       },
+       {
+        "taglia": "XL",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "6",
+      "codice_articolo": "JZ2524",
+      "descrizione": "ENT26 JSY Y",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 16,
+      "size_qty_raw": "1314/6 1112/6 910A/4",
+      "taglie": [
+       {
+        "taglia": "1314",
+        "qta": 6
+       },
+       {
+        "taglia": "1112",
+        "qta": 6
+       },
+       {
+        "taglia": "910A",
+        "qta": 4
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "7",
+      "codice_articolo": "JZ6549",
+      "descrizione": "ENT26 TR PNT Y",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 16,
+      "size_qty_raw": "910A/4 1314/6 1112/6",
+      "taglie": [
+       {
+        "taglia": "910A",
+        "qta": 4
+       },
+       {
+        "taglia": "1314",
+        "qta": 6
+       },
+       {
+        "taglia": "1112",
+        "qta": 6
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "8",
+      "codice_articolo": "JZ6550",
+      "descrizione": "ENT26 TR PNT Y",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 16,
+      "size_qty_raw": "1314/6 1112/6 910A/4",
+      "taglie": [
+       {
+        "taglia": "1314",
+        "qta": 6
+       },
+       {
+        "taglia": "1112",
+        "qta": 6
+       },
+       {
+        "taglia": "910A",
+        "qta": 4
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "9",
+      "codice_articolo": "JZ6557",
+      "descrizione": "ENT26 TR SHO",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 115,
+      "size_qty_raw": "XS/13 XL/12 S/30 L/30 M/30",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 13
+       },
+       {
+        "taglia": "XL",
+        "qta": 12
+       },
+       {
+        "taglia": "S",
+        "qta": 30
+       },
+       {
+        "taglia": "L",
+        "qta": 30
+       },
+       {
+        "taglia": "M",
+        "qta": 30
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "10",
+      "codice_articolo": "JZ6577",
+      "descrizione": "ENT26 HOODY",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 40,
+      "size_qty_raw": "XL/5 L/10 M/10 S/10 XS/5",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 5
+       },
+       {
+        "taglia": "L",
+        "qta": 10
+       },
+       {
+        "taglia": "M",
+        "qta": 10
+       },
+       {
+        "taglia": "S",
+        "qta": 10
+       },
+       {
+        "taglia": "XS",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "11",
+      "codice_articolo": "JZ6579",
+      "descrizione": "ENT26 HOODY",
+      "colore": "WHITE/BLACK",
+      "totale_dichiarato": 40,
+      "size_qty_raw": "XL/5 XS/5 S/10 M/10 L/10",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 5
+       },
+       {
+        "taglia": "XS",
+        "qta": 5
+       },
+       {
+        "taglia": "S",
+        "qta": 10
+       },
+       {
+        "taglia": "M",
+        "qta": 10
+       },
+       {
+        "taglia": "L",
+        "qta": 10
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 2442,
+   "costo_usd": 0.084496,
+   "secondi": 27.3
+  },
+  "td-pulita2_2": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3000342857",
+    "data_documento": "",
+    "warehouse": "",
+    "total_pieces_dichiarato": 0,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": true,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "12",
+      "codice_articolo": "JZ9138",
+      "descrizione": "ENT26 SW PNT",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 26,
+      "size_qty_raw": "S/3 M/7 L/7 XL/5 2XL/4",
+      "taglie": [
+       {
+        "taglia": "S",
+        "qta": 3
+       },
+       {
+        "taglia": "M",
+        "qta": 7
+       },
+       {
+        "taglia": "L",
+        "qta": 7
+       },
+       {
+        "taglia": "XL",
+        "qta": 5
+       },
+       {
+        "taglia": "2XL",
+        "qta": 4
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "13",
+      "codice_articolo": "JZ6586",
+      "descrizione": "ENT26 TK JKT",
+      "colore": "TEPORE/WHITE",
+      "totale_dichiarato": 38,
+      "size_qty_raw": "XL/3 L/10 M/10 S/10 XS/5",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 3
+       },
+       {
+        "taglia": "L",
+        "qta": 10
+       },
+       {
+        "taglia": "M",
+        "qta": 10
+       },
+       {
+        "taglia": "S",
+        "qta": 10
+       },
+       {
+        "taglia": "XS",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "14",
+      "codice_articolo": "JZ6593",
+      "descrizione": "ENT26 TK JKT",
+      "colore": "ROYBLU/WHITE",
+      "totale_dichiarato": 121,
+      "size_qty_raw": "XL/8 L/35 M/35 S/35 XS/8",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 8
+       },
+       {
+        "taglia": "L",
+        "qta": 35
+       },
+       {
+        "taglia": "M",
+        "qta": 35
+       },
+       {
+        "taglia": "S",
+        "qta": 35
+       },
+       {
+        "taglia": "XS",
+        "qta": 8
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "15",
+      "codice_articolo": "JZ6607",
+      "descrizione": "ENT26 TK JKTY",
+      "colore": "ROYBLU/WHITE",
+      "totale_dichiarato": 16,
+      "size_qty_raw": "910A/4 1314/6 1112/6",
+      "taglie": [
+       {
+        "taglia": "910A",
+        "qta": 4
+       },
+       {
+        "taglia": "1314",
+        "qta": 6
+       },
+       {
+        "taglia": "1112",
+        "qta": 6
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "16",
+      "codice_articolo": "JZ6608",
+      "descrizione": "ENT26 TK JKTY",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 16,
+      "size_qty_raw": "1112/6 1314/6 910A/4",
+      "taglie": [
+       {
+        "taglia": "1112",
+        "qta": 6
+       },
+       {
+        "taglia": "1314",
+        "qta": 6
+       },
+       {
+        "taglia": "910A",
+        "qta": 4
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "17",
+      "codice_articolo": "JZ6611",
+      "descrizione": "ENT26 TK JKTY",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 16,
+      "size_qty_raw": "910A/4 1112/6 1314/6",
+      "taglie": [
+       {
+        "taglia": "910A",
+        "qta": 4
+       },
+       {
+        "taglia": "1112",
+        "qta": 6
+       },
+       {
+        "taglia": "1314",
+        "qta": 6
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "18",
+      "codice_articolo": "JZ6673",
+      "descrizione": "ENT26 TEE Y",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 16,
+      "size_qty_raw": "910A/4 1112/6 1314/6",
+      "taglie": [
+       {
+        "taglia": "910A",
+        "qta": 4
+       },
+       {
+        "taglia": "1112",
+        "qta": 6
+       },
+       {
+        "taglia": "1314",
+        "qta": 6
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "19",
+      "codice_articolo": "JZ6675",
+      "descrizione": "ENT26 TEE",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 225,
+      "size_qty_raw": "XL/20 L/60 M/60 S/60 XS/25",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 20
+       },
+       {
+        "taglia": "L",
+        "qta": 60
+       },
+       {
+        "taglia": "M",
+        "qta": 60
+       },
+       {
+        "taglia": "S",
+        "qta": 60
+       },
+       {
+        "taglia": "XS",
+        "qta": 25
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "20",
+      "codice_articolo": "JZ9139",
+      "descrizione": "ENT26 SW PNT",
+      "colore": "TMLGGR/WHITE",
+      "totale_dichiarato": 7,
+      "size_qty_raw": "S/1 M/2 L/2 XL/1 2XL/1",
+      "taglie": [
+       {
+        "taglia": "S",
+        "qta": 1
+       },
+       {
+        "taglia": "M",
+        "qta": 2
+       },
+       {
+        "taglia": "L",
+        "qta": 2
+       },
+       {
+        "taglia": "XL",
+        "qta": 1
+       },
+       {
+        "taglia": "2XL",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "21",
+      "codice_articolo": "JZ6676",
+      "descrizione": "ENT26 TEE",
+      "colore": "TEPORE/WHITE",
+      "totale_dichiarato": 90,
+      "size_qty_raw": "XS/10 XL/10 L/20 M/25 S/25",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 10
+       },
+       {
+        "taglia": "XL",
+        "qta": 10
+       },
+       {
+        "taglia": "L",
+        "qta": 20
+       },
+       {
+        "taglia": "M",
+        "qta": 25
+       },
+       {
+        "taglia": "S",
+        "qta": 25
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "22",
+      "codice_articolo": "JZ6678",
+      "descrizione": "ENT26 TEE",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 240,
+      "size_qty_raw": "XL/30 L/60 M/60 S/60 XS/30",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 30
+       },
+       {
+        "taglia": "L",
+        "qta": 60
+       },
+       {
+        "taglia": "M",
+        "qta": 60
+       },
+       {
+        "taglia": "S",
+        "qta": 60
+       },
+       {
+        "taglia": "XS",
+        "qta": 30
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "23",
+      "codice_articolo": "JZ9138",
+      "descrizione": "ENT26 SW PNT",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 76,
+      "size_qty_raw": "M/20 L/20 XL/8 S/20 XS/8",
+      "taglie": [
+       {
+        "taglia": "M",
+        "qta": 20
+       },
+       {
+        "taglia": "L",
+        "qta": 20
+       },
+       {
+        "taglia": "XL",
+        "qta": 8
+       },
+       {
+        "taglia": "S",
+        "qta": 20
+       },
+       {
+        "taglia": "XS",
+        "qta": 8
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "24",
+      "codice_articolo": "KA5262",
+      "descrizione": "TIRO LGE",
+      "colore": "WHITE/CONAVY/BRBLUE/",
+      "totale_dichiarato": 20,
+      "size_qty_raw": "5/20",
+      "taglie": [
+       {
+        "taglia": "5",
+        "qta": 20
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "25",
+      "codice_articolo": "KB0786",
+      "descrizione": "TIRO DUFFLE M",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 15,
+      "size_qty_raw": "NS/15",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 15
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "26",
+      "codice_articolo": "KD0985",
+      "descrizione": "ENT26 TR SHO",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 115,
+      "size_qty_raw": "XS/13 XL/12 S/30 L/30 M/30",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 13
+       },
+       {
+        "taglia": "XL",
+        "qta": 12
+       },
+       {
+        "taglia": "S",
+        "qta": 30
+       },
+       {
+        "taglia": "L",
+        "qta": 30
+       },
+       {
+        "taglia": "M",
+        "qta": 30
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 3464,
+   "costo_usd": 0.104936,
+   "secondi": 37.5
+  },
+  "td-pulita2_3": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3000342857",
+    "data_documento": "",
+    "warehouse": "",
+    "total_pieces_dichiarato": 0,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": true,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "27",
+      "codice_articolo": "KD4242",
+      "descrizione": "TIRO DUFFLE L",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 40,
+      "size_qty_raw": "NS/40",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 40
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "28",
+      "codice_articolo": "KQ9071",
+      "descrizione": "ENT26 MULTI JKT",
+      "colore": "TENABL",
+      "totale_dichiarato": 56,
+      "size_qty_raw": "XL/4 L/15 M/15 S/15 XS/7",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 4
+       },
+       {
+        "taglia": "L",
+        "qta": 15
+       },
+       {
+        "taglia": "M",
+        "qta": 15
+       },
+       {
+        "taglia": "S",
+        "qta": 15
+       },
+       {
+        "taglia": "XS",
+        "qta": 7
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "29",
+      "codice_articolo": "JZ9141",
+      "descrizione": "ENT26 LJKT",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 3,
+      "size_qty_raw": "M/1 L/1 XL/1",
+      "taglie": [
+       {
+        "taglia": "M",
+        "qta": 1
+       },
+       {
+        "taglia": "L",
+        "qta": 1
+       },
+       {
+        "taglia": "XL",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "30",
+      "codice_articolo": "KV5397",
+      "descrizione": "ENT26 MULTI JKT",
+      "colore": "ROYBLU/WHITE",
+      "totale_dichiarato": 56,
+      "size_qty_raw": "XS/7 XL/4 S/15 L/15 M/15",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 7
+       },
+       {
+        "taglia": "XL",
+        "qta": 4
+       },
+       {
+        "taglia": "S",
+        "qta": 15
+       },
+       {
+        "taglia": "L",
+        "qta": 15
+       },
+       {
+        "taglia": "M",
+        "qta": 15
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "31",
+      "codice_articolo": "KD4245",
+      "descrizione": "TIRO GYMSACK",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 4,
+      "size_qty_raw": "NS/4",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 4
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "32",
+      "codice_articolo": "KD4245",
+      "descrizione": "TIRO GYMSACK",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "NS/5",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "33",
+      "codice_articolo": "KA5261",
+      "descrizione": "TIRO LGE",
+      "colore": "ROYBLU/BLACK/WHITE",
+      "totale_dichiarato": 2,
+      "size_qty_raw": "5/2",
+      "taglie": [
+       {
+        "taglia": "5",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "34",
+      "codice_articolo": "KA5263",
+      "descrizione": "TIRO LGE",
+      "colore": "WHITE/BLACK/LUCRED",
+      "totale_dichiarato": 2,
+      "size_qty_raw": "5/2",
+      "taglie": [
+       {
+        "taglia": "5",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "35",
+      "codice_articolo": "KB0786",
+      "descrizione": "TIRO DUFFLE M",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 2,
+      "size_qty_raw": "NS/2",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "36",
+      "codice_articolo": "KD4245",
+      "descrizione": "TIRO GYMSACK",
+      "colore": "TENABL/WHITE",
+      "totale_dichiarato": 3,
+      "size_qty_raw": "NS/3",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 3
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "37",
+      "codice_articolo": "KF5945",
+      "descrizione": "ENT26 FZ HOOD",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 24,
+      "size_qty_raw": "XS/1 S/4 M/6 L/6 XL/4 2XL/3",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 1
+       },
+       {
+        "taglia": "S",
+        "qta": 4
+       },
+       {
+        "taglia": "M",
+        "qta": 6
+       },
+       {
+        "taglia": "L",
+        "qta": 6
+       },
+       {
+        "taglia": "XL",
+        "qta": 4
+       },
+       {
+        "taglia": "2XL",
+        "qta": 3
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "38",
+      "codice_articolo": "KF5947",
+      "descrizione": "ENT26 FZ HOOD",
+      "colore": "TMLGGR/WHITE",
+      "totale_dichiarato": 9,
+      "size_qty_raw": "S/2 M/3 L/2 XL/2",
+      "taglie": [
+       {
+        "taglia": "S",
+        "qta": 2
+       },
+       {
+        "taglia": "M",
+        "qta": 3
+       },
+       {
+        "taglia": "L",
+        "qta": 2
+       },
+       {
+        "taglia": "XL",
+        "qta": 2
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "39",
+      "codice_articolo": "JY7971",
+      "descrizione": "TIRO BACKPACK",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "NS/5",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "40",
+      "codice_articolo": "KH1782",
+      "descrizione": "ENT26 FZ HOOD Y",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 5,
+      "size_qty_raw": "5-6A/1 7-8A/1 910A/1 1112/1 1314/1",
+      "taglie": [
+       {
+        "taglia": "5-6A",
+        "qta": 1
+       },
+       {
+        "taglia": "7-8A",
+        "qta": 1
+       },
+       {
+        "taglia": "910A",
+        "qta": 1
+       },
+       {
+        "taglia": "1112",
+        "qta": 1
+       },
+       {
+        "taglia": "1314",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "41",
+      "codice_articolo": "JZ4109",
+      "descrizione": "TIRO26 WIN JKT",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 3,
+      "size_qty_raw": "M/1 L/1 XL/1",
+      "taglie": [
+       {
+        "taglia": "M",
+        "qta": 1
+       },
+       {
+        "taglia": "L",
+        "qta": 1
+       },
+       {
+        "taglia": "XL",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "piccolo segno a penna accanto al totale 3",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "42",
+      "codice_articolo": "JY7992",
+      "descrizione": "TIRO GYMSACK",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 3,
+      "size_qty_raw": "NS/3",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 3
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "43",
+      "codice_articolo": "HS9765",
+      "descrizione": "TIRO L WOOLIE",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 10,
+      "size_qty_raw": "OSFM/10",
+      "taglie": [
+       {
+        "taglia": "OSFM",
+        "qta": 10
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 3116,
+   "costo_usd": 0.097976,
+   "secondi": 34.3
+  },
+  "td-pulita2_4": {
+   "output": {
+    "tipo_documento": "DELIVERY NOTE",
+    "numero_documento": "3000342857",
+    "data_documento": "",
+    "warehouse": "",
+    "total_pieces_dichiarato": 2643,
+    "rotazione_gradi": 0,
+    "continua_da_pagina_precedente": true,
+    "magazzino_pagina": "",
+    "note_pagina": "",
+    "righe": [
+     {
+      "seq": "44",
+      "codice_articolo": "JG5832",
+      "descrizione": "SQUA25 JSY M",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 350,
+      "size_qty_raw": "XL/20 L/80 M/100 S/100 XS/50",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 20
+       },
+       {
+        "taglia": "L",
+        "qta": 80
+       },
+       {
+        "taglia": "M",
+        "qta": 100
+       },
+       {
+        "taglia": "S",
+        "qta": 100
+       },
+       {
+        "taglia": "XS",
+        "qta": 50
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "45",
+      "codice_articolo": "JH3406",
+      "descrizione": "SQUA25 SHO M",
+      "colore": "WHITE/WHITE/BLACK",
+      "totale_dichiarato": 40,
+      "size_qty_raw": "XL/5 L/10 M/10 S/10 XS/5",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 5
+       },
+       {
+        "taglia": "L",
+        "qta": 10
+       },
+       {
+        "taglia": "M",
+        "qta": 10
+       },
+       {
+        "taglia": "S",
+        "qta": 10
+       },
+       {
+        "taglia": "XS",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "46",
+      "codice_articolo": "JZ6581",
+      "descrizione": "ENT26 HOODY",
+      "colore": "TEAGRN/WHITE",
+      "totale_dichiarato": 6,
+      "size_qty_raw": "S/1 M/2 L/2 XL/1",
+      "taglie": [
+       {
+        "taglia": "S",
+        "qta": 1
+       },
+       {
+        "taglia": "M",
+        "qta": 2
+       },
+       {
+        "taglia": "L",
+        "qta": 2
+       },
+       {
+        "taglia": "XL",
+        "qta": 1
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "47",
+      "codice_articolo": "JN5465",
+      "descrizione": "SQUA25 SHO M",
+      "colore": "ROYBLU/ROYBLU/WHITE",
+      "totale_dichiarato": 40,
+      "size_qty_raw": "XL/5 L/10 M/10 S/10 XS/5",
+      "taglie": [
+       {
+        "taglia": "XL",
+        "qta": 5
+       },
+       {
+        "taglia": "L",
+        "qta": 10
+       },
+       {
+        "taglia": "M",
+        "qta": 10
+       },
+       {
+        "taglia": "S",
+        "qta": 10
+       },
+       {
+        "taglia": "XS",
+        "qta": 5
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "48",
+      "codice_articolo": "JW1526",
+      "descrizione": "TIRO LGE SAL",
+      "colore": "WHITE/BLACK/FLAAQU/A",
+      "totale_dichiarato": 20,
+      "size_qty_raw": "FUTS/20",
+      "taglie": [
+       {
+        "taglia": "FUTS",
+        "qta": 20
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "49",
+      "codice_articolo": "JW1530",
+      "descrizione": "TIRO CLB",
+      "colore": "WHITE/BLACK",
+      "totale_dichiarato": 20,
+      "size_qty_raw": "5/20",
+      "taglie": [
+       {
+        "taglia": "5",
+        "qta": 20
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "50",
+      "codice_articolo": "JW1531",
+      "descrizione": "TIRO CLB",
+      "colore": "WHITE/LUCRED",
+      "totale_dichiarato": 20,
+      "size_qty_raw": "5/20",
+      "taglie": [
+       {
+        "taglia": "5",
+        "qta": 20
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "51",
+      "codice_articolo": "JY7937",
+      "descrizione": "TIRO DUFFLE L",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 40,
+      "size_qty_raw": "NS/40",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 40
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "52",
+      "codice_articolo": "JY7971",
+      "descrizione": "TIRO BACKPACK",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 60,
+      "size_qty_raw": "NS/60",
+      "taglie": [
+       {
+        "taglia": "NS",
+        "qta": 60
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "53",
+      "codice_articolo": "JZ2505",
+      "descrizione": "ENT26 JSY",
+      "colore": "BLACK/WHITE",
+      "totale_dichiarato": 120,
+      "size_qty_raw": "XS/15 S/30 M/30 L/30 XL/15",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 15
+       },
+       {
+        "taglia": "S",
+        "qta": 30
+       },
+       {
+        "taglia": "M",
+        "qta": 30
+       },
+       {
+        "taglia": "L",
+        "qta": 30
+       },
+       {
+        "taglia": "XL",
+        "qta": 15
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     },
+     {
+      "seq": "54",
+      "codice_articolo": "JZ2506",
+      "descrizione": "ENT26 JSY",
+      "colore": "ROYBLU/WHITE",
+      "totale_dichiarato": 120,
+      "size_qty_raw": "XS/15 S/30 M/30 XL/15 L/30",
+      "taglie": [
+       {
+        "taglia": "XS",
+        "qta": 15
+       },
+       {
+        "taglia": "S",
+        "qta": 30
+       },
+       {
+        "taglia": "M",
+        "qta": 30
+       },
+       {
+        "taglia": "XL",
+        "qta": 15
+       },
+       {
+        "taglia": "L",
+        "qta": 30
+       }
+      ],
+      "barrata": false,
+      "annotazioni_manoscritte": "",
+      "codice_manoscritto": "",
+      "correzioni": [],
+      "incertezze": ""
+     }
+    ]
+   },
+   "token_in": 8914,
+   "token_out": 2392,
+   "costo_usd": 0.083496,
+   "secondi": 27.0
+  }
+ }
+}

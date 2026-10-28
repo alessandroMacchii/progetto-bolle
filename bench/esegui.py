@@ -4,6 +4,7 @@
     python bench/esegui.py --modello gemini-flash --casi reale        # solo una famiglia
     python bench/esegui.py --modello locale-qwen3.5-0.8b --limite 5
     python bench/esegui.py --importa cartella/ --modello nome         # JSON gia' pronti
+    python bench/esegui.py --modello consenso                         # come BOLLE_EXTRACTOR=consenso
 
 I modelli stanno in `bench/modelli.json`. Chiavi necessarie (in `.env`):
 
@@ -31,8 +32,12 @@ from pathlib import Path
 RADICE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RADICE))
 
-from bolle.extract import ISTRUZIONI, schema_stretto as _schema_stretto  # noqa: E402  (carica anche .env)
+from bolle.config import CONSENSO_ARBITRO, CONSENSO_MODELLI  # noqa: E402
+from bolle.extract import ISTRUZIONI, _firma, schema_stretto as _schema_stretto  # noqa: E402  (carica anche .env)
 from bolle.schema import PaginaEstratta  # noqa: E402
+
+sys.path.insert(0, str(RADICE / "bench"))
+from punteggio import carica_casi  # noqa: E402
 
 BENCH = RADICE / "bench"
 RISULTATI = BENCH / "risultati"
@@ -140,7 +145,46 @@ def chiama_ollama(conf: dict, jpg: Path):
     return dati, r.get("prompt_eval_count", 0), r.get("eval_count", 0), 0.0
 
 
-FORNITORI = {"anthropic": chiama_anthropic, "openrouter": chiama_openrouter, "ollama": chiama_ollama}
+def chiama_consenso(conf: dict, jpg: Path):
+    """La logica di `EstrattoreConsenso` dell'app, con costi e strada presa.
+
+    I modelli sono quelli di `bolle/config.py` (BOLLE_CONSENSO_MODELLI e
+    BOLLE_CONSENSO_ARBITRO): si misura la configurazione che usa l'app. Il
+    costo e' la somma di tutte le chiamate fatte per la pagina.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    def leggi(modello: str):
+        try:
+            return chiama_openrouter({"id": modello}, jpg)
+        except Exception as exc:
+            return exc
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        letture = list(pool.map(leggi, CONSENSO_MODELLI))
+    riuscite = [x for x in letture if not isinstance(x, Exception)]
+    t_in = sum(x[1] for x in riuscite)
+    t_out = sum(x[2] for x in riuscite)
+    costo = sum(x[3] or 0 for x in riuscite)
+    nomi = [m.split("/")[-1] for m in CONSENSO_MODELLI]
+
+    if len(riuscite) < 2:
+        motivo = "una lettura e' fallita"
+    else:
+        try:
+            firme = [_firma(PaginaEstratta.model_validate(x[0])) for x in riuscite]
+        except Exception:  # fuori schema: come una lettura fallita
+            firme = [None, ()]
+        if firme[0] == firme[1]:
+            return riuscite[0][0], t_in, t_out, costo, f"{nomi[0]} + {nomi[1]} concordi"
+        motivo = "letture discordi"
+
+    dati, a_in, a_out, a_costo = chiama_openrouter({"id": CONSENSO_ARBITRO}, jpg)
+    return dati, t_in + a_in, t_out + a_out, costo + (a_costo or 0),         f"{CONSENSO_ARBITRO.split('/')[-1]} ({motivo})"
+
+
+FORNITORI = {"anthropic": chiama_anthropic, "openrouter": chiama_openrouter, "ollama": chiama_ollama,
+             "consenso": chiama_consenso}
 
 
 def _carica_modelli() -> dict:
@@ -217,8 +261,7 @@ def main() -> int:
     elif args.prompt in ("v2", "v3"):
         ISTRUZIONI = (BENCH / f"prompt_{args.prompt}.txt").read_text(encoding="utf-8")
 
-    casi = json.loads((BENCH / "casi" / "casi.json").read_text(encoding="utf-8"))
-    casi = [c for c in casi if args.casi in c["id"]]
+    casi = [c for c in carica_casi() if args.casi in c["id"]]
     if args.limite:
         casi = casi[: args.limite]
 
@@ -236,11 +279,13 @@ def main() -> int:
         inizio = time.time()
         voce: dict = {"output": None}
         try:
-            dati, t_in, t_out, costo = chiama(conf, BENCH / "casi" / caso["immagine"])
+            dati, t_in, t_out, costo, *motore = chiama(conf, BENCH / "casi" / caso["immagine"])
             PaginaEstratta.model_validate(dati)
             if costo is None and conf.get("prezzo"):
                 costo = (t_in * conf["prezzo"][0] + t_out * conf["prezzo"][1]) / 1e6
             voce = {"output": dati, "token_in": t_in, "token_out": t_out, "costo_usd": costo}
+            if motore:  # consenso: quale strada ha preso la pagina
+                voce["motore"] = motore[0]
         except SystemExit:
             raise
         except Exception as exc:
@@ -249,7 +294,8 @@ def main() -> int:
         stato["casi"][caso["id"]] = voce
         _salva(percorso, stato)
         esito = "ok " if voce["output"] is not None else "ERR"
-        print(f"{esito} {caso['id']:32} {voce['secondi']:6.1f}s  {voce.get('errore', '')}", flush=True)
+        print(f"{esito} {caso['id']:32} {voce['secondi']:6.1f}s  {voce.get('motore', '')}{voce.get('errore', '')}",
+              flush=True)
     return 0
 
 

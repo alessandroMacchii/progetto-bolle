@@ -13,7 +13,7 @@ from pathlib import Path
 BENCH = Path(__file__).resolve().parent
 sys.path.insert(0, str(BENCH))
 
-from punteggio import valuta  # noqa: E402
+from punteggio import carica_casi, righe_attese, valuta  # noqa: E402
 
 SOMMABILI = [
     "righe", "codice", "taglie", "perfette", "silenziosi", "mag_att", "mag_ok", "mag_inventati",
@@ -69,12 +69,18 @@ def main() -> int:
     ap.add_argument("--uscita", default="REPORT.md")
     args = ap.parse_args()
 
-    casi = json.loads((BENCH / "casi" / "casi.json").read_text(encoding="utf-8"))
+    casi = carica_casi()
     per_id = {c["id"]: c for c in casi}
     fuori = ["# Confronto modelli sul banco di prova", ""]
     fuori.append(
-        f"{len(casi)} casi, {sum(len(c['atteso']['righe']) for c in casi)} righe di bolla. "
-        "Generato da `python bench/report.py`."
+        f"{len(casi)} casi: "
+        + " e ".join(x for x in (
+            f"{sum(righe_attese(c) for c in casi if 'atteso' in c)} righe di bolla"
+            if any("atteso" in c for c in casi) else "",
+            f"{sum(righe_attese(c) for c in casi if 'atteso_carico' in c)} taglie di carico"
+            if any("atteso_carico" in c for c in casi) else "",
+        ) if x)
+        + ". Generato da `python bench/report.py`."
     )
 
     modelli = {}
@@ -105,16 +111,26 @@ def main() -> int:
             f"{sum(tempi) / len(tempi):.0f}" if tempi else "n.d.",
         )
 
-    fuori += ["", "## Complessivo", "", TESTATA.format("modello")]
+    # i casi di test_data contano le taglie, non le righe di bolla: sommarli
+    # ai casi di genera.py mescolerebbe due unita' di misura
+    di_bolla = [c["id"] for c in casi if "atteso" in c] or [c["id"] for c in casi]
+    misti = len(di_bolla) < len(casi)
+    fuori += ["", "## Complessivo" + (" (senza test_data)" if misti else ""), "", TESTATA.format("modello")]
     for nome, (dati, esiti) in modelli.items():
-        completo = "" if len(esiti) == len(casi) else f" ({len(esiti)} casi su {len(casi)})"
-        fuori.append(riga_tabella(nome + completo, somma(list(esiti.values())), *costo_tempo(dati, esiti)))
+        ids = [i for i in esiti if i in di_bolla]
+        if not ids:
+            continue
+        completo = "" if len(ids) == len(di_bolla) else f" ({len(ids)} casi su {len(di_bolla)})"
+        fuori.append(riga_tabella(nome + completo, somma([esiti[i] for i in ids]), *costo_tempo(dati, ids)))
 
     for famiglia, titolo in [
         ("reale", "Calligrafia vera (14 pagine di esempio)"),
         ("pulita", "Bolle bianche (altrebolle/)"),
         ("sintetica", "Varianti con annotazioni disegnate"),
+        ("test_data", "Ground truth di test_data (confronto sul carico: una riga per taglia)"),
     ]:
+        if not misti or not any(c["famiglia"] == famiglia for c in casi):
+            continue  # con una famiglia sola la tabella ripeterebbe il complessivo
         fuori += ["", f"## {titolo}", "", TESTATA.format("modello")]
         for nome, (dati, esiti) in modelli.items():
             ids = [i for i in esiti if per_id[i]["famiglia"] == famiglia]
@@ -140,6 +156,10 @@ def main() -> int:
     for nome, (dati, _) in modelli.items():
         if dati.get("nota"):
             fuori.append(f"\n- **{nome}**: {dati['nota']}")
+        motori = [v["motore"] for v in dati["casi"].values() if v.get("motore")]
+        if motori:  # consenso: quante pagine ha dovuto rileggere l'arbitro
+            arbitrate = [m for m in motori if not m.endswith("concordi")]
+            fuori.append(f"  Pagine passate all'arbitro: {len(arbitrate)} su {len(motori)}.")
 
     if args.errori:
         fuori += ["", "## Errori"]
