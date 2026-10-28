@@ -53,6 +53,9 @@ lettura in background) → `static/index.html` (interfaccia) → `excel.py` (fog
   strutturate).
 - Se cambia cio' che finisce nel carico, aggiornare anche `_firma` in
   `extract.py`: e' cio' su cui i due modelli del `consenso` devono concordare.
+- **Taglie: le traduce solo `config/varianti.csv`.** Il codice fa soltanto
+  `sizes.uniforma_taglia` (maiuscolo, anni nella forma `5-6A`: 910A -> 9-10A),
+  applicata anche al ground truth del banco; nel CSV va solo quella forma.
 
 ## Banco di prova (`bench/`)
 
@@ -86,7 +89,9 @@ lettura in background) → `static/index.html` (interfaccia) → `excel.py` (fog
   560... sembrano mezze taglie (540=4, 550=4-, 560=5, 580=6, 620=8, 640=9) ma va
   confermato con l'azienda.
 - Pagina 14 degli esempi: taglie `S/M/L` (gold) o `46/50/54` (test_data)?
-  Va deciso quale colonna della Size Table leggere.
+  Nel CSV ci sono entrambe le scritture (46=S, 50=M, 54=L), ma va ancora
+  deciso quale colonna della Size Table leggere: il banco conta la pagina
+  come errore.
 - Prompt v4 misurato con `opus-5.5-api` sul banco di test_data (2026-10-28):
   15/20 pagine perfette. Gli errori residui sono quasi tutti discordanze del
   ground truth da chiarire con l'utente (vedi `bench/REPORT.md`).

@@ -125,7 +125,7 @@ def carica_mappa() -> dict[str, str]:
     mappa: dict[str, str] = {}
     with MAPPA_PATH.open(newline="", encoding="utf-8") as fh:
         for row in csv.DictReader(fh, delimiter=";"):
-            k = (row.get("taglia_bolla") or "").strip().upper()
+            k = uniforma_taglia(row.get("taglia_bolla") or "")
             v = (row.get("variante_gestionale") or "").strip()
             if not k or k.startswith("#") or not v:
                 continue
@@ -139,7 +139,7 @@ def aggiungi_alla_mappa(taglia: str, variante: str, nota: str = "") -> None:
     Solo taglie nuove: quelle gia' mappate le decide il CSV, e una correzione
     su una riga sola non deve riscriverlo.
     """
-    t, v = taglia.strip().upper(), variante.strip()
+    t, v = uniforma_taglia(taglia), variante.strip()
     if not t or t.startswith("#") or not v:
         raise ValueError("taglia e variante non possono essere vuote")
     if t in carica_mappa():
@@ -154,14 +154,51 @@ def aggiungi_alla_mappa(taglia: str, variante: str, nota: str = "") -> None:
         csv.writer(fh, delimiter=";", lineterminator=fine_riga).writerow([t, v, nota])
 
 
+# Taglie bambino in anni: adidas le stampa in piu' modi (7-8A, 910A, 1112).
+# Due numeri consecutivi, con la A finale o, se di due cifre ciascuno, senza.
+_ANNI_CON_A = re.compile(r"^(\d{1,2})-?(\d{1,2})A$")
+_ANNI_SENZA_A = re.compile(r"^(\d{2})(\d{2})$")
+
+
+def _anni(t: str) -> tuple[int, int] | None:
+    """(9, 10) per 910A: si provano tutti i tagli, "910" e' 9|10, non 91|0."""
+    if _ANNI_CON_A.match(t):
+        cifre = t[:-1]
+        if "-" in cifre:
+            tagli = [cifre.split("-")]
+        else:
+            tagli = [[cifre[:i], cifre[i:]] for i in range(1, len(cifre))]
+    elif _ANNI_SENZA_A.match(t):
+        tagli = [[t[:2], t[2:]]]
+    else:
+        return None
+    for da, a in tagli:
+        if int(a) == int(da) + 1:
+            return int(da), int(a)
+    return None
+
+
+def uniforma_taglia(taglia: str) -> str:
+    """La taglia in forma unica: maiuscola e, se in anni, come 5-6A.
+
+    910A -> 9-10A, 1112 -> 11-12A, 1314 -> 13-14A. Come il maiuscolo, non e'
+    una lettura diversa ma la stessa taglia scritta in un altro modo: avviene
+    senza avvisi, e nel CSV basta la forma 5-6A.
+    """
+    t = taglia.strip().upper()
+    anni = _anni(t)
+    return f"{anni[0]}-{anni[1]}A" if anni else t
+
+
 def normalizza_variante(taglia: str, mappa: dict[str, str] | None = None) -> tuple[str, bool]:
     """Traduce la taglia stampata in variante gestionale.
 
-    Ritorna (variante, confermata). L'unica traduzione e' quella del CSV: una
-    taglia non mappata passa invariata con `confermata=False`, e l'interfaccia
-    la evidenzia perche' l'operatore decida.
+    Ritorna (variante, confermata). La traduzione e' quella del CSV, sulla
+    taglia uniformata (`uniforma_taglia`): una taglia non mappata passa
+    invariata con `confermata=False`, e l'interfaccia la evidenzia perche'
+    l'operatore decida.
     """
-    t = taglia.strip().upper()
+    t = uniforma_taglia(taglia)
     mappa = carica_mappa() if mappa is None else mappa
 
     if t in mappa:

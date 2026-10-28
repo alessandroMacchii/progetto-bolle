@@ -19,6 +19,7 @@ from .sizes import (
     espandi,
     normalizza_variante,
     parse_size_qty,
+    uniforma_taglia,
     verifica_totale,
 )
 
@@ -230,7 +231,8 @@ def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLav
         inizio = len(righe)
 
         for t, stampata, avviso_correzione in taglie_corrette:
-            taglia, qta = t.taglia, t.qta
+            # 910A e 9-10A sono la stessa taglia: in carico una forma sola
+            taglia, qta = uniforma_taglia(t.taglia), t.qta
             if per_taglia:
                 # le voci nominano la taglia stampata, come le correzioni
                 nome = (stampata or t).taglia
@@ -263,7 +265,7 @@ def costruisci_righe(pagina: PaginaEstratta, numero_pagina: int) -> list[RigaLav
                         seq=riga.seq,
                         codice_articolo=codice,
                         codice_stampato=codice_stampato,
-                        taglia_stampata=stampata.taglia if stampata and stampata.taglia != taglia else "",
+                        taglia_stampata=stampata.taglia if stampata and stampata.taglia != t.taglia else "",
                         # la qta stampata e' di tutta la taglia: la porta solo la
                         # prima parte, cosi' la Tracciabilita' non la conta due volte
                         qta_stampata=stampata.qta if stampata and stampata.qta != qta and n == 0 else -1,

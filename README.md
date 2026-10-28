@@ -204,9 +204,11 @@ prima di usare il prototipo sul serio.
    colore? Serve la corrispondenza `taglia bolla -> codice variante`. Finche'
    non arriva, la mappa vive in `config/varianti.csv` (modificabile senza
    toccare il codice) e tutto cio' che non e' mappato passa invariato **con una
-   segnalazione in interfaccia**. Il codice non ha regole proprie: mezze taglie
-   (`8-`), taglie in anni (`910A`, `1112`) e codici calzatura (`540`, `560`,
-   `620`) passano invariati finche' non compaiono nel CSV. L'operatore puo'
+   segnalazione in interfaccia**. Il codice fa solo due uniformazioni, senza
+   avvisi: il maiuscolo e le taglie in anni nella forma `5-6A` (`910A` ->
+   `9-10A`, `1112` -> `11-12A`), cosi' nel CSV basta una voce per taglia. Mezze
+   taglie (`8-`) e codici calzatura (`540`, `560`, `620`) passano invariati
+   finche' non compaiono nel CSV. L'operatore puo'
    confermarli o correggerli dall'interfaccia: la coppia taglia -> variante
    viene aggiunta al CSV e applicata a tutte le righe del documento con la
    stessa taglia.

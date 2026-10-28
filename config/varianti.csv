@@ -8,3 +8,53 @@ XL;XL;
 XXL;XXL;
 3XL;3XL;
 NS;UNICA;taglia unica / no size
+8-;8-;confermata dall'operatore (Esempio bolle.pdf)
+# abbigliamento: 2XL (accanto a XXL) e misure lunghe (tall);;
+2XL;2XL;vista nelle bolle di test_data
+ST2;ST2;tall, vista nelle bolle di test_data
+LT2;LT2;tall, vista nelle bolle di test_data
+2XT2;2XT2;tall, vista nelle bolle di test_data
+3XLT;3XLT;tall, vista nelle bolle di test_data
+# taglie uniche diverse da NS: variante da verificare col gestionale;;
+OSFM;OSFM;one size fits most, vista nelle bolle di test_data
+FUTS;FUTS;vista nelle bolle di test_data
+# bambino in anni: solo nella forma 5-6A. Il programma ci riporta da solo
+# le altre scritture della stessa taglia (910A -> 9-10A, 1112 -> 11-12A);;
+5-6A;5-6A;vista nelle bolle di test_data
+7-8A;7-8A;vista nelle bolle di test_data
+9-10A;9-10A;stampata 910A nelle bolle di test_data
+11-12A;11-12A;stampata 1112 nelle bolle di test_data
+13-14A;13-14A;stampata 1314 nelle bolle di test_data
+# calzature: numerazione del magazzino, con '-' la mezza taglia;;
+3;3;vista nelle bolle di test_data
+3-;3-;vista nelle bolle di test_data
+4;4;vista nelle bolle di test_data
+4-;4-;vista nelle bolle di test_data
+5;5;vista nelle bolle di test_data
+5-;5-;vista nelle bolle di test_data
+6;6;vista nelle bolle di test_data
+6-;6-;vista nelle bolle di test_data
+7;7;vista nelle bolle di test_data
+7-;7-;vista nelle bolle di test_data
+8;8;vista nelle bolle di test_data
+9;9;vista nelle bolle di test_data
+9-;9-;vista nelle bolle di test_data
+10;10;vista nelle bolle di test_data
+10-;10-;vista nelle bolle di test_data
+11;11;vista nelle bolle di test_data
+11-;11-;vista nelle bolle di test_data
+12;12;vista nelle bolle di test_data
+12-;12-;vista nelle bolle di test_data
+13;13;vista nelle bolle di test_data
+13-;13-;vista nelle bolle di test_data
+# calzature con numerazione a due cifre;;
+32;32;vista nelle bolle di test_data
+33;33;vista nelle bolle di test_data
+33-;33-;vista nelle bolle di test_data
+34;34;vista nelle bolle di test_data
+35;35;vista nelle bolle di test_data
+# abbigliamento a numeri: alcune bolle (pagina 14) stampano 46/50/54 accanto
+# a S/M/L; valgono entrambe le scritture;;
+46;46;vista nelle bolle di test_data (pagina 14, accanto a S)
+50;50;vista nelle bolle di test_data (pagina 14, accanto a M)
+54;54;vista nelle bolle di test_data (pagina 14, accanto a L)

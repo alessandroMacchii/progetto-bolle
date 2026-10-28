@@ -25,7 +25,7 @@ sys.path.insert(0, str(BENCH.parent))
 
 from bolle.lavoro import costruisci_righe  # noqa: E402
 from bolle.schema import PaginaEstratta  # noqa: E402
-from bolle.sizes import espandi  # noqa: E402
+from bolle.sizes import espandi, uniforma_taglia  # noqa: E402
 
 # "MAG 1", "mag2", ma anche le abbreviazioni "M1" / "M. 2" che si usano a margine
 _MAG = re.compile(r"(?<![A-Za-z0-9])M(?:AG)?\.?\s*(\d)(?![0-9])", re.IGNORECASE)
@@ -224,7 +224,8 @@ def _carico_atteso(caso: dict) -> dict[tuple, int]:
             continue
         # un pacco misto "XS/L" diventa XS + L, come in costruisci_righe
         for t in espandi(a["taglia"], a["qta"]):
-            chiave = (a["codice_articolo"], t.taglia, a["magazzino"])
+            # 910A e 9-10A: la stessa taglia, come la uniforma costruisci_righe
+            chiave = (a["codice_articolo"], uniforma_taglia(t.taglia), a["magazzino"])
             carico[chiave] = carico.get(chiave, 0) + t.qta
     return carico
 
