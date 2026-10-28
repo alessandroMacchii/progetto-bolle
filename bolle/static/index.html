@@ -388,6 +388,10 @@ tbody tr.riga--fuori .testo-riga { text-decoration: line-through; color: var(--n
 .colore { display: block; margin-top: 2px; font-size: 0.78rem; max-width: 30ch;
           overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .azioni-riga { display: flex; gap: 6px; justify-content: flex-end; }
+/* descrizione intera: il campo va a capo e cresce col testo invece di tagliarlo */
+/* niente field-sizing: allargherebbe la colonna fino a tutto il testo */
+.descrizione-campo { display: block; width: 100%; min-width: 8rem; resize: none; overflow: hidden;
+                     line-height: 1.35; }
 /* variante di una taglia fuori dal CSV: campo e spunta di conferma affiancati */
 .variante-nuova { display: flex; gap: 6px; align-items: center; }
 td.vuoto { padding: calc(var(--equidistanza) * 6) 24px; text-align: center; color: var(--nero-medio); }
@@ -1962,9 +1966,8 @@ function disegnaRighe(){
       <td><input class="campo cella testo-riga" data-c="codice_articolo" value="${esc(r.codice_articolo)}"
                  ${r.codice_stampato ? `title="stampato sulla bolla: ${esc(r.codice_stampato)}, corretto a mano"` : ''}
                  ${r.eliminata ? 'disabled' : ''} aria-label="Codice articolo"></td>
-      <td><input class="campo cella testo-riga" data-c="descrizione" value="${esc(r.descrizione)}"
-                 title="${esc(descrizione)}" ${r.eliminata ? 'disabled' : ''} aria-label="Descrizione">
-        ${r.colore ? `<span class="colore cella-tenue" title="${esc(r.colore)}">${esc(r.colore)}</span>` : ''}</td>
+      <td><textarea class="campo cella testo-riga descrizione-campo" data-c="descrizione" rows="1" cols="10"
+                    ${r.eliminata ? 'disabled' : ''} aria-label="Descrizione e colore">${esc(descrizione)}</textarea></td>
       <td><input class="campo cella testo-riga" data-c="taglia" value="${esc(r.taglia)}"
                  title="${r.taglia_stampata ? `stampato sulla bolla: ${esc(r.taglia_stampata)}, corretto a mano. ` : ''}Cambiandola la variante si ricalcola da config/varianti.csv"
                  ${r.eliminata ? 'disabled' : ''} aria-label="Taglia">
@@ -2019,6 +2022,7 @@ function disegnaRighe(){
       : FILTRO === 'escluse' ? 'Nessuna riga esclusa.'
       : 'Nessuna riga su questa pagina. Se è arrivato un collo senza documento, aggiungi una riga manuale.'}</td></tr>`;
 
+  $('#righe').querySelectorAll('textarea[data-c]').forEach(adattaAltezza);
   const selezionabili = righe.filter(r => !r.eliminata);
   const tutte = $('#scegli-tutte');
   tutte.checked = selezionabili.length > 0 && selezionabili.every(r => SCELTE.has(r.id));
@@ -2074,12 +2078,17 @@ $('#righe').addEventListener('change', async e => {
 
   const valore = campo === 'qta' ? +e.target.value : e.target.value;
   const riga = DOC.righe.find(r => r.id === tr.dataset.id);
+  // descrizione e colore stanno in un campo solo, "URBAN COURT · FTWWHT/...":
+  // al salvataggio si ridividono sul primo " · " (senza, e' tutta descrizione)
+  const corpo = campo === 'descrizione'
+    ? (([d, ...c]) => ({ descrizione: d.trim(), colore: c.join(' · ').trim() }))(valore.replace(/\s+/g, ' ').split(' · '))
+    : { [campo]: valore };
   if (campo === 'variante' && varianteNuova(riga) && valore.trim()){
     await confermaVariante(riga, valore.trim());
     return;
   }
   try {
-    const aggiornata = await patch(tr.dataset.id, { [campo]: valore });
+    const aggiornata = await patch(tr.dataset.id, corpo);
     Object.assign(DOC.righe.find(r => r.id === tr.dataset.id), aggiornata);
     disegnaFiltro(); disegnaRighe();
     annuncia('Riga salvata');
@@ -2115,6 +2124,15 @@ $('#righe').addEventListener('click', async e => {
   if (b.dataset.azione === 'dividi') apriDivisione(riga);
   if (b.dataset.azione === 'conferma-variante')
     await confermaVariante(riga, b.closest('td').querySelector('input').value.trim() || riga.variante);
+});
+
+$('#righe').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.matches('textarea[data-c]')){ e.preventDefault(); e.target.blur(); }
+});
+// il campo della descrizione cresce in altezza col testo, la larghezza la da' la colonna
+const adattaAltezza = el => { el.style.height = 'auto'; el.style.height = el.scrollHeight + 2 + 'px'; };
+$('#righe').addEventListener('input', e => {
+  if (e.target.matches('textarea[data-c]')) adattaAltezza(e.target);
 });
 
 /* Le frecce su/giu' spostano il fuoco nella stessa colonna: una bolla da 33
